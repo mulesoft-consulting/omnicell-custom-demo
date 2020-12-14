@@ -1,0 +1,553 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<types:mule xmlns:types="http://www.mulesoft.org/schema/mule/types">
+  <types:catalog>
+    <types:type name="sfdc-account-request" format="json">
+      <types:shape format="weave" example="examples/sfdc-account-request.json"><![CDATA[%dw 2.0
+
+type sfdc_account_request = {|
+  Name: String, 
+  HealthCloudGA__SourceSystemId__c: String
+|} {"example": "{\\\"Name\\\":\\\"HERBIE HUSKER\\\",\\\"HealthCloudGA__SourceSystemId__c\\\":\\\"5000095\\\"}"}
+
+]]></types:shape>
+    </types:type>
+    <types:type name="hl7-adt-a04-request" format="json">
+      <types:shape format="weave" example="examples/hl7-adt-a04.json"><![CDATA[%dw 2.0
+
+type hl7_adt_a04_request = {|
+  Delimiters: String, 
+  Errors: Array<Any>, 
+  MSH: {|
+    "MSH-10": String, 
+    "MSH-11": {| "PT-01": String |}, 
+    "MSH-12": String, 
+    "MSH-03": {| "HD-01": String |}, 
+    "MSH-05": {| "HD-01": String |}, 
+    "MSH-07": {| "TS-01": String |}, 
+    "MSH-08": String, 
+    "MSH-09": {|
+      "CM_MSG-02": String, 
+      "CM_MSG-01": String
+    |}
+  |}, 
+  ACK: {|
+    MSH: {|
+      "MSH-10": String, 
+      "MSH-11": {| "PT-01": String |}, 
+      "MSH-12": String, 
+      "MSH-03": {| "HD-01": String |}, 
+      "MSH-05": {| "HD-01": String |}, 
+      "MSH-07": {| "TS-01": String |}, 
+      "MSH-08": String, 
+      "MSH-09": {|
+        "CM_MSG-02": String, 
+        "MSG-03": String, 
+        "CM_MSG-01": String
+      |}
+    |}, 
+    ERR: Array<Any>, 
+    MSA: {|
+      "MSA-02": String, 
+      "MSA-01": String
+    |}
+  |}, 
+  Data: {|
+    ADT_A04: {|
+      MSH: {|
+        "MSH-10": String, 
+        "MSH-11": {| "PT-01": String |}, 
+        "MSH-12": String, 
+        "MSH-03": {| "HD-01": String |}, 
+        "MSH-05": {| "HD-01": String |}, 
+        "MSH-07": {| "TS-01": String |}, 
+        "MSH-08": String, 
+        "MSH-09": {|
+          "CM_MSG-02": String, 
+          "CM_MSG-01": String
+        |}
+      |}, 
+      OBX: Array<{|        "OBX-01": Number {"typeId": "int"},         "OBX-11": String,         "OBX-03": {| "CE-01": String |},         "OBX-02": String,         "OBX-05": Array<{| "OBX-05": String |}>, 
+        "OBX-04": String, 
+        "OBX-14": {| "TS-01": String |}
+      |}>, 
+      NK1: Array<{|        "NK1-07": {| "CE_0131-01": String |},         "NK1-02": Array<{|          "XPN-02": String,           "XPN-01": String        |}>, 
+        "NK1-01": Number {"typeId": "int"}, 
+        "NK1-04": Array<{| "XAD-06": String |}>, 
+        "NK1-03": {| "CE_0063-01": String |}, 
+        "NK1-05": Array<{|          "XTN-03": String,           "XTN-01": String,           "XTN-07": Number {"typeId": "int"},           "XTN-06": Number {"typeId": "int"}        |}>, 
+        "NK1-33": Array<{| "CX-01": String |}>, 
+        "NK1-13": Array<{| "XON-01": String |}>, 
+        "NK1-34": String
+      |}>, 
+      GT1: Array<{|        "GT1-09": String,         "GT1-08": {| "TS-01": String |},         "GT1-05": Array<{|          "XAD-06": String,           "XAD-04": String,           "XAD-05": String,           "XAD-03": String,           "XAD-01": String        |}>, 
+        "GT1-16": Array<{| "XPN-01": String |}>, 
+        "GT1-06": Array<{|          "XTN-01": String,           "XTN-07": Number {"typeId": "int"},           "XTN-06": Number {"typeId": "int"}        |}>, 
+        "GT1-17": Array<{| "XAD-06": String |}>, 
+        "GT1-03": Array<{|          "XPN-02": String,           "XPN-01": String        |}>, 
+        "GT1-01": Number {"typeId": "int"}, 
+        "GT1-12": String, 
+        "GT1-02": Array<{| "CX-01": String |}>, 
+        "GT1-10": String, 
+        "GT1-11": String, 
+        "GT1-20": String
+      |}>, 
+      AL1: Array<{|        "AL1-01": Number {"typeId": "int"},         "AL1-02": String,         "AL1-03": {|          "CE-01": String,           "CE-02": String,           "CE-03": String        |},         "AL1-05": String,         "AL1-06": String      |}>, 
+      INSURANCE: Array<{|        IN2: {|          "IN2-05": String,           "IN2-02": String,           "IN2-63": Array<{|            "XTN-01": String,             "XTN-07": Number {"typeId": "int"},             "XTN-06": Number {"typeId": "int"}          |}>, 
+          "IN2-70": Array<{| "XON-01": String |}>, 
+          "IN2-61": {| "CX-01": String |}
+        |}, 
+        IN1: {|
+          "IN1-42": {| "CE_0066-01": String |}, 
+          "IN1-02": {|
+            "CE_0072-01": String, 
+            "CE_0072-02": String
+          |}, 
+          "IN1-35": String, 
+          "IN1-01": Number {"typeId": "int"}, 
+          "IN1-12": String, 
+          "IN1-22": String, 
+          "IN1-44": {| "XAD-06": String |}, 
+          "IN1-43": String, 
+          "IN1-17": String, 
+          "IN1-05": {|
+            "XAD-04": String, 
+            "XAD-05": String, 
+            "XAD-03": String, 
+            "XAD-01": String
+          |}, 
+          "IN1-16": {|
+            "XPN-02": String, 
+            "XPN-01": String
+          |}, 
+          "IN1-04": {| "XON-01": String |}, 
+          "IN1-03": {| "CX-01": String |}, 
+          "IN1-25": String, 
+          "IN1-36": String, 
+          "IN1-47": String, 
+          "IN1-08": String, 
+          "IN1-19": {|
+            "XAD-06": String, 
+            "XAD-04": String, 
+            "XAD-05": String, 
+            "XAD-03": String, 
+            "XAD-01": String
+          |}, 
+          "IN1-18": {| "TS-01": String |}
+        |}
+      |}>, 
+      PID: {|
+        "PID-05": Array<{|          "XPN-02": String,           "XPN-01": String        |}>, 
+        "PID-16": String, 
+        "PID-15": {| "CE_0296-01": String |}, 
+        "PID-03": Array<{|          "CX-01": String,           "CX-04": {| "HD-01": String |},           "CX-05": String        |}>, 
+        "PID-13": Array<{|          "XTN-03": String,           "XTN-01": String,           "XTN-02": String,           "XTN-07": Number {"typeId": "int"},           "XTN-06": Number {"typeId": "int"}        |}>, 
+        "PID-24": String, 
+        "PID-01": Number {"typeId": "int"}, 
+        "PID-11": Array<{|          "XAD-06": String,           "XAD-07": String,           "XAD-04": String,           "XAD-05": String,           "XAD-03": String,           "XAD-01": String        |}>, 
+        "PID-22": String, 
+        "PID-10": String, 
+        "PID-08": String, 
+        "PID-19": String, 
+        "PID-07": {| "TS-01": String |}, 
+        "PID-18": {| "CX-01": String |}, 
+        "PID-17": String, 
+        "PID-30": String
+      |}, 
+      PV1: {|
+        "PV1-04": String, 
+        "PV1-02": String, 
+        "PV1-03": {|
+          "PL-07": String, 
+          "PL-01": String, 
+          "PL-04": {| "HD-01": String |}
+        |}, 
+        "PV1-14": String, 
+        "PV1-36": String, 
+        "PV1-44": {| "TS-01": String |}, 
+        "PV1-01": Number {"typeId": "int"}, 
+        "PV1-45": {| "TS-01": String |}, 
+        "PV1-20": Array<{| "FC-01": String |}>, 
+        "PV1-08": Array<{|          "XCN-04": String,           "XCN-02": String,           "XCN-13": String,           "XCN-03": String,           "XCN-01": String,           "XCN-09": {| "HD-01": String |}        |}>, 
+        "PV1-19": {| "CX-01": String |}, 
+        "PV1-07": Array<{|          "XCN-04": String,           "XCN-02": String,           "XCN-13": String,           "XCN-03": String,           "XCN-01": String,           "XCN-09": {| "HD-01": String |}        |}>
+      |}, 
+      EVN: {|
+        "EVN-04": String, 
+        "EVN-05": {|
+          "XCN-02": String, 
+          "XCN-03": String, 
+          "XCN-14": {| "HD-01": String |}, 
+          "XCN-09": {| "HD-01": String |}
+        |}, 
+        "EVN-02": {| "TS-01": String |}, 
+        "EVN-01": String
+      |}, 
+      PV2: {|
+        "PV2-12": String, 
+        "PV2-22": String, 
+        "PV2-21": String, 
+        "PV2-32": String, 
+        "PV2-08": {| "TS-01": String |}
+      |}
+    |}
+  |}, 
+  Id: String, 
+  Name: String
+|} {"example": "{\\\"Delimiters\\\":\\\"|^~\\\\\\\\&\\\",\\\"Errors\\\":[],\\\"MSH\\\":{\\\"MSH-10\\\":\\\"42616\\\",\\\"MSH-11\\\":{\\\"PT-01\\\":\\\"T\\\"},\\\"MSH-12\\\":\\\"2.3\\\",\\\"MSH-03\\\":{\\\"HD-01\\\":\\\"EPIC\\\"},\\\"MSH-05\\\":{\\\"HD-01\\\":\\\"APPT_CHECK_IN\\\"},\\\"MSH-07\\\":{\\\"TS-01\\\":\\\"20200403142737\\\"},\\\"MSH-08\\\":\\\"385445\\\",\\\"MSH-09\\\":{\\\"CM_MSG-02\\\":\\\"A04\\\",\\\"CM_MSG-01\\\":\\\"ADT\\\"}},\\\"ACK\\\":{\\\"MSH\\\":{\\\"MSH-10\\\":\\\"42616\\\",\\\"MSH-11\\\":{\\\"PT-01\\\":\\\"T\\\"},\\\"MSH-12\\\":\\\"2.3\\\",\\\"MSH-03\\\":{\\\"HD-01\\\":\\\"APPT_CHECK_IN\\\"},\\\"MSH-05\\\":{\\\"HD-01\\\":\\\"EPIC\\\"},\\\"MSH-07\\\":{\\\"TS-01\\\":\\\"20200403142737\\\"},\\\"MSH-08\\\":\\\"385445\\\",\\\"MSH-09\\\":{\\\"CM_MSG-02\\\":\\\"A04\\\",\\\"MSG-03\\\":\\\"ACK\\\",\\\"CM_MSG-01\\\":\\\"ACK\\\"}},\\\"ERR\\\":[],\\\"MSA\\\":{\\\"MSA-02\\\":\\\"42616\\\",\\\"MSA-01\\\":\\\"AA\\\"}},\\\"Data\\\":{\\\"ADT_A04\\\":{\\\"MSH\\\":{\\\"MSH-10\\\":\\\"42616\\\",\\\"MSH-11\\\":{\\\"PT-01\\\":\\\"T\\\"},\\\"MSH-12\\\":\\\"2.3\\\",\\\"MSH-03\\\":{\\\"HD-01\\\":\\\"EPIC\\\"},\\\"MSH-05\\\":{\\\"HD-01\\\":\\\"APPT_CHECK_IN\\\"},\\\"MSH-07\\\":{\\\"TS-01\\\":\\\"20200403142737\\\"},\\\"MSH-08\\\":\\\"385445\\\",\\\"MSH-09\\\":{\\\"CM_MSG-02\\\":\\\"A04\\\",\\\"CM_MSG-01\\\":\\\"ADT\\\"}},\\\"OBX\\\":[{\\\"OBX-01\\\":1,\\\"OBX-11\\\":\\\"F\\\",\\\"OBX-03\\\":{\\\"CE-01\\\":\\\"PRIMARYCSN\\\"},\\\"OBX-02\\\":\\\"NM\\\",\\\"OBX-05\\\":[{\\\"OBX-05\\\":\\\"269998\\\"}],\\\"OBX-04\\\":\\\"1\\\"},{\\\"OBX-01\\\":2,\\\"OBX-11\\\":\\\"F\\\",\\\"OBX-03\\\":{\\\"CE-01\\\":\\\"AGE\\\"},\\\"OBX-14\\\":{\\\"TS-01\\\":\\\"20200403142737\\\"},\\\"OBX-02\\\":\\\"NM\\\",\\\"OBX-05\\\":[{\\\"OBX-05\\\":\\\"52\\\"}],\\\"OBX-04\\\":\\\"2\\\"}],\\\"NK1\\\":[{\\\"NK1-07\\\":{\\\"CE_0131-01\\\":\\\"Emergency Contact 1\\\"},\\\"NK1-02\\\":[{\\\"XPN-02\\\":\\\"ANN\\\",\\\"XPN-01\\\":\\\"HUSKER\\\"}],\\\"NK1-01\\\":1,\\\"NK1-04\\\":[{\\\"XAD-06\\\":\\\"USA\\\"}],\\\"NK1-03\\\":{\\\"CE_0063-01\\\":\\\"S\\\"},\\\"NK1-05\\\":[{\\\"XTN-03\\\":\\\"PH\\\",\\\"XTN-01\\\":\\\"(402)888-7574\\\",\\\"XTN-07\\\":8887574,\\\"XTN-06\\\":402}]},{\\\"NK1-07\\\":{\\\"CE_0131-01\\\":\\\"Employer\\\"},\\\"NK1-33\\\":[{\\\"CX-01\\\":\\\"1009\\\"}],\\\"NK1-13\\\":[{\\\"XON-01\\\":\\\"UNION PACIFIC\\\"}],\\\"NK1-01\\\":2,\\\"NK1-34\\\":\\\"Full\\\",\\\"NK1-04\\\":[{\\\"XAD-06\\\":\\\"USA\\\"}]}],\\\"GT1\\\":[{\\\"GT1-09\\\":\\\"M\\\",\\\"GT1-08\\\":{\\\"TS-01\\\":\\\"19670708\\\"},\\\"GT1-05\\\":[{\\\"XAD-06\\\":\\\"USA\\\",\\\"XAD-04\\\":\\\"NE\\\",\\\"XAD-05\\\":\\\"68509\\\",\\\"XAD-03\\\":\\\"LINCOLN\\\",\\\"XAD-01\\\":\\\"1313 HUSKER ROAD\\\"}],\\\"GT1-16\\\":[{\\\"XPN-01\\\":\\\"UNION PACIFIC\\\"}],\\\"GT1-06\\\":[{\\\"XTN-01\\\":\\\"(402)888-7979\\\",\\\"XTN-07\\\":8887979,\\\"XTN-06\\\":402}],\\\"GT1-17\\\":[{\\\"XAD-06\\\":\\\"USA\\\"}],\\\"GT1-03\\\":[{\\\"XPN-02\\\":\\\"HERBIE\\\",\\\"XPN-01\\\":\\\"HUSKER\\\"}],\\\"GT1-01\\\":1,\\\"GT1-12\\\":\\\"777897575\\\",\\\"GT1-02\\\":[{\\\"CX-01\\\":\\\"1999731\\\"}],\\\"GT1-10\\\":\\\"P\\/F\\\",\\\"GT1-11\\\":\\\"SLF\\\",\\\"GT1-20\\\":\\\"Full\\\"}],\\\"AL1\\\":[{\\\"AL1-01\\\":1,\\\"AL1-02\\\":\\\"DRUG INGREDI\\\",\\\"AL1-03\\\":{\\\"CE-01\\\":\\\"3102\\\",\\\"CE-02\\\":\\\"POLLEN EXTRACTS\\\",\\\"CE-03\\\":\\\"HIC\\\"},\\\"AL1-05\\\":\\\"Acne\\\",\\\"AL1-06\\\":\\\"2018-08-10T00:00:00-04:00\\\"}],\\\"INSURANCE\\\":[{\\\"IN2\\\":{\\\"IN2-05\\\":\\\"Payor Plan\\\",\\\"IN2-02\\\":\\\"777897575\\\",\\\"IN2-63\\\":[{\\\"XTN-01\\\":\\\"(402)888-7979\\\",\\\"XTN-07\\\":8887979,\\\"XTN-06\\\":402}],\\\"IN2-70\\\":[{\\\"XON-01\\\":\\\"UNION PACIFIC\\\"}],\\\"IN2-61\\\":{\\\"CX-01\\\":\\\"7777777\\\"}},\\\"IN1\\\":{\\\"IN1-42\\\":{\\\"CE_0066-01\\\":\\\"Full\\\"},\\\"IN1-02\\\":{\\\"CE_0072-01\\\":\\\"335801\\\",\\\"CE_0072-02\\\":\\\"MIDLANDS MEDICA INSURE\\\"},\\\"IN1-35\\\":\\\"1485645\\\",\\\"IN1-01\\\":1,\\\"IN1-12\\\":\\\"2017-07-24T00:00:00-04:00\\\",\\\"IN1-22\\\":\\\"1\\\",\\\"IN1-44\\\":{\\\"XAD-06\\\":\\\"USA\\\"},\\\"IN1-43\\\":\\\"M\\\",\\\"IN1-17\\\":\\\"Self\\\",\\\"IN1-05\\\":{\\\"XAD-04\\\":\\\"TX\\\",\\\"XAD-05\\\":\\\"79998-1647\\\",\\\"XAD-03\\\":\\\"EL PASO\\\",\\\"XAD-01\\\":\\\"PO BOX 981647\\\"},\\\"IN1-16\\\":{\\\"XPN-02\\\":\\\"HERBIE\\\",\\\"XPN-01\\\":\\\"HUSKER\\\"},\\\"IN1-04\\\":{\\\"XON-01\\\":\\\"MEDICA MIDLANDS\\\"},\\\"IN1-03\\\":{\\\"CX-01\\\":\\\"3358\\\"},\\\"IN1-25\\\":\\\"NO\\\",\\\"IN1-36\\\":\\\"7777777\\\",\\\"IN1-47\\\":\\\"BOTH\\\",\\\"IN1-08\\\":\\\"7777888\\\",\\\"IN1-19\\\":{\\\"XAD-06\\\":\\\"USA\\\",\\\"XAD-04\\\":\\\"NE\\\",\\\"XAD-05\\\":\\\"68509\\\",\\\"XAD-03\\\":\\\"LINCOLN\\\",\\\"XAD-01\\\":\\\"1313 HUSKER ROAD\\\"},\\\"IN1-18\\\":{\\\"TS-01\\\":\\\"19670708\\\"}}}],\\\"PID\\\":{\\\"PID-05\\\":[{\\\"XPN-02\\\":\\\"HERBIE\\\",\\\"XPN-01\\\":\\\"HUSKER\\\"}],\\\"PID-16\\\":\\\"M\\\",\\\"PID-15\\\":{\\\"CE_0296-01\\\":\\\"EN\\\"},\\\"PID-03\\\":[{\\\"CX-01\\\":\\\"5000095\\\",\\\"CX-04\\\":{\\\"HD-01\\\":\\\"MRN2\\\"},\\\"CX-05\\\":\\\"MRN2\\\"}],\\\"PID-13\\\":[{\\\"XTN-03\\\":\\\"PH\\\",\\\"XTN-01\\\":\\\"(402)888-7979\\\",\\\"XTN-02\\\":\\\"P\\\",\\\"XTN-07\\\":8887979,\\\"XTN-06\\\":402}],\\\"PID-24\\\":\\\"N\\\",\\\"PID-01\\\":1,\\\"PID-11\\\":[{\\\"XAD-06\\\":\\\"USA\\\",\\\"XAD-07\\\":\\\"P\\\",\\\"XAD-04\\\":\\\"NE\\\",\\\"XAD-05\\\":\\\"68509\\\",\\\"XAD-03\\\":\\\"LINCOLN\\\",\\\"XAD-01\\\":\\\"1313 HUSKER ROAD\\\"}],\\\"PID-22\\\":\\\"NOT HISPANIC\\\",\\\"PID-10\\\":\\\"W\\\",\\\"PID-08\\\":\\\"M\\\",\\\"PID-19\\\":\\\"777897575\\\",\\\"PID-07\\\":{\\\"TS-01\\\":\\\"19670708\\\"},\\\"PID-18\\\":{\\\"CX-01\\\":\\\"269998\\\"},\\\"PID-17\\\":\\\"CAT\\\",\\\"PID-30\\\":\\\"N\\\"},\\\"PV1\\\":{\\\"PV1-04\\\":\\\"EL\\\",\\\"PV1-02\\\":\\\"O\\\",\\\"PV1-03\\\":{\\\"PL-07\\\":\\\"10122\\\",\\\"PL-01\\\":\\\"FMELK\\\",\\\"PL-04\\\":{\\\"HD-01\\\":\\\"TNMC\\\"}},\\\"PV1-14\\\":\\\"Non-Health\\\",\\\"PV1-36\\\":\\\"202\\\",\\\"PV1-44\\\":{\\\"TS-01\\\":\\\"20200403160000\\\"},\\\"PV1-01\\\":1,\\\"PV1-45\\\":{\\\"TS-01\\\":\\\"20200403235900\\\"},\\\"PV1-20\\\":[{\\\"FC-01\\\":\\\"MIDLANDS\\\"}],\\\"PV1-08\\\":[{\\\"XCN-04\\\":\\\"J\\\",\\\"XCN-02\\\":\\\"CARLSON\\\",\\\"XCN-13\\\":\\\"PROVID\\\",\\\"XCN-03\\\":\\\"RAYMOND\\\",\\\"XCN-01\\\":\\\"709783\\\",\\\"XCN-09\\\":{\\\"HD-01\\\":\\\"EPIC\\\"}}],\\\"PV1-19\\\":{\\\"CX-01\\\":\\\"100016143\\\"},\\\"PV1-07\\\":[{\\\"XCN-04\\\":\\\"M\\\",\\\"XCN-02\\\":\\\"PATERA\\\",\\\"XCN-13\\\":\\\"PROVID\\\",\\\"XCN-03\\\":\\\"JASON\\\",\\\"XCN-01\\\":\\\"55617\\\",\\\"XCN-09\\\":{\\\"HD-01\\\":\\\"EPIC\\\"}}]},\\\"EVN\\\":{\\\"EVN-04\\\":\\\"APPT_CHECK_IN\\\",\\\"EVN-05\\\":{\\\"XCN-02\\\":\\\"COLPITTS\\\",\\\"XCN-03\\\":\\\"GINA\\\",\\\"XCN-14\\\":{\\\"HD-01\\\":\\\"NMELK\\\"},\\\"XCN-09\\\":{\\\"HD-01\\\":\\\"TNMC\\\"}},\\\"EVN-02\\\":{\\\"TS-01\\\":\\\"20200403142737\\\"},\\\"EVN-01\\\":\\\"A04\\\"},\\\"PV2\\\":{\\\"PV2-12\\\":\\\"O\\\",\\\"PV2-22\\\":\\\"N\\\",\\\"PV2-21\\\":\\\"n\\\",\\\"PV2-32\\\":\\\"N\\\",\\\"PV2-08\\\":{\\\"TS-01\\\":\\\"20200403160000\\\"}}}},\\\"Id\\\":\\\"ADT_A04\\\",\\\"Name\\\":\\\"ADT_A04\\\"}"}
+
+]]></types:shape>
+    </types:type>
+    <types:type name="sfdc-contact-request" format="json">
+      <types:shape format="weave" example="examples/sfdc-contact-request.json"><![CDATA[%dw 2.0
+
+type sfdc_contact_request = {|
+  AccountId: String, 
+  FirstName: String, 
+  LastName: String, 
+  MailingStreet: String, 
+  MailingCity: String, 
+  MailingState: String, 
+  MailingPostalCode: String, 
+  MailingCountry: String, 
+  HomePhone: String, 
+  Birthdate: Null
+|} {"example": "{\\\"AccountId\\\":\\\"@{Account.id}\\\",\\\"FirstName\\\":\\\"HERBIE\\\",\\\"LastName\\\":\\\"HUSKER\\\",\\\"MailingStreet\\\":\\\"1313 HUSKER ROAD\\\",\\\"MailingCity\\\":\\\"LINCOLN\\\",\\\"MailingState\\\":\\\"NE\\\",\\\"MailingPostalCode\\\":\\\"68509\\\",\\\"MailingCountry\\\":\\\"USA\\\",\\\"HomePhone\\\":\\\"(402)888-7979\\\",\\\"Birthdate\\\":null}"}
+
+]]></types:shape>
+    </types:type>
+    <types:type name="sfdc-ehrpatient-request" format="json">
+      <types:shape format="weave" example="examples/sfdc-ehrpatient-request.json"><![CDATA[%dw 2.0
+
+type sfdc_ehrpatient_request = {|
+  HealthCloudGA__Account__c: String, 
+  HealthCloudGA__GivenName1__c: String, 
+  HealthCloudGA__FamilyName1__c: String, 
+  HealthCloudGA__Address1Line1__c: String, 
+  HealthCloudGA__Address1City__c: String, 
+  HealthCloudGA__Address1PostalCode__c: String, 
+  HealthCloudGA__Address1Country__c: String, 
+  HealthCloudGA__Communication1Code__c: String, 
+  HealthCloudGA__GenderCode__c: String, 
+  HealthCloudGA__GenderLabel__c: String, 
+  HealthCloudGA__MaritalStatusCode__c: String, 
+  HealthCloudGA__MaritalStatusLabel__c: String, 
+  HealthCloudGA__Deceased__c: Boolean, 
+  HealthCloudGA__BirthDate__c: Null
+|} {"example": "{\\\"HealthCloudGA__Account__c\\\":\\\"@{Account.id}\\\",\\\"HealthCloudGA__GivenName1__c\\\":\\\"HERBIE\\\",\\\"HealthCloudGA__FamilyName1__c\\\":\\\"HUSKER\\\",\\\"HealthCloudGA__Address1Line1__c\\\":\\\"1313 HUSKER ROAD\\\",\\\"HealthCloudGA__Address1City__c\\\":\\\"LINCOLN\\\",\\\"HealthCloudGA__Address1PostalCode__c\\\":\\\"68509\\\",\\\"HealthCloudGA__Address1Country__c\\\":\\\"USA\\\",\\\"HealthCloudGA__Communication1Code__c\\\":\\\"EN\\\",\\\"HealthCloudGA__GenderCode__c\\\":\\\"M\\\",\\\"HealthCloudGA__GenderLabel__c\\\":\\\"M\\\",\\\"HealthCloudGA__MaritalStatusCode__c\\\":\\\"M\\\",\\\"HealthCloudGA__MaritalStatusLabel__c\\\":\\\"M\\\",\\\"HealthCloudGA__Deceased__c\\\":false,\\\"HealthCloudGA__BirthDate__c\\\":null}"}
+
+]]></types:shape>
+    </types:type>
+    <types:type name="sfdc-ehrobservation-request" format="json">
+      <types:shape format="weave" example="examples/sfdc-ehrobservation-request.json"><![CDATA[%dw 2.0
+
+type sfdc_ehrobservation_request = Array<{|  HealthCloudGA__Account__c: String,   HealthCloudGA__MethodCode__c: String,   HealthCloudGA__MethodLabel__c: String,   HealthCloudGA__MethodSystem__c: String,   HealthCloudGA__ValueLabel__c: String,   HealthCloudGA__ValueQuantity__c: String,   HealthCloudGA__ValueQuantityUnit__c: String,   HealthCloudGA__ReferenceRangeHighValue__c: String,   HealthCloudGA__ReferenceRangeHighUnit__c: String,   HealthCloudGA__ReferenceRangeLowValue__c: String,   HealthCloudGA__ReferenceRangeLowUnit__c: String,   HealthCloudGA__InterpretationCode__c: String,   HealthCloudGA__InterpretationLabel__c: String,   HealthCloudGA__InterpretationSystem__c: String,   HealthCloudGA__Status__c: String,   HealthCloudGA__StatusCode__c: String,   HealthCloudGA__AppliesDateTime__c: String,   HealthCloudGA__Device__c: String|}> {"example": "[{\\\"HealthCloudGA__Account__c\\\":\\\"@{Account.id}\\\",\\\"HealthCloudGA__MethodCode__c\\\":\\\"HERBIE\\\",\\\"HealthCloudGA__MethodLabel__c\\\":\\\"\\\",\\\"HealthCloudGA__MethodSystem__c\\\":\\\"\\\",\\\"HealthCloudGA__ValueLabel__c\\\":\\\"\\\",\\\"HealthCloudGA__ValueQuantity__c\\\":\\\"\\\",\\\"HealthCloudGA__ValueQuantityUnit__c\\\":\\\"\\\",\\\"HealthCloudGA__ReferenceRangeHighValue__c\\\":\\\"\\\",\\\"HealthCloudGA__ReferenceRangeHighUnit__c\\\":\\\"\\\",\\\"HealthCloudGA__ReferenceRangeLowValue__c\\\":\\\"\\\",\\\"HealthCloudGA__ReferenceRangeLowUnit__c\\\":\\\"\\\",\\\"HealthCloudGA__InterpretationCode__c\\\":\\\"\\\",\\\"HealthCloudGA__InterpretationLabel__c\\\":\\\"\\\",\\\"HealthCloudGA__InterpretationSystem__c\\\":\\\"\\\",\\\"HealthCloudGA__Status__c\\\":\\\"\\\",\\\"HealthCloudGA__StatusCode__c\\\":\\\"\\\",\\\"HealthCloudGA__AppliesDateTime__c\\\":\\\"\\\",\\\"HealthCloudGA__Device__c\\\":\\\"\\\"}]"}
+
+]]></types:shape>
+    </types:type>
+    <types:type name="sfdc-allergy-info" format="json">
+      <types:shape format="weave" example="examples/sfdc-allergy-info.json"><![CDATA[%dw 2.0
+
+type sfdc_allergy_info = Array<{|  HealthCloudGA__Account__c: String,   HealthCloudGA__SensitivityTypeLabel__c: String,   HealthCloudGA__StatusSystem__c: String,   HealthCloudGA__Substance255__c: String,   HealthCloudGA__SubstanceCodeSystem__c: String,   HealthCloudGA__CriticalityLabel__c: String,   HealthCloudGA__Reaction255__c: String,   HealthCloudGA__RecordedDate__c: String|}> {"example": "[{\\\"HealthCloudGA__Account__c\\\":\\\"@{Account.id}\\\",\\\"HealthCloudGA__SensitivityTypeLabel__c\\\":\\\"DRUG INGREDI\\\",\\\"HealthCloudGA__StatusSystem__c\\\":\\\"3102\\\",\\\"HealthCloudGA__Substance255__c\\\":\\\"POLLEN EXTRACTS\\\",\\\"HealthCloudGA__SubstanceCodeSystem__c\\\":\\\"HIC\\\",\\\"HealthCloudGA__CriticalityLabel__c\\\":\\\"Mild\\\",\\\"HealthCloudGA__Reaction255__c\\\":\\\"Acne\\\",\\\"HealthCloudGA__RecordedDate__c\\\":\\\"2018-08-10\\\"}]"}
+
+]]></types:shape>
+    </types:type>
+    <types:type name="sfdc-patient-visit-info" format="json">
+      <types:shape format="weave" example="examples/sfdc-patient-visit-info.json"><![CDATA[%dw 2.0
+
+type sfdc_patient_visit_info = {|
+  HealthCloudGA__Account__c: String, 
+  HealthCloudGA__Class__c: String, 
+  HealthCloudGA__Location1Name__c: String, 
+  HealthCloudGA__Location1Type__c: String, 
+  HealthCloudGA__Location1Description__c: String, 
+  HealthCloudGA__ReasonLabel__c: String, 
+  HealthCloudGA__HospitalizationPreAdmissionId__c: String, 
+  HealthCloudGA__HospitalizationOrigin__c: String, 
+  HealthCloudGA__HospitalizeAdmitSourceCode__c: String, 
+  HealthCloudGA__Location1TypeLabel__c: String, 
+  HealthCloudGA__HospitalizeReadmission__c: String, 
+  HealthCloudGA__HospitalizeDischargeDispositionCode__c: String, 
+  HealthCloudGA__HospitalizeDestination__c: String, 
+  HealthCloudGA__HospitalizeDietLabel__c: String, 
+  HealthCloudGA__HospitalizePeriodStart__c: String, 
+  HealthCloudGA__HospitalizePeriodEnd__c: String
+|} {"example": "{\\\"HealthCloudGA__Account__c\\\":\\\"@{Account.id}\\\",\\\"HealthCloudGA__Class__c\\\":\\\"Outpatient\\\",\\\"HealthCloudGA__Location1Name__c\\\":\\\"FMELK\\\",\\\"HealthCloudGA__Location1Type__c\\\":\\\"\\\",\\\"HealthCloudGA__Location1Description__c\\\":\\\"\\\",\\\"HealthCloudGA__ReasonLabel__c\\\":\\\"Unknown\\\",\\\"HealthCloudGA__HospitalizationPreAdmissionId__c\\\":\\\"\\\",\\\"HealthCloudGA__HospitalizationOrigin__c\\\":\\\"\\\",\\\"HealthCloudGA__HospitalizeAdmitSourceCode__c\\\":\\\"709783\\\",\\\"HealthCloudGA__Location1TypeLabel__c\\\":\\\"\\\",\\\"HealthCloudGA__HospitalizeReadmission__c\\\":\\\"Readmission\\\",\\\"HealthCloudGA__HospitalizeDischargeDispositionCode__c\\\":\\\"202\\\",\\\"HealthCloudGA__HospitalizeDestination__c\\\":\\\"\\\",\\\"HealthCloudGA__HospitalizeDietLabel__c\\\":\\\"\\\",\\\"HealthCloudGA__HospitalizePeriodStart__c\\\":\\\"2020-04-03T16:00:00Z\\\",\\\"HealthCloudGA__HospitalizePeriodEnd__c\\\":\\\"2020-04-03T23:59:00Z\\\"}"}
+
+]]></types:shape>
+    </types:type>
+    <types:type name="sfdc-participant-info" format="json">
+      <types:shape format="weave" example="examples/sfdc-participant-info.json"><![CDATA[%dw 2.0
+
+type sfdc_participant_info = {|
+  HealthCloudGA__Encounter__c: String, 
+  HealthCloudGA__TypeLabel__c: String, 
+  HealthCloudGA__Practitioner__c: String, 
+  HealthCloudGA__TypeCode__c: String
+|} {"example": "{\\\"HealthCloudGA__Encounter__c\\\":\\\"@{Visit.id}\\\",\\\"HealthCloudGA__TypeLabel__c\\\":\\\"JASON PATERA\\\",\\\"HealthCloudGA__Practitioner__c\\\":\\\"55617\\\",\\\"HealthCloudGA__TypeCode__c\\\":\\\"\\\"}"}
+
+]]></types:shape>
+    </types:type>
+    <types:type name="hl7-v2_2-adt-a31-request" format="json">
+      <types:shape format="weave" example="examples/hl7-v2_2-adt-a31.json"><![CDATA[%dw 2.0
+
+type hl7_v2_2_adt_a31_request = {|
+  Delimiters: String, 
+  Errors: Array<Any>, 
+  MSH: {|
+    "MSH-10": String, 
+    "MSH-11": String, 
+    "MSH-12": String, 
+    "MSH-03": String, 
+    "MSH-04": String, 
+    "MSH-05": String, 
+    "MSH-06": String, 
+    "MSH-07": {| "TS-01": String |}, 
+    "MSH-08": String, 
+    "MSH-09": {|
+      "CM_MSG-02": String, 
+      "CM_MSG-01": String
+    |}
+  |}, 
+  ACK: {|
+    MSH: {|
+      "MSH-10": String, 
+      "MSH-11": String, 
+      "MSH-12": String, 
+      "MSH-03": String, 
+      "MSH-04": String, 
+      "MSH-05": String, 
+      "MSH-06": String, 
+      "MSH-07": {| "TS-01": String |}, 
+      "MSH-08": String, 
+      "MSH-09": {|
+        "CM_MSG-02": String, 
+        "MSG-03": String, 
+        "CM_MSG-01": String
+      |}
+    |}, 
+    ERR: Array<Any>, 
+    MSA: {|
+      "MSA-02": String, 
+      "MSA-01": String
+    |}
+  |}, 
+  Data: {|
+    ADT_A31: {|
+      MSH: {|
+        "MSH-10": String, 
+        "MSH-11": String, 
+        "MSH-12": String, 
+        "MSH-03": String, 
+        "MSH-04": String, 
+        "MSH-05": String, 
+        "MSH-06": String, 
+        "MSH-07": {| "TS-01": String |}, 
+        "MSH-08": String, 
+        "MSH-09": {|
+          "CM_MSG-02": String, 
+          "CM_MSG-01": String
+        |}
+      |}, 
+      NK1: Array<{|        "NK1-07": {| "CE_0131-01": String |},         "NK1-13": String,         "NK1-01": String,         "NK1-04": {|          "AD-06": String,           "AD-01": String,           "AD-05": String,           "AD-04": String,           "AD-03": String        |}      |}>, 
+      GT1: Array<{|        "GT1-05": {|          "AD-06": String,           "AD-01": String,           "AD-05": String,           "AD-04": String,           "AD-03": String        |},         "GT1-03": {|          "PN-02": String,           "PN-01": String        |},         "GT1-01": String,         "GT1-12": String,         "GT1-02": {| "CK-01": String |},         "GT1-10": String,         "GT1-11": String,         "GT1-09": String,         "GT1-08": String      |}>, 
+      ZIF: {| "ZIF-01": Array<String> |}, 
+      PID: {|
+        "PID-05": {|
+          "PN-02": String, 
+          "PN-01": String
+        |}, 
+        "PID-16": String, 
+        "PID-15": String, 
+        "PID-03": Array<{|          "CM_PAT_ID-04": String,           "CM_PAT_ID-05": String,           "CM_PAT_ID-01": String        |}>, 
+        "PID-24": String, 
+        "PID-01": String, 
+        "PID-12": String, 
+        "PID-11": Array<{|          "AD-07": String,           "AD-06": String,           "AD-01": String,           "AD-05": String,           "AD-04": String,           "AD-03": String        |}>, 
+        "PID-22": String, 
+        "PID-10": String, 
+        "PID-08": String, 
+        "PID-19": String, 
+        "PID-07": {| "TS-01": String |}
+      |}, 
+      PV1: {|
+        "PV1-02": String, 
+        "PV1-01": String
+      |}, 
+      EVN: {|
+        "EVN-05": String, 
+        "EVN-02": {| "TS-01": String |}, 
+        "EVN-01": String
+      |}, 
+      PV2: {|  |}
+    |}
+  |}, 
+  Id: String, 
+  Name: String
+|} {"example": "{\\\"Delimiters\\\":\\\"|^~\\\\\\\\&\\\",\\\"Errors\\\":[],\\\"MSH\\\":{\\\"MSH-10\\\":\\\"63948\\\",\\\"MSH-11\\\":\\\"T\\\",\\\"MSH-12\\\":\\\"2.2\\\",\\\"MSH-03\\\":\\\"APeX\\\",\\\"MSH-04\\\":\\\"UCSF\\\",\\\"MSH-05\\\":\\\"IE\\\",\\\"MSH-06\\\":\\\"UCSF\\\",\\\"MSH-07\\\":{\\\"TS-01\\\":\\\"20200401154953\\\"},\\\"MSH-08\\\":\\\"IPISOIN\\\",\\\"MSH-09\\\":{\\\"CM_MSG-02\\\":\\\"A31\\\",\\\"CM_MSG-01\\\":\\\"ADT\\\"}},\\\"ACK\\\":{\\\"MSH\\\":{\\\"MSH-10\\\":\\\"63948\\\",\\\"MSH-11\\\":\\\"T\\\",\\\"MSH-12\\\":\\\"2.2\\\",\\\"MSH-03\\\":\\\"IE\\\",\\\"MSH-04\\\":\\\"UCSF\\\",\\\"MSH-05\\\":\\\"APeX\\\",\\\"MSH-06\\\":\\\"UCSF\\\",\\\"MSH-07\\\":{\\\"TS-01\\\":\\\"20200401154953\\\"},\\\"MSH-08\\\":\\\"IPISOIN\\\",\\\"MSH-09\\\":{\\\"CM_MSG-02\\\":\\\"A31\\\",\\\"MSG-03\\\":\\\"ACK\\\",\\\"CM_MSG-01\\\":\\\"ACK\\\"}},\\\"ERR\\\":[],\\\"MSA\\\":{\\\"MSA-02\\\":\\\"63948\\\",\\\"MSA-01\\\":\\\"AA\\\"}},\\\"Data\\\":{\\\"ADT_A31\\\":{\\\"MSH\\\":{\\\"MSH-10\\\":\\\"63948\\\",\\\"MSH-11\\\":\\\"T\\\",\\\"MSH-12\\\":\\\"2.2\\\",\\\"MSH-03\\\":\\\"APeX\\\",\\\"MSH-04\\\":\\\"UCSF\\\",\\\"MSH-05\\\":\\\"IE\\\",\\\"MSH-06\\\":\\\"UCSF\\\",\\\"MSH-07\\\":{\\\"TS-01\\\":\\\"20200401154953\\\"},\\\"MSH-08\\\":\\\"IPISOIN\\\",\\\"MSH-09\\\":{\\\"CM_MSG-02\\\":\\\"A31\\\",\\\"CM_MSG-01\\\":\\\"ADT\\\"}},\\\"NK1\\\":[{\\\"NK1-07\\\":{\\\"CE_0131-01\\\":\\\"Employer\\\"},\\\"NK1-13\\\":\\\"UCSF - MISSION CENTER BUILDING\\\",\\\"NK1-01\\\":\\\"1\\\",\\\"NK1-04\\\":{\\\"AD-06\\\":\\\"000\\\",\\\"AD-01\\\":\\\"14TH AND FOLSOM STREET\\\",\\\"AD-05\\\":\\\"94103\\\",\\\"AD-04\\\":\\\"CA\\\",\\\"AD-03\\\":\\\"SAN FRANCISCO\\\"}}],\\\"GT1\\\":[{\\\"GT1-05\\\":{\\\"AD-06\\\":\\\"000\\\",\\\"AD-01\\\":\\\"4810\\\",\\\"AD-05\\\":\\\"68132\\\",\\\"AD-04\\\":\\\"NE\\\",\\\"AD-03\\\":\\\"OMAHA\\\"},\\\"GT1-03\\\":{\\\"PN-02\\\":\\\"INTERFACE\\\",\\\"PN-01\\\":\\\"TEST\\\"},\\\"GT1-01\\\":\\\"1\\\",\\\"GT1-12\\\":\\\"192-39-1288\\\",\\\"GT1-02\\\":{\\\"CK-01\\\":\\\"71000000150\\\"},\\\"GT1-10\\\":\\\"P\\/F\\\",\\\"GT1-11\\\":\\\"SLF\\\",\\\"GT1-09\\\":\\\"M\\\",\\\"GT1-08\\\":\\\"19290718\\\"}],\\\"ZIF\\\":{\\\"ZIF-01\\\":[\\\"COVID-19 r\\/o\\\",\\\"COVID-19 pos\\\"]},\\\"PID\\\":{\\\"PID-05\\\":{\\\"PN-02\\\":\\\"INTERFACE\\\",\\\"PN-01\\\":\\\"TEST\\\"},\\\"PID-16\\\":\\\"S\\\",\\\"PID-15\\\":\\\"HIN\\\",\\\"PID-03\\\":[{\\\"CM_PAT_ID-04\\\":\\\"MRN\\\",\\\"CM_PAT_ID-05\\\":\\\"MRN\\\",\\\"CM_PAT_ID-01\\\":\\\"97611203\\\"}],\\\"PID-24\\\":\\\"N\\\",\\\"PID-01\\\":\\\"1\\\",\\\"PID-12\\\":\\\"DOUGLAS\\\",\\\"PID-11\\\":[{\\\"AD-07\\\":\\\"P\\\",\\\"AD-06\\\":\\\"000\\\",\\\"AD-01\\\":\\\"4810 MAIN ST\\\",\\\"AD-05\\\":\\\"68132\\\",\\\"AD-04\\\":\\\"NE\\\",\\\"AD-03\\\":\\\"OMAHA\\\"}],\\\"PID-22\\\":\\\"N\\\",\\\"PID-10\\\":\\\"W\\\",\\\"PID-08\\\":\\\"M\\\",\\\"PID-19\\\":\\\"192-39-1288\\\",\\\"PID-07\\\":{\\\"TS-01\\\":\\\"19290718\\\"}},\\\"PV1\\\":{\\\"PV1-02\\\":\\\"N\\\",\\\"PV1-01\\\":\\\"1\\\"},\\\"EVN\\\":{\\\"EVN-05\\\":\\\"IPISOIN\\\",\\\"EVN-02\\\":{\\\"TS-01\\\":\\\"20200401154953\\\"},\\\"EVN-01\\\":\\\"A31\\\"},\\\"PV2\\\":{}}},\\\"Id\\\":\\\"ADT_A31\\\",\\\"Name\\\":\\\"ADT_A31\\\"}"}
+
+]]></types:shape>
+    </types:type>
+  </types:catalog>
+  <types:enrichment select="#6d0d2d92-5346-4444-a54f-800804f1a1bc">
+    <types:processor-declaration>
+      <types:input-event>
+        <types:message>
+          <types:payload type="hl7-adt-a04-request"/>
+        </types:message>
+      </types:input-event>
+      <types:output-event>
+        <types:variables>
+          <types:variable name="Account" type="sfdc-account-request"/>
+        </types:variables>
+      </types:output-event>
+    </types:processor-declaration>
+  </types:enrichment>
+  <types:enrichment select="#f2c0a791-72b6-4fa6-aab0-2fed28d5471a">
+    <types:processor-declaration>
+      <types:input-event>
+        <types:message>
+          <types:payload type="hl7-adt-a04-request"/>
+        </types:message>
+      </types:input-event>
+      <types:output-event>
+        <types:variables>
+          <types:variable name="Contact" type="sfdc-contact-request"/>
+        </types:variables>
+      </types:output-event>
+    </types:processor-declaration>
+  </types:enrichment>
+  <types:enrichment select="#58280748-60cb-40fb-8677-77f6b4f4df6c">
+    <types:processor-declaration>
+      <types:input-event>
+        <types:message>
+          <types:payload type="hl7-adt-a04-request"/>
+        </types:message>
+      </types:input-event>
+      <types:output-event>
+        <types:variables>
+          <types:variable name="EHRPatient" type="sfdc-ehrpatient-request"/>
+        </types:variables>
+      </types:output-event>
+    </types:processor-declaration>
+  </types:enrichment>
+  <types:enrichment select="#e43b2c84-b2d4-4b85-bea0-99081b16d7c4">
+    <types:processor-declaration>
+      <types:input-event>
+        <types:message>
+          <types:payload type="hl7-v2_2-adt-a31-request"/>
+        </types:message>
+      </types:input-event>
+      <types:output-event>
+        <types:variables>
+          <types:variable name="Account" type="sfdc-account-request"/>
+        </types:variables>
+      </types:output-event>
+    </types:processor-declaration>
+  </types:enrichment>
+  <types:enrichment select="#deadb04f-a372-487c-a72c-d5c2391ba68b">
+    <types:processor-declaration>
+      <types:input-event>
+        <types:message>
+          <types:payload type="hl7-v2_2-adt-a31-request"/>
+        </types:message>
+      </types:input-event>
+      <types:output-event>
+        <types:variables>
+          <types:variable name="EHRPatient" type="sfdc-ehrpatient-request"/>
+        </types:variables>
+      </types:output-event>
+    </types:processor-declaration>
+  </types:enrichment>
+  <types:enrichment select="#d246daa0-bb95-40c2-bfaf-4b21ea3822bf">
+    <types:processor-declaration>
+      <types:input-event>
+        <types:message>
+          <types:payload type="hl7-v2_2-adt-a31-request"/>
+        </types:message>
+      </types:input-event>
+      <types:output-event>
+        <types:variables>
+          <types:variable name="ehrObservation" type="sfdc-ehrobservation-request"/>
+        </types:variables>
+      </types:output-event>
+    </types:processor-declaration>
+  </types:enrichment>
+  <types:enrichment select="#973bac1c-ad06-4461-9822-12f7d1ba1dc4">
+    <types:processor-declaration>
+      <types:input-event>
+        <types:message>
+          <types:payload type="hl7-v2_2-adt-a31-request"/>
+        </types:message>
+      </types:input-event>
+      <types:output-event>
+        <types:variables>
+          <types:variable name="ehrPatientAllergy" type="sfdc-allergy-info"/>
+        </types:variables>
+      </types:output-event>
+    </types:processor-declaration>
+  </types:enrichment>
+  <types:enrichment select="#78ac8800-b987-4a13-ad4d-f998ee72f15f">
+    <types:processor-declaration>
+      <types:input-event>
+        <types:message>
+          <types:payload type="hl7-v2_2-adt-a31-request"/>
+        </types:message>
+      </types:input-event>
+      <types:output-event>
+        <types:variables>
+          <types:variable name="ehrPatientVisit" type="sfdc-patient-visit-info"/>
+        </types:variables>
+      </types:output-event>
+    </types:processor-declaration>
+  </types:enrichment>
+  <types:enrichment select="#65dff271-46e9-4491-b768-31a956e43099">
+    <types:processor-declaration>
+      <types:input-event>
+        <types:message>
+          <types:payload type="hl7-v2_2-adt-a31-request"/>
+        </types:message>
+      </types:input-event>
+      <types:output-event>
+        <types:variables>
+          <types:variable name="ehrParticipant" type="sfdc-participant-info"/>
+        </types:variables>
+      </types:output-event>
+    </types:processor-declaration>
+  </types:enrichment>
+  <types:enrichment select="#1566e012-89fa-42ad-a577-f62be4c2852a">
+    <types:processor-declaration>
+      <types:input-event>
+        <types:message>
+          <types:payload type="hl7-adt-a04-request"/>
+        </types:message>
+      </types:input-event>
+    </types:processor-declaration>
+  </types:enrichment>
+  <types:enrichment select="#b632e934-3811-47fa-a5e3-1205fe5ce003">
+    <types:processor-declaration>
+      <types:input-event>
+        <types:message>
+          <types:payload type="hl7-v2_2-adt-a31-request"/>
+        </types:message>
+      </types:input-event>
+    </types:processor-declaration>
+  </types:enrichment>
+  <types:enrichment select="#09f6dbbf-79e6-4c15-b1aa-0e6a603eb486">
+    <types:processor-declaration>
+      <types:input-event>
+        <types:message>
+          <types:payload type="hl7-v2_2-adt-a31-request"/>
+        </types:message>
+      </types:input-event>
+    </types:processor-declaration>
+  </types:enrichment>
+  <types:enrichment select="#484cfb14-da98-4c22-ac7b-71161042580b">
+    <types:processor-declaration>
+      <types:input-event>
+        <types:message>
+          <types:payload type="hl7-v2_2-adt-a31-request"/>
+        </types:message>
+      </types:input-event>
+    </types:processor-declaration>
+  </types:enrichment>
+</types:mule>

@@ -1,0 +1,1464 @@
+form: HL7
+version: '2.2'
+segments:
+- id: 'ZIF'  
+  name: 'COVID Flags'
+  values: 
+  - { idRef: 'ST', name: 'COVID FLAG', usage: O, count: '>1' }
+
+- id: 'ACC'
+  name: 'ACCIDENT'
+  values: 
+  - { idRef: 'TS', name: 'Accident date / time', usage: O }
+  - { idRef: 'ID', name: 'Accident code', usage: O }
+  - { idRef: 'ST', name: 'Accident location', usage: O }
+- id: 'ADD'
+  name: 'ADDENDUM'
+  values: 
+  - { idRef: 'ST', name: 'Addendum Continuation Pointer', usage: O }
+- id: 'AL1'
+  name: 'PATIENT ALLERGY INFORMATION'
+  values: 
+  - { idRef: 'SI', name: 'Set ID - Allergy', usage: O }
+  - { idRef: 'ID', name: 'Allergy Type', usage: O }
+  - { idRef: 'CE', name: 'Allergy code / mnemonic / description', usage: O }
+  - { idRef: 'ID', name: 'Allergy Severity', usage: O }
+  - { idRef: 'ST', name: 'Allergy Reaction', usage: O }
+  - { idRef: 'DT', name: 'Identification Date', usage: O }
+- id: 'BHS'
+  name: 'BATCH HEADER'
+  values: 
+  - { idRef: 'ST', name: 'Batch Field Separator', usage: O }
+  - { idRef: 'ST', name: 'Batch Encoding Characters', usage: O }
+  - { idRef: 'ST', name: 'Batch Sending Application', usage: O }
+  - { idRef: 'ST', name: 'Batch Sending Facility', usage: O }
+  - { idRef: 'ST', name: 'Batch Receiving Application', usage: O }
+  - { idRef: 'ST', name: 'Batch Receiving Facility', usage: O }
+  - { idRef: 'TS', name: 'Batch creation date / time', usage: O }
+  - { idRef: 'ST', name: 'Batch Security', usage: O }
+  - { idRef: 'ST', name: 'Batch name / ID / type', usage: O }
+  - { idRef: 'ST', name: 'Batch Comment', usage: O }
+  - { idRef: 'ST', name: 'Batch Control ID', usage: O }
+  - { idRef: 'ST', name: 'Reference Batch Control ID', usage: O }
+- id: 'BLG'
+  name: 'BILLING'
+  values: 
+  - { idRef: 'CM_CCD', name: 'When to Charge', usage: O }
+  - { idRef: 'ID', name: 'Charge Type', usage: O }
+  - { idRef: 'CK_ACCOUNT_NO', name: 'Account ID', usage: O }
+- id: 'BTS'
+  name: 'BATCH TRAILER'
+  values: 
+  - { idRef: 'ST', name: 'Batch Message Count', usage: O }
+  - { idRef: 'ST', name: 'Batch Comment', usage: O }
+  - { idRef: 'CM_BATCH_TOTAL', name: 'Batch Totals', usage: O, count: '>1' }
+- id: 'DG1'
+  name: 'DIAGNOSIS'
+  values: 
+  - { idRef: 'SI', name: 'Set ID - diagnosis', usage: O }
+  - { idRef: 'ID', name: 'Diagnosis coding method', usage: O }
+  - { idRef: 'ID', name: 'Diagnosis code', usage: O }
+  - { idRef: 'ST', name: 'Diagnosis description', usage: O }
+  - { idRef: 'TS', name: 'Diagnosis date / time', usage: O }
+  - { idRef: 'ID', name: 'Diagnosis / DRG type', usage: O }
+  - { idRef: 'CE_0118', name: 'Major diagnostic category', usage: O }
+  - { idRef: 'ID', name: 'Diagnostic related group', usage: O }
+  - { idRef: 'ID', name: 'DRG approval indicator', usage: O }
+  - { idRef: 'ID', name: 'DRG grouper review code', usage: O }
+  - { idRef: 'ID', name: 'Outlier type', usage: O }
+  - { idRef: 'NM', name: 'Outlier days', usage: O }
+  - { idRef: 'NM', name: 'Outlier cost', usage: O }
+  - { idRef: 'ST', name: 'Grouper version and type', usage: O }
+  - { idRef: 'NM', name: 'Diagnosis / DRG priority', usage: O }
+  - { idRef: 'CN_PERSON', name: 'Diagnosing clinician', usage: O }
+- id: 'DSC'
+  name: 'CONTINUATION POINTER'
+  values: 
+  - { idRef: 'ST', name: 'Continuation Pointer', usage: O }
+- id: 'DSP'
+  name: 'DISPLAY DATA'
+  values: 
+  - { idRef: 'SI', name: 'Set ID - Display Data', usage: O }
+  - { idRef: 'SI', name: 'Display Level', usage: O }
+  - { idRef: 'TX', name: 'Data Line', usage: O }
+  - { idRef: 'ST', name: 'Logical Break Point', usage: O }
+  - { idRef: 'TX', name: 'Result ID', usage: O }
+- id: 'ERR'
+  name: 'ERROR'
+  values: 
+  - { idRef: 'CM_ELD', name: 'Error Code and Location', usage: O, count: '>1' }
+- id: 'EVN'
+  name: 'EVENT TYPE'
+  values: 
+  - { idRef: 'ID', name: 'Event Type Code', usage: O }
+  - { idRef: 'TS', name: 'Date / time of event', usage: O }
+  - { idRef: 'TS', name: 'Date / time planned event', usage: O }
+  - { idRef: 'ID', name: 'Event Reason Code', usage: O }
+  - { idRef: 'ID', name: 'Operator ID', usage: O }
+- id: 'FHS'
+  name: 'FILE HEADER'
+  values: 
+  - { idRef: 'ST', name: 'File Field Separator', usage: O }
+  - { idRef: 'ST', name: 'File Encoding Characters', usage: O }
+  - { idRef: 'ST', name: 'File Sending Application', usage: O }
+  - { idRef: 'ST', name: 'File Sending Facility', usage: O }
+  - { idRef: 'ST', name: 'File Receiving Application', usage: O }
+  - { idRef: 'ST', name: 'File Receiving Facility', usage: O }
+  - { idRef: 'TS', name: 'File creation date / time', usage: O }
+  - { idRef: 'ST', name: 'File Security', usage: O }
+  - { idRef: 'ST', name: 'File name / ID', usage: O }
+  - { idRef: 'ST', name: 'File Header Comment', usage: O }
+  - { idRef: 'ST', name: 'File Control ID', usage: O }
+  - { idRef: 'ST', name: 'Reference File Control ID', usage: O }
+- id: 'FT1'
+  name: 'FINANCIAL TRANSACTION'
+  values: 
+  - { idRef: 'SI', name: 'Set ID - financial transaction', usage: O }
+  - { idRef: 'ST', name: 'Transaction ID', usage: O }
+  - { idRef: 'ST', name: 'Transaction batch ID', usage: O }
+  - { idRef: 'DT', name: 'Transaction date', usage: O }
+  - { idRef: 'DT', name: 'Transaction posting date', usage: O }
+  - { idRef: 'ID', name: 'Transaction type', usage: O }
+  - { idRef: 'CE_0132', name: 'Transaction code', usage: O }
+  - { idRef: 'ST', name: 'Transaction description', usage: O }
+  - { idRef: 'ST', name: 'Transaction description - alternate', usage: O }
+  - { idRef: 'NM', name: 'Transaction quantity', usage: O }
+  - { idRef: 'NM', name: 'Transaction amount - extended', usage: O }
+  - { idRef: 'NM', name: 'Transaction amount - unit', usage: O }
+  - { idRef: 'CE_0049', name: 'Department code', usage: O }
+  - { idRef: 'ID', name: 'Insurance plan ID', usage: O }
+  - { idRef: 'NM', name: 'Insurance amount', usage: O }
+  - { idRef: 'CM_INTERNAL_LOCATION', name: 'Assigned Patient Location', usage: O }
+  - { idRef: 'ID', name: 'Fee schedule', usage: O }
+  - { idRef: 'ID', name: 'Patient type', usage: O }
+  - { idRef: 'CE_0051', name: 'Diagnosis code', usage: O, count: '>1' }
+  - { idRef: 'CN_PERSON', name: 'Performed by code', usage: O }
+  - { idRef: 'CN_PERSON', name: 'Ordered by code', usage: O }
+  - { idRef: 'NM', name: 'Unit cost', usage: O }
+  - { idRef: 'CM_FILLER', name: 'Filler Order Number', usage: O }
+- id: 'FTS'
+  name: 'FILE TRAILER'
+  values: 
+  - { idRef: 'NM', name: 'File Batch Count', usage: O }
+  - { idRef: 'ST', name: 'File Trailer Comment', usage: O }
+- id: 'GT1'
+  name: 'GUARANTOR'
+  values: 
+  - { idRef: 'SI', name: 'Set ID - guarantor', usage: O }
+  - { idRef: 'CK', name: 'Guarantor number', usage: O }
+  - { idRef: 'PN', name: 'Guarantor name', usage: O }
+  - { idRef: 'PN', name: 'Guarantor spouse name', usage: O }
+  - { idRef: 'AD', name: 'Guarantor address', usage: O }
+  - { idRef: 'TN', name: 'Guarantor phone number - home', usage: O, count: 3 }
+  - { idRef: 'TN', name: 'Guarantor phone number - business', usage: O, count: 3 }
+  - { idRef: 'DT', name: 'Guarantor date of birth', usage: O }
+  - { idRef: 'ID', name: 'Guarantor sex', usage: O }
+  - { idRef: 'ID', name: 'Guarantor type', usage: O }
+  - { idRef: 'ID', name: 'Guarantor relationship', usage: O }
+  - { idRef: 'ST', name: 'Guarantor social security number', usage: O }
+  - { idRef: 'DT', name: 'Guarantor date - begin', usage: O }
+  - { idRef: 'DT', name: 'Guarantor date - end', usage: O }
+  - { idRef: 'NM', name: 'Guarantor priority', usage: O }
+  - { idRef: 'ST', name: 'Guarantor employer name', usage: O }
+  - { idRef: 'AD', name: 'Guarantor employer address', usage: O }
+  - { idRef: 'TN', name: 'Guarantor employ phone number', usage: O, count: 3 }
+  - { idRef: 'ST', name: 'Guarantor employee ID number', usage: O }
+  - { idRef: 'ID', name: 'Guarantor employment status', usage: O }
+  - { idRef: 'ST', name: 'Guarantor organization', usage: O }
+- id: 'IN1'
+  name: 'INSURANCE'
+  values: 
+  - { idRef: 'SI', name: 'Set ID - insurance', usage: O }
+  - { idRef: 'ID', name: 'Insurance plan ID', usage: O }
+  - { idRef: 'ST', name: 'Insurance company ID', usage: O }
+  - { idRef: 'ST', name: 'Insurance company name', usage: O }
+  - { idRef: 'AD', name: 'Insurance company address', usage: O }
+  - { idRef: 'PN', name: 'Insurance company contact pers', usage: O }
+  - { idRef: 'TN', name: 'Insurance company phone number', usage: O, count: 3 }
+  - { idRef: 'ST', name: 'Group number', usage: O }
+  - { idRef: 'ST', name: 'Group name', usage: O }
+  - { idRef: 'ST', name: 'Insured''s group employer ID', usage: O }
+  - { idRef: 'ST', name: 'Insured''s group employer name', usage: O }
+  - { idRef: 'DT', name: 'Plan effective date', usage: O }
+  - { idRef: 'DT', name: 'Plan expiration date', usage: O }
+  - { idRef: 'CM_AUI', name: 'Authorization information', usage: O }
+  - { idRef: 'ID', name: 'Plan type', usage: O }
+  - { idRef: 'PN', name: 'Name of insured', usage: O }
+  - { idRef: 'ID', name: 'Insured''s relationship to patient', usage: O }
+  - { idRef: 'DT', name: 'Insured''s date of birth', usage: O }
+  - { idRef: 'AD', name: 'Insured''s address', usage: O }
+  - { idRef: 'ID', name: 'Assignment of benefits', usage: O }
+  - { idRef: 'ID', name: 'Coordination of benefits', usage: O }
+  - { idRef: 'ST', name: 'Coordination of benefits - priority', usage: O }
+  - { idRef: 'ID', name: 'Notice of admission code', usage: O }
+  - { idRef: 'DT', name: 'Notice of admission date', usage: O }
+  - { idRef: 'ID', name: 'Report of eligibility code', usage: O }
+  - { idRef: 'DT', name: 'Report of eligibility date', usage: O }
+  - { idRef: 'ID', name: 'Release information code', usage: O }
+  - { idRef: 'ST', name: 'Pre-admit certification (PAC)', usage: O }
+  - { idRef: 'TS', name: 'Verification date / time', usage: O }
+  - { idRef: 'CN_PERSON', name: 'Verification by', usage: O }
+  - { idRef: 'ID', name: 'Type of agreement code', usage: O }
+  - { idRef: 'ID', name: 'Billing status', usage: O }
+  - { idRef: 'NM', name: 'Lifetime reserve days', usage: O }
+  - { idRef: 'NM', name: 'Delay before lifetime reserve days', usage: O }
+  - { idRef: 'ID', name: 'Company plan code', usage: O }
+  - { idRef: 'ST', name: 'Policy number', usage: O }
+  - { idRef: 'NM', name: 'Policy deductible', usage: O }
+  - { idRef: 'NM', name: 'Policy limit - amount', usage: O }
+  - { idRef: 'NM', name: 'Policy limit - days', usage: O }
+  - { idRef: 'NM', name: 'Room rate - semi-private', usage: O }
+  - { idRef: 'NM', name: 'Room rate - private', usage: O }
+  - { idRef: 'CE_0066', name: 'Insured''s employment status', usage: O }
+  - { idRef: 'ID', name: 'Insured''s sex', usage: O }
+  - { idRef: 'AD', name: 'Insured''s employer address', usage: O }
+  - { idRef: 'ST', name: 'Verification status', usage: O }
+  - { idRef: 'ID', name: 'Prior insurance plan ID', usage: O }
+- id: 'IN2'
+  name: 'INSURANCE ADDITIONAL INFO'
+  values: 
+  - { idRef: 'ST', name: 'Insured''s employee ID', usage: O }
+  - { idRef: 'ST', name: 'Insured''s social security number', usage: O }
+  - { idRef: 'CN_PERSON', name: 'Insured''s employer name', usage: O }
+  - { idRef: 'ID', name: 'Employer information data', usage: O }
+  - { idRef: 'ID', name: 'Mail claim party', usage: O }
+  - { idRef: 'NM', name: 'Medicare health insurance card number', usage: O }
+  - { idRef: 'PN', name: 'Medicaid case name', usage: O }
+  - { idRef: 'NM', name: 'Medicaid case number', usage: O }
+  - { idRef: 'PN', name: 'Champus sponsor name', usage: O }
+  - { idRef: 'NM', name: 'Champus ID number', usage: O }
+  - { idRef: 'ID', name: 'Dependent of champus recipient', usage: O }
+  - { idRef: 'ST', name: 'Champus organization', usage: O }
+  - { idRef: 'ST', name: 'Champus station', usage: O }
+  - { idRef: 'ID', name: 'Champus service', usage: O }
+  - { idRef: 'ID', name: 'Champus rank / grade', usage: O }
+  - { idRef: 'ID', name: 'Champus status', usage: O }
+  - { idRef: 'DT', name: 'Champus retire date', usage: O }
+  - { idRef: 'ID', name: 'Champus non-availability certification on file', usage: O }
+  - { idRef: 'ID', name: 'Baby coverage', usage: O }
+  - { idRef: 'ID', name: 'Combine baby bill', usage: O }
+  - { idRef: 'NM', name: 'Blood deductible', usage: O }
+  - { idRef: 'PN', name: 'Special coverage approval name', usage: O }
+  - { idRef: 'ST', name: 'Special coverage approval title', usage: O }
+  - { idRef: 'ID', name: 'Non-covered insurance code', usage: O, count: '>1' }
+  - { idRef: 'ST', name: 'Payor ID', usage: O }
+  - { idRef: 'ST', name: 'Payor subscriber ID', usage: O }
+  - { idRef: 'ID', name: 'Eligibility source', usage: O }
+  - { idRef: 'CM_RMC', name: 'Room coverage type / amount', usage: O, count: '>1' }
+  - { idRef: 'CM_PTA', name: 'Policy type / amount', usage: O, count: '>1' }
+  - { idRef: 'CM_DDI', name: 'Daily deductible', usage: O }
+- id: 'IN3'
+  name: 'INSURANCE ADDITIONAL INFO-CERTIFICATION'
+  values: 
+  - { idRef: 'SI', name: 'Set ID - insurance certification', usage: O }
+  - { idRef: 'ST', name: 'Certification number', usage: O }
+  - { idRef: 'CN_PERSON', name: 'Certified by', usage: O }
+  - { idRef: 'ID', name: 'Certification required', usage: O }
+  - { idRef: 'CM_PEN', name: 'Penalty', usage: O }
+  - { idRef: 'TS', name: 'Certification date / time', usage: O }
+  - { idRef: 'TS', name: 'Certification modify date / time', usage: O }
+  - { idRef: 'CN_PERSON', name: 'Operator', usage: O }
+  - { idRef: 'DT', name: 'Certification begin date', usage: O }
+  - { idRef: 'DT', name: 'Certification end date', usage: O }
+  - { idRef: 'CM_DTN', name: 'Days', usage: O }
+  - { idRef: 'CE', name: 'Non-concur code / description', usage: O }
+  - { idRef: 'TS', name: 'Non-concur effective date / time', usage: O }
+  - { idRef: 'CN_PERSON', name: 'Physician reviewer', usage: O }
+  - { idRef: 'ST', name: 'Certification contact', usage: O }
+  - { idRef: 'TN', name: 'Certification contact phone number', usage: O, count: 3 }
+  - { idRef: 'CE', name: 'Appeal reason', usage: O }
+  - { idRef: 'CE', name: 'Certification agency', usage: O }
+  - { idRef: 'TN', name: 'Certification agency phone number', usage: O, count: 3 }
+  - { idRef: 'CM_PCF', name: 'Pre-certification required / window', usage: O, count: '>1' }
+  - { idRef: 'ST', name: 'Case manager', usage: O }
+  - { idRef: 'DT', name: 'Second opinion date', usage: O }
+  - { idRef: 'ID', name: 'Second opinion status', usage: O }
+  - { idRef: 'ID', name: 'Second opinion documentation received', usage: O }
+  - { idRef: 'CN_PERSON', name: 'Second opinion practitioner', usage: O }
+- id: 'MFA'
+  name: 'MASTER FILE ACKNOWLEDGEMENT'
+  values: 
+  - { idRef: 'ID', name: 'Record-level event code', usage: O }
+  - { idRef: 'ST', name: 'MFN control ID', usage: O }
+  - { idRef: 'TS', name: 'Event completion date / time', usage: O }
+  - { idRef: 'CE_0181', name: 'Error return code and/or text', usage: O }
+  - { idRef: 'CE', name: 'Primary key value', usage: O, count: '>1' }
+- id: 'MFE'
+  name: 'MASTER FILE ENTRY'
+  values: 
+  - { idRef: 'ID', name: 'Record-level event code', usage: O }
+  - { idRef: 'ST', name: 'MFN control ID', usage: O }
+  - { idRef: 'TS', name: 'Effective date / time', usage: O }
+  - { idRef: 'CE', name: 'Primary key value', usage: O, count: '>1' }
+- id: 'MFI'
+  name: 'MASTER FILE IDENTIFICATION'
+  values: 
+  - { idRef: 'CE_0175', name: 'Master file identifier', usage: O }
+  - { idRef: 'ID', name: 'Master file application identifier', usage: O }
+  - { idRef: 'ID', name: 'File-level event code', usage: O }
+  - { idRef: 'TS', name: 'Entered date / time', usage: O }
+  - { idRef: 'TS', name: 'Effective date / time', usage: O }
+  - { idRef: 'ID', name: 'Response level code', usage: O }
+- id: 'MRG'
+  name: 'MERGE PATIENT INFORMATION'
+  values: 
+  - { idRef: 'CM_PAT_ID', name: 'Prior Patient ID - Internal', usage: O }
+  - { idRef: 'CM_PAT_ID', name: 'Prior Alternate Patient ID', usage: O }
+  - { idRef: 'CK_ACCOUNT_NO', name: 'Prior Patient Account Number', usage: O }
+  - { idRef: 'CK_PAT_ID', name: 'Prior Patient ID - External', usage: O }
+- id: 'MSA'
+  name: 'MESSAGE ACKNOWLEDGMENT'
+  values: 
+  - { idRef: 'ID', name: 'Acknowledgement code', usage: O }
+  - { idRef: 'ST', name: 'Message Control ID', usage: O }
+  - { idRef: 'ST', name: 'Text Message', usage: O }
+  - { idRef: 'NM', name: 'Expected Sequence Number', usage: O }
+  - { idRef: 'ID', name: 'Delayed Acknowledgement type', usage: O }
+  - { idRef: 'CE', name: 'Error Condition', usage: O }
+- id: 'MSH'
+  name: 'MESSAGE HEADER'
+  values: 
+  - { idRef: 'ST', name: 'Field separator', usage: O }
+  - { idRef: 'ST', name: 'Encoding characters', usage: O }
+  - { idRef: 'ST', name: 'Sending application', usage: O }
+  - { idRef: 'ST', name: 'Sending facility', usage: O }
+  - { idRef: 'ST', name: 'Receiving application', usage: O }
+  - { idRef: 'ST', name: 'Receiving facility', usage: O }
+  - { idRef: 'TS', name: 'Date / Time of message', usage: O }
+  - { idRef: 'ST', name: 'Security', usage: O }
+  - { idRef: 'CM_MSG', name: 'Message type', usage: O }
+  - { idRef: 'ST', name: 'Message Control ID', usage: O }
+  - { idRef: 'ID', name: 'Processing ID', usage: O }
+  - { idRef: 'ID', name: 'Version ID', usage: O }
+  - { idRef: 'NM', name: 'Sequence number', usage: O }
+  - { idRef: 'ST', name: 'Continuation pointer', usage: O }
+  - { idRef: 'ID', name: 'Accept acknowledgement type', usage: O }
+  - { idRef: 'ID', name: 'Application acknowledgement type', usage: O }
+  - { idRef: 'ID', name: 'Country code', usage: O }
+- id: 'NCK'
+  name: 'System Clock'
+  values: 
+  - { idRef: 'TS', name: 'System Date/Time', usage: O }
+- id: 'NK1'
+  name: 'NEXT OF KIN'
+  values: 
+  - { idRef: 'SI', name: 'Set ID - Next of Kin', usage: O }
+  - { idRef: 'PN', name: 'Name', usage: O }
+  - { idRef: 'CE_0063', name: 'Relationship', usage: O }
+  - { idRef: 'AD', name: 'Address', usage: O }
+  - { idRef: 'TN', name: 'Phone Number', usage: O, count: 3 }
+  - { idRef: 'TN', name: 'Business Phone Number', usage: O }
+  - { idRef: 'CE_0131', name: 'Contact Role', usage: O }
+  - { idRef: 'DT', name: 'Start Date', usage: O }
+  - { idRef: 'DT', name: 'End Date', usage: O }
+  - { idRef: 'ST', name: 'Next of Kin', usage: O }
+  - { idRef: 'CM_JOB_CODE', name: 'Next of kin job code / class', usage: O }
+  - { idRef: 'ST', name: 'Next of Kin Employee Number', usage: O }
+  - { idRef: 'ST', name: 'Organization Name', usage: O }
+- id: 'NPU'
+  name: 'BED STATUS UPDATE'
+  values: 
+  - { idRef: 'CM_INTERNAL_LOCATION', name: 'Bed Location', usage: O }
+  - { idRef: 'ID', name: 'Bed Status', usage: O }
+- id: 'NSC'
+  name: 'STATUS CHANGE'
+  values: 
+  - { idRef: 'ID', name: 'Network Change Type', usage: O }
+  - { idRef: 'ST', name: 'Current CPU', usage: O }
+  - { idRef: 'ST', name: 'Current Fileserver', usage: O }
+  - { idRef: 'ST', name: 'Current Application', usage: O }
+  - { idRef: 'ST', name: 'Current Facility', usage: O }
+  - { idRef: 'ST', name: 'New CPU', usage: O }
+  - { idRef: 'ST', name: 'New Fileserver', usage: O }
+  - { idRef: 'ST', name: 'New Application', usage: O }
+  - { idRef: 'ST', name: 'New Facility', usage: O }
+- id: 'NST'
+  name: 'Statistics'
+  values: 
+  - { idRef: 'ID', name: 'Statistics Available', usage: O }
+  - { idRef: 'ST', name: 'Source Identifier', usage: O }
+  - { idRef: 'ID', name: 'Source Type', usage: O }
+  - { idRef: 'TS', name: 'Statistics Start', usage: O }
+  - { idRef: 'TS', name: 'Statistics End', usage: O }
+  - { idRef: 'NM', name: 'Receive Character Count', usage: O }
+  - { idRef: 'NM', name: 'Send Character Count', usage: O }
+  - { idRef: 'NM', name: 'Message Received', usage: O }
+  - { idRef: 'NM', name: 'Message Sent', usage: O }
+  - { idRef: 'NM', name: 'Checksum Errors Received', usage: O }
+  - { idRef: 'NM', name: 'Length Errors Received', usage: O }
+  - { idRef: 'NM', name: 'Other Errors Received', usage: O }
+  - { idRef: 'NM', name: 'Connect Timeouts', usage: O }
+  - { idRef: 'NM', name: 'Receive Timeouts', usage: O }
+  - { idRef: 'NM', name: 'Network Errors', usage: O }
+- id: 'NTE'
+  name: 'NOTES AND COMMENTS'
+  values: 
+  - { idRef: 'SI', name: 'Set ID - Notes and Comments', usage: O }
+  - { idRef: 'ID', name: 'Source of Comment', usage: O }
+  - { idRef: 'FT', name: 'Comment', usage: O, count: '>1' }
+- id: 'OBR'
+  name: 'OBSERVATION REQUEST'
+  values: 
+  - { idRef: 'SI', name: 'Set ID - Observation Request', usage: O }
+  - { idRef: 'CM_PLACER', name: 'Placer Order Number', usage: O }
+  - { idRef: 'CM_FILLER', name: 'Filler Order Number', usage: O }
+  - { idRef: 'CE', name: 'Universal Service ID', usage: O }
+  - { idRef: 'ID', name: 'Priority (not used)', usage: O }
+  - { idRef: 'TS', name: 'Requested date / time (not used)', usage: O }
+  - { idRef: 'TS', name: 'Observation date / time', usage: O }
+  - { idRef: 'TS', name: 'Observation end date / time', usage: O }
+  - { idRef: 'CQ_QUANTITY', name: 'Collection Volume', usage: O }
+  - { idRef: 'CN_PERSON', name: 'Collector Identifier', usage: O, count: '>1' }
+  - { idRef: 'ID', name: 'Specimen action code', usage: O }
+  - { idRef: 'CE', name: 'Danger Code', usage: O }
+  - { idRef: 'ST', name: 'Relevant clinical information', usage: O }
+  - { idRef: 'TS', name: 'Specimen received date / time', usage: O }
+  - { idRef: 'CM_SPS', name: 'Specimen source', usage: O }
+  - { idRef: 'CN_PERSON', name: 'Ordering Provider', usage: O }
+  - { idRef: 'TN', name: 'Order Callback Phone Number', usage: O, count: 2 }
+  - { idRef: 'ST', name: 'Placer field 1', usage: O }
+  - { idRef: 'ST', name: 'Placer field 2', usage: O }
+  - { idRef: 'ST', name: 'Filler Field 1', usage: O }
+  - { idRef: 'ST', name: 'Filler Field 2', usage: O }
+  - { idRef: 'TS', name: 'Results report / status change - date / time', usage: O }
+  - { idRef: 'CM_MOC', name: 'Charge to Practice', usage: O }
+  - { idRef: 'ID', name: 'Diagnostic service section ID', usage: O }
+  - { idRef: 'ID', name: 'Result Status', usage: O }
+  - { idRef: 'CM_POSITION', name: 'Parent Result', usage: O }
+  - { idRef: 'TQ', name: 'Quantity / timing', usage: O, count: '>1' }
+  - { idRef: 'CN_PERSON', name: 'Result Copies To', usage: O, count: 5 }
+  - { idRef: 'CM_EIP', name: 'Parent Number', usage: O }
+  - { idRef: 'ID', name: 'Transportation Mode', usage: O }
+  - { idRef: 'CE', name: 'Reason for Study', usage: O, count: '>1' }
+  - { idRef: 'CM_NDL', name: 'Principal Result Interpreter', usage: O }
+  - { idRef: 'CM_NDL', name: 'Assistant Result Interpreter', usage: O, count: '>1' }
+  - { idRef: 'CM_NDL', name: 'Technician', usage: O, count: '>1' }
+  - { idRef: 'CM_NDL', name: 'Transcriptionist', usage: O, count: '>1' }
+  - { idRef: 'TS', name: 'Scheduled date / time', usage: O }
+- id: 'OBX'
+  name: 'OBSERVATION RESULT'
+  values: 
+  - { idRef: 'SI', name: 'Set ID - Observational Simple', usage: O }
+  - { idRef: 'ID', name: 'Value Type', usage: O }
+  - { idRef: 'CE', name: 'Observation Identifier', usage: O }
+  - { idRef: 'ST', name: 'Observation Sub-ID', usage: O }
+  - { idRef: 'varies', name: 'Observation Value', usage: O }
+  - { idRef: 'CE', name: 'Units', usage: O }
+  - { idRef: 'ST', name: 'References Range', usage: O }
+  - { idRef: 'ID', name: 'Abnormal Flags', usage: O, count: 5 }
+  - { idRef: 'NM', name: 'Probability', usage: O }
+  - { idRef: 'ID', name: 'Nature of Abnormal Test', usage: O }
+  - { idRef: 'ID', name: 'Observation result status', usage: O }
+  - { idRef: 'TS', name: 'Effective date last observation normal values', usage: O }
+  - { idRef: 'ST', name: 'User Defined Access Checks', usage: O }
+  - { idRef: 'TS', name: 'Date / time of the observation', usage: O }
+  - { idRef: 'CE', name: 'Producer''s ID', usage: O }
+  - { idRef: 'CN_PHYSICIAN', name: 'Responsible Observer', usage: O }
+- id: 'ODS'
+  name: 'DIETARY ORDERS, SUPPLEMENTS, and PREFERENCES'
+  values: 
+  - { idRef: 'ID', name: 'Type', usage: O }
+  - { idRef: 'CE', name: 'Service Period', usage: O, count: 10 }
+  - { idRef: 'CE', name: 'Diet, Supplement, or Preference Code', usage: O, count: 20 }
+  - { idRef: 'ST', name: 'Text Instruction', usage: O, count: 2 }
+- id: 'ODT'
+  name: 'DIET TRAY INSTRUCTION'
+  values: 
+  - { idRef: 'CE_0160', name: 'Tray Type', usage: O }
+  - { idRef: 'CE', name: 'Service Period', usage: O, count: 10 }
+  - { idRef: 'ST', name: 'Text Instruction', usage: O, count: 2 }
+- id: 'OM1'
+  name: 'GENERAL - fields that apply to most observations'
+  values: 
+  - { idRef: 'ST', name: 'Segment Type ID', usage: O }
+  - { idRef: 'NM', name: 'Sequence Number - Test/ Observation Master File', usage: O }
+  - { idRef: 'CE', name: 'Producer''s test / observation ID', usage: O }
+  - { idRef: 'ID', name: 'Permitted Data Types', usage: O, count: '>1' }
+  - { idRef: 'ID', name: 'Specimen Required', usage: O }
+  - { idRef: 'CE', name: 'Producer ID', usage: O }
+  - { idRef: 'TX', name: 'Observation Description', usage: O }
+  - { idRef: 'CE', name: 'Other test / observation IDs for the observation', usage: O }
+  - { idRef: 'ST', name: 'Other Names', usage: O, count: '>1' }
+  - { idRef: 'ST', name: 'Preferred Report Name for the Observation', usage: O }
+  - { idRef: 'ST', name: 'Preferred Short Name or Mnemonic for Observation', usage: O }
+  - { idRef: 'ST', name: 'Preferred Long Name for the Observation', usage: O }
+  - { idRef: 'ID', name: 'Orderability', usage: O }
+  - { idRef: 'CE', name: 'Identity of instrument used to perform this study', usage: O, count: '>1' }
+  - { idRef: 'CE', name: 'Coded Representation of Method', usage: O, count: '>1' }
+  - { idRef: 'ID', name: 'Portable', usage: O }
+  - { idRef: 'ID', name: 'Observation producing department / section', usage: O, count: '>1' }
+  - { idRef: 'TN', name: 'Telephone Number of Section', usage: O }
+  - { idRef: 'ID', name: 'Nature of test / observation', usage: O }
+  - { idRef: 'CE', name: 'Report Subheader', usage: O }
+  - { idRef: 'ST', name: 'Report Display Order', usage: O }
+  - { idRef: 'TS', name: 'Date / time stamp for any change in definition for obs', usage: O }
+  - { idRef: 'TS', name: 'Effective date / time of change', usage: O }
+  - { idRef: 'NM', name: 'Typical Turn-around Time', usage: O }
+  - { idRef: 'NM', name: 'Processing Time', usage: O }
+  - { idRef: 'ID', name: 'Processing Priority', usage: O, count: '>1' }
+  - { idRef: 'ID', name: 'Reporting Priority', usage: O }
+  - { idRef: 'CE', name: 'Outside Site(s) Where Observation may be Performed', usage: O, count: '>1' }
+  - { idRef: 'AD', name: 'Address of Outside Site(s)', usage: O, count: '>1' }
+  - { idRef: 'TN', name: 'Phone Number of Outside Site', usage: O, count: '>1' }
+  - { idRef: 'ID', name: 'Confidentiality Code', usage: O }
+  - { idRef: 'CE', name: 'Observations required to interpret the observation', usage: O, count: '>1' }
+  - { idRef: 'TX', name: 'Interpretation of Observations', usage: O }
+  - { idRef: 'CE', name: 'Contraindications to Observations', usage: O, count: '>1' }
+  - { idRef: 'CE', name: 'Reflex tests / observations', usage: O, count: '>1' }
+  - { idRef: 'ST', name: 'Rules that Trigger Reflex Testing', usage: O }
+  - { idRef: 'CE', name: 'Fixed Canned Message', usage: O, count: '>1' }
+  - { idRef: 'TX', name: 'Patient Preparation', usage: O }
+  - { idRef: 'CE', name: 'Procedure Medication', usage: O }
+  - { idRef: 'TX', name: 'Factors that may affect the observation', usage: O }
+  - { idRef: 'ST', name: 'Test / observation performance schedule', usage: O, count: '>1' }
+  - { idRef: 'TX', name: 'Description of Test Methods', usage: O }
+- id: 'OM2'
+  name: 'NUMERIC OBSERVATION'
+  values: 
+  - { idRef: 'ST', name: 'Segment Type ID', usage: O }
+  - { idRef: 'NM', name: 'Sequence Number - Test/ Observation Master File', usage: O }
+  - { idRef: 'CE', name: 'Units of Measure', usage: O }
+  - { idRef: 'NM', name: 'Range of Decimal Precision', usage: O }
+  - { idRef: 'CE', name: 'Corresponding SI Units of Measure', usage: O }
+  - { idRef: 'TX', name: 'SI Conversion Factor', usage: O, count: '>1' }
+  - { idRef: 'CM_RFR', name: 'Reference (normal) range - ordinal & continuous observations', usage: O, count: '>1' }
+  - { idRef: 'CM_RANGE', name: 'Critical range for ordinal and continuous observations', usage: O }
+  - { idRef: 'CM_ABS_RANGE', name: 'Absolute range for ordinal and continuous observations', usage: O }
+  - { idRef: 'CM_DLT', name: 'Delta Check Criteria', usage: O, count: '>1' }
+  - { idRef: 'NM', name: 'Minimum Meaningful Increments', usage: O }
+- id: 'OM3'
+  name: 'CATEGORICAL TEST/OBSERVATION'
+  values: 
+  - { idRef: 'ST', name: 'Segment Type ID', usage: O }
+  - { idRef: 'NM', name: 'Sequence Number - Test/ Observation Master File', usage: O }
+  - { idRef: 'ID', name: 'Preferred Coding System', usage: O }
+  - { idRef: 'CE', name: 'Valid coded answers', usage: O, count: '>1' }
+  - { idRef: 'CE', name: 'Normal test codes for categorical observations', usage: O, count: '>1' }
+  - { idRef: 'CE', name: 'Abnormal test codes for categorical observations', usage: O }
+  - { idRef: 'CE', name: 'Critical test codes for categorical observations', usage: O }
+  - { idRef: 'ID', name: 'Data Type', usage: O }
+- id: 'OM4'
+  name: 'OBSERVATION that require specimens'
+  values: 
+  - { idRef: 'ST', name: 'Segment Type ID', usage: O }
+  - { idRef: 'NM', name: 'Sequence Number - Test/ Observation Master File', usage: O }
+  - { idRef: 'ID', name: 'Derived Specimen', usage: O }
+  - { idRef: 'TX', name: 'Container Description', usage: O }
+  - { idRef: 'NM', name: 'Container Volume', usage: O }
+  - { idRef: 'CE', name: 'Container Units', usage: O }
+  - { idRef: 'CE', name: 'Specimen', usage: O }
+  - { idRef: 'CE', name: 'Additive', usage: O }
+  - { idRef: 'TX', name: 'Preparation', usage: O }
+  - { idRef: 'TX', name: 'Special Handling Requirements', usage: O }
+  - { idRef: 'CQ_QUANTITY', name: 'Normal Collection Volume', usage: O }
+  - { idRef: 'CQ_QUANTITY', name: 'Minimum Collection Volume', usage: O }
+  - { idRef: 'TX', name: 'Specimen Requirements', usage: O }
+  - { idRef: 'ID', name: 'Specimen Priorities', usage: O, count: '>1' }
+  - { idRef: 'CQ_QUANTITY', name: 'Specimen Retention Time', usage: O }
+- id: 'OM5'
+  name: 'OBSERVATION BATTERIES'
+  values: 
+  - { idRef: 'ST', name: 'Segment Type ID', usage: O }
+  - { idRef: 'NM', name: 'Sequence Number - Test/ Observation Master File', usage: O }
+  - { idRef: 'CE', name: 'Tests / observations included within an ordered test battery', usage: O, count: '>1' }
+  - { idRef: 'ST', name: 'Observation ID Suffixes', usage: O }
+- id: 'OM6'
+  name: 'OBSERVATIONS that are calculated from other obersvations'
+  values: 
+  - { idRef: 'ST', name: 'Segment Type ID', usage: O }
+  - { idRef: 'NM', name: 'Sequence Number - Test/ Observation Master File', usage: O }
+  - { idRef: 'TX', name: 'Derivation Rule', usage: O }
+- id: 'ORC'
+  name: 'COMMOM ORDER'
+  values: 
+  - { idRef: 'ID', name: 'Order Control', usage: O }
+  - { idRef: 'CM_PLACER', name: 'Placer Order Number', usage: O }
+  - { idRef: 'CM_FILLER', name: 'Filler Order Number', usage: O }
+  - { idRef: 'CM_GROUP_ID', name: 'Placer Group Number', usage: O }
+  - { idRef: 'ID', name: 'Order Status', usage: O }
+  - { idRef: 'ID', name: 'Response Flag', usage: O }
+  - { idRef: 'TQ', name: 'Quantity / timing', usage: O, count: '>1' }
+  - { idRef: 'CM_EIP', name: 'Parent', usage: O }
+  - { idRef: 'TS', name: 'Date / time of transaction', usage: O }
+  - { idRef: 'CN_PERSON', name: 'Entered By', usage: O }
+  - { idRef: 'CN_PERSON', name: 'Verified By', usage: O }
+  - { idRef: 'CN_PERSON', name: 'Ordering Provider', usage: O }
+  - { idRef: 'CM_POSITION', name: 'Enterer''s Location', usage: O }
+  - { idRef: 'TN', name: 'Call Back Phone Number', usage: O, count: 2 }
+  - { idRef: 'TS', name: 'Order effective date / time', usage: O }
+  - { idRef: 'CE', name: 'Order Control Code Reason', usage: O }
+  - { idRef: 'CE', name: 'Entering Organization', usage: O }
+  - { idRef: 'CE', name: 'Entering Device', usage: O }
+  - { idRef: 'CN_PERSON', name: 'Action by', usage: O }
+- id: 'PID'
+  name: 'PATIENT IDENTIFICATION'
+  values: 
+  - { idRef: 'SI', name: 'Set ID - Patient ID', usage: O }
+  - { idRef: 'CK_PAT_ID', name: 'Patient ID (External ID)', usage: O }
+  - { idRef: 'CM_PAT_ID', name: 'Patient ID (Internal ID)', usage: O, count: '>1' }
+  - { idRef: 'ST', name: 'Alternate Patient ID', usage: O }
+  - { idRef: 'PN', name: 'Patient Name', usage: O }
+  - { idRef: 'ST', name: 'Mother''s Maiden Name', usage: O }
+  - { idRef: 'TS', name: 'Date of Birth', usage: O }
+  - { idRef: 'ID', name: 'Sex', usage: O }
+  - { idRef: 'PN', name: 'Patient Alias', usage: O, count: '>1' }
+  - { idRef: 'ID', name: 'Race', usage: O }
+  - { idRef: 'AD', name: 'Patient Address', usage: O, count: 3 }
+  - { idRef: 'ID', name: 'County code', usage: O }
+  - { idRef: 'TN', name: 'Phone Number - Home', usage: O, count: 3 }
+  - { idRef: 'TN', name: 'Phone Number - Business', usage: O, count: 3 }
+  - { idRef: 'ST', name: 'Language - Patient', usage: O }
+  - { idRef: 'ID', name: 'Marital Status', usage: O }
+  - { idRef: 'ID', name: 'Religion', usage: O }
+  - { idRef: 'CK_PAT_ID', name: 'Patient Account Number', usage: O }
+  - { idRef: 'ST', name: 'Social security number - patient', usage: O }
+  - { idRef: 'CM_LICENSE_NO', name: 'Driver''s license number - patient', usage: O }
+  - { idRef: 'CK_PAT_ID', name: 'Mother''s Identifier', usage: O }
+  - { idRef: 'ID', name: 'Ethnic Group', usage: O }
+  - { idRef: 'ST', name: 'Birth Place', usage: O }
+  - { idRef: 'ID', name: 'Multiple Birth Indicator', usage: O }
+  - { idRef: 'NM', name: 'Birth Order', usage: O }
+  - { idRef: 'ID', name: 'Citizenship', usage: O, count: '>1' }
+  - { idRef: 'ST', name: 'Veterans Military Status', usage: O }
+- id: 'PR1'
+  name: 'PROCEDURES'
+  values: 
+  - { idRef: 'SI', name: 'Set ID - procedure', usage: O }
+  - { idRef: 'ID', name: 'Procedure coding method', usage: O, count: '>1' }
+  - { idRef: 'ID', name: 'Procedure code', usage: O, count: '>1' }
+  - { idRef: 'ST', name: 'Procedure description', usage: O, count: '>1' }
+  - { idRef: 'TS', name: 'Procedure date / time', usage: O }
+  - { idRef: 'ID', name: 'Procedure type', usage: O }
+  - { idRef: 'NM', name: 'Procedure minutes', usage: O }
+  - { idRef: 'CN_PERSON', name: 'Anesthesiologist', usage: O }
+  - { idRef: 'ID', name: 'Anesthesia code', usage: O }
+  - { idRef: 'NM', name: 'Anesthesia minutes', usage: O }
+  - { idRef: 'CN_PERSON', name: 'Surgeon', usage: O }
+  - { idRef: 'CM_PRACTITIONER', name: 'Procedure Practitioner', usage: O, count: '>1' }
+  - { idRef: 'ID', name: 'Consent code', usage: O }
+  - { idRef: 'NM', name: 'Procedure priority', usage: O }
+- id: 'PRA'
+  name: 'practitioner detail'
+  values: 
+  - { idRef: 'ST', name: 'PRA - primary key value', usage: O }
+  - { idRef: 'CE', name: 'Practitioner group', usage: O, count: '>1' }
+  - { idRef: 'ID', name: 'Practitioner Category', usage: O, count: '>1' }
+  - { idRef: 'ID', name: 'Provider Billing', usage: O }
+  - { idRef: 'CM_SPD', usage: O, count: '>1' }
+  - { idRef: 'CM_PLN', usage: O, count: '>1' }
+  - { idRef: 'CM_PIP', usage: O, count: '>1' }
+- id: 'PV1'
+  name: 'PATIENT VISIT'
+  values: 
+  - { idRef: 'SI', name: 'Set ID - Patient Visit', usage: O }
+  - { idRef: 'ID', name: 'Patient Class', usage: O }
+  - { idRef: 'CM_INTERNAL_LOCATION', name: 'Assigned Patient Location', usage: O }
+  - { idRef: 'ID', name: 'Admission Type', usage: O }
+  - { idRef: 'ST', name: 'Preadmit Number', usage: O }
+  - { idRef: 'CM_INTERNAL_LOCATION', name: 'Prior Patient Location', usage: O }
+  - { idRef: 'CN_PHYSICIAN', name: 'Attending Doctor', usage: O }
+  - { idRef: 'CN_PHYSICIAN', name: 'Referring Doctor', usage: O }
+  - { idRef: 'CN_PHYSICIAN', name: 'Consulting Doctor', usage: O, count: '>1' }
+  - { idRef: 'ID', name: 'Hospital Service', usage: O }
+  - { idRef: 'CM_INTERNAL_LOCATION', name: 'Temporary Location', usage: O }
+  - { idRef: 'ID', name: 'Preadmit Test Indicator', usage: O }
+  - { idRef: 'ID', name: 'Readmission indicator', usage: O }
+  - { idRef: 'ID', name: 'Admit Source', usage: O }
+  - { idRef: 'ID', name: 'Ambulatory Status', usage: O, count: '>1' }
+  - { idRef: 'ID', name: 'VIP Indicator', usage: O }
+  - { idRef: 'CN_PHYSICIAN', name: 'Admitting Doctor', usage: O }
+  - { idRef: 'ID', name: 'Patient type', usage: O }
+  - { idRef: 'CM_PAT_ID', name: 'Visit Number', usage: O }
+  - { idRef: 'CM_FINANCE', name: 'Financial Class', usage: O, count: 4 }
+  - { idRef: 'ID', name: 'Charge Price Indicator', usage: O }
+  - { idRef: 'ID', name: 'Courtesy Code', usage: O }
+  - { idRef: 'ID', name: 'Credit Rating', usage: O }
+  - { idRef: 'ID', name: 'Contract Code', usage: O, count: '>1' }
+  - { idRef: 'DT', name: 'Contract Effective Date', usage: O, count: '>1' }
+  - { idRef: 'NM', name: 'Contract Amount', usage: O, count: '>1' }
+  - { idRef: 'NM', name: 'Contract Period', usage: O, count: '>1' }
+  - { idRef: 'ID', name: 'Interest Code', usage: O }
+  - { idRef: 'ID', name: 'Transfer to bad debt - code', usage: O }
+  - { idRef: 'DT', name: 'Transfer to bad debt - date', usage: O }
+  - { idRef: 'ID', name: 'Bad Debt Agency Code', usage: O }
+  - { idRef: 'NM', name: 'Bad Debt Transfer Amount', usage: O }
+  - { idRef: 'NM', name: 'Bad Debt Recovery Amount', usage: O }
+  - { idRef: 'ID', name: 'Delete Account Indicator', usage: O }
+  - { idRef: 'DT', name: 'Delete Account Date', usage: O }
+  - { idRef: 'ID', name: 'Discharge Disposition', usage: O }
+  - { idRef: 'CM_DLD', name: 'Discharged to Location', usage: O }
+  - { idRef: 'ID', name: 'Diet Type', usage: O }
+  - { idRef: 'ID', name: 'Servicing Facility', usage: O }
+  - { idRef: 'ID', name: 'Bed Status', usage: O }
+  - { idRef: 'ID', name: 'Account Status', usage: O }
+  - { idRef: 'CM_INTERNAL_LOCATION', name: 'Pending Location', usage: O }
+  - { idRef: 'CM_INTERNAL_LOCATION', name: 'Prior Temporary Location', usage: O }
+  - { idRef: 'TS', name: 'Admit date / time', usage: O }
+  - { idRef: 'TS', name: 'Discharge date / time', usage: O }
+  - { idRef: 'NM', name: 'Current Patient Balance', usage: O }
+  - { idRef: 'NM', name: 'Total Charges', usage: O }
+  - { idRef: 'NM', name: 'Total Adjustments', usage: O }
+  - { idRef: 'NM', name: 'Total Payments', usage: O }
+  - { idRef: 'CM_PAT_ID_0192', name: 'Alternate Visit ID', usage: O }
+- id: 'PV2'
+  name: 'PATIENT VISIT - additional information'
+  values: 
+  - { idRef: 'CM_INTERNAL_LOCATION', name: 'Prior Pending Location', usage: O }
+  - { idRef: 'CE_0129', name: 'Accommodation Code', usage: O }
+  - { idRef: 'CE', name: 'Admit Reason', usage: O }
+  - { idRef: 'CE', name: 'Transfer Reason', usage: O }
+  - { idRef: 'ST', name: 'Patient Valuables', usage: O, count: '>1' }
+  - { idRef: 'ST', name: 'Patient Valuables Location', usage: O }
+  - { idRef: 'ID', name: 'Visit User Code', usage: O }
+  - { idRef: 'DT', name: 'Expected Admit Date', usage: O }
+  - { idRef: 'DT', name: 'Expected Discharge Date', usage: O }
+- id: 'QRD'
+  name: 'QUERY DEFINITION'
+  values: 
+  - { idRef: 'TS', name: 'Query date / time', usage: O }
+  - { idRef: 'ID', name: 'Query Format Code', usage: O }
+  - { idRef: 'ID', name: 'Query Priority', usage: O }
+  - { idRef: 'ST', name: 'Query ID', usage: O }
+  - { idRef: 'ID', name: 'Deferred Response Type', usage: O }
+  - { idRef: 'TS', name: 'Deferred response date / time', usage: O }
+  - { idRef: 'CQ_QUANTITY', name: 'Quantity Limited Request', usage: O }
+  - { idRef: 'ST', name: 'Who Subject Filter', usage: O, count: '>1' }
+  - { idRef: 'ID', name: 'What Subject Filter', usage: O, count: '>1' }
+  - { idRef: 'ST', name: 'What Department Data Code', usage: O, count: '>1' }
+  - { idRef: 'CM_VR', name: 'What data code value qualifier', usage: O, count: '>1' }
+  - { idRef: 'ID', name: 'Query Results Level', usage: O }
+- id: 'QRF'
+  name: 'QUERY FILTER'
+  values: 
+  - { idRef: 'ST', name: 'Where Subject Filter', usage: O, count: '>1' }
+  - { idRef: 'TS', name: 'When data start date / time', usage: O }
+  - { idRef: 'TS', name: 'When data end date / time', usage: O }
+  - { idRef: 'ST', name: 'What User Qualifier', usage: O, count: '>1' }
+  - { idRef: 'ST', name: 'Other QRY Subject Filter', usage: O, count: '>1' }
+  - { idRef: 'ID', name: 'Which date / time qualifier', usage: O, count: '>1' }
+  - { idRef: 'ID', name: 'Which date / time status qualifier', usage: O, count: '>1' }
+  - { idRef: 'ID', name: 'Date / time selection qualifier', usage: O, count: '>1' }
+- id: 'RQ1'
+  name: 'REQUISITION DETAIL-!'
+  values: 
+  - { idRef: 'SI', name: 'Anticipated Price', usage: O }
+  - { idRef: 'CE', name: 'Manufacturer ID', usage: O }
+  - { idRef: 'ST', name: 'Manufacturer''s Catalog', usage: O }
+  - { idRef: 'CE', name: 'Vendor ID', usage: O }
+  - { idRef: 'ST', name: 'Vendor Catalog', usage: O }
+  - { idRef: 'ID', name: 'Taxable', usage: O }
+  - { idRef: 'ID', name: 'Substitute Allowed', usage: O }
+- id: 'RQD'
+  name: 'REQUISITION DETAIL'
+  values: 
+  - { idRef: 'SI', name: 'Requisition Line Number', usage: O }
+  - { idRef: 'CE', name: 'Item Code - Internal', usage: O }
+  - { idRef: 'CE', name: 'Item Code - External', usage: O }
+  - { idRef: 'CE', name: 'Hospital Item Code', usage: O }
+  - { idRef: 'NM', name: 'Requisition Quantity', usage: O }
+  - { idRef: 'CE', name: 'Requisition Unit of measure', usage: O }
+  - { idRef: 'ID', name: 'Department cost center', usage: O }
+  - { idRef: 'ID', name: 'Item Natural Account Code', usage: O }
+  - { idRef: 'CE', name: 'Deliver-to ID', usage: O }
+  - { idRef: 'DT', name: 'Date Needed', usage: O }
+- id: 'RXA'
+  name: 'PHARMACY AADMINISTRATION'
+  values: 
+  - { idRef: 'NM', name: 'Give Sub-ID Counter', usage: O }
+  - { idRef: 'NM', name: 'Administration Sub-ID Counter', usage: O }
+  - { idRef: 'TS', name: 'Date / time start of administration', usage: O }
+  - { idRef: 'TS', name: 'Date / time end of administration', usage: O }
+  - { idRef: 'CE', name: 'Administered Code', usage: O }
+  - { idRef: 'NM', name: 'Administered Amount', usage: O }
+  - { idRef: 'CE', name: 'Administered Units', usage: O }
+  - { idRef: 'CE', name: 'Administered Dosage Form', usage: O }
+  - { idRef: 'ST', name: 'Administration Notes', usage: O }
+  - { idRef: 'CN_PERSON', name: 'Administering Provider', usage: O }
+  - { idRef: 'CM_LA1', name: 'Administered-at Location', usage: O }
+  - { idRef: 'ST', name: 'Administered Per (Time Unit)', usage: O }
+- id: 'RXC'
+  name: 'PHARMACY COMPONENT ORDER'
+  values: 
+  - { idRef: 'ID', name: 'RX Component Type', usage: O }
+  - { idRef: 'CE', name: 'Component Code', usage: O }
+  - { idRef: 'NM', name: 'Component Amount', usage: O }
+  - { idRef: 'CE', name: 'Component Units', usage: O }
+- id: 'RXD'
+  name: 'PHARMACY DISPENSE'
+  values: 
+  - { idRef: 'NM', name: 'Dispense Sub-ID Counter', usage: O }
+  - { idRef: 'CE', name: 'Dispense / give code', usage: O }
+  - { idRef: 'TS', name: 'Date / time dispensed', usage: O }
+  - { idRef: 'NM', name: 'Actual Dispense Amount', usage: O }
+  - { idRef: 'CE', name: 'Actual Dispense Units', usage: O }
+  - { idRef: 'CE', name: 'Actual Dosage Form', usage: O }
+  - { idRef: 'ST', name: 'Prescription Number', usage: O }
+  - { idRef: 'NM', name: 'Number of Refills Remaining', usage: O }
+  - { idRef: 'ST', name: 'Dispense Notes', usage: O, count: '>1' }
+  - { idRef: 'CN_PERSON', name: 'Dispensing Provider', usage: O }
+  - { idRef: 'ID', name: 'Substitution Status', usage: O }
+  - { idRef: 'CQ_QUANTITY', name: 'Total Daily Dose', usage: O }
+  - { idRef: 'CM_LA1', name: 'Deliver-to location', usage: O }
+  - { idRef: 'ID', name: 'Needs Human Review', usage: O }
+  - { idRef: 'CE', name: 'Pharmacy Special Dispensing Instructions', usage: O }
+- id: 'RXE'
+  name: 'PHARMACY ENCODED ORDER'
+  values: 
+  - { idRef: 'TQ', name: 'Quantity / timing', usage: O, count: '>1' }
+  - { idRef: 'CE', name: 'Give Code', usage: O }
+  - { idRef: 'NM', name: 'Give Amount - Minimum', usage: O }
+  - { idRef: 'NM', name: 'Give Amount - Maximum', usage: O }
+  - { idRef: 'CE', name: 'Give Units', usage: O }
+  - { idRef: 'CE', name: 'Give Dosage Form', usage: O }
+  - { idRef: 'CE', name: 'Provider''s Administration Instructions', usage: O, count: '>1' }
+  - { idRef: 'CM_LA1', name: 'Deliver-to location', usage: O }
+  - { idRef: 'ID', name: 'Substitution Status', usage: O }
+  - { idRef: 'NM', name: 'Dispense Amount', usage: O }
+  - { idRef: 'CE', name: 'Dispense Units', usage: O }
+  - { idRef: 'NM', name: 'Number of Refills', usage: O }
+  - { idRef: 'CN_PERSON', name: 'Ordering Provider''s DEA Number', usage: O }
+  - { idRef: 'CN_PERSON', name: 'Pharmacist Verifier ID', usage: O }
+  - { idRef: 'ST', name: 'Prescription Number', usage: O }
+  - { idRef: 'NM', name: 'Number of Refills Remaining', usage: O }
+  - { idRef: 'NM', name: 'Number of refills / doses dispensed', usage: O }
+  - { idRef: 'TS', name: 'Date / time of most recent refill or dose dispensed', usage: O }
+  - { idRef: 'CQ_QUANTITY', name: 'Total Daily Dose', usage: O }
+  - { idRef: 'ID', name: 'Needs Human Review', usage: O }
+  - { idRef: 'CE', name: 'Pharmacy Special Dispensing Instructions', usage: O }
+  - { idRef: 'ST', name: 'Give Per (Time Unit)', usage: O }
+  - { idRef: 'CE', name: 'Give Rate Amount', usage: O }
+  - { idRef: 'CE', name: 'Give Rate Units', usage: O }
+- id: 'RXG'
+  name: 'PHARMACY GIVE'
+  values: 
+  - { idRef: 'NM', name: 'Give Sub-ID Counter', usage: O }
+  - { idRef: 'NM', name: 'Dispense Sub-ID Counter', usage: O }
+  - { idRef: 'TQ', name: 'Quantity / timing', usage: O, count: '>1' }
+  - { idRef: 'CE', name: 'Give Code', usage: O }
+  - { idRef: 'NM', name: 'Give Amount - Minimum', usage: O }
+  - { idRef: 'NM', name: 'Give Amount - Maximum', usage: O }
+  - { idRef: 'CE', name: 'Give Units', usage: O }
+  - { idRef: 'CE', name: 'Give Dosage Form', usage: O }
+  - { idRef: 'ST', name: 'Administration Notes', usage: O }
+  - { idRef: 'ID', name: 'Substitution Status', usage: O }
+  - { idRef: 'CM_LA1', name: 'Deliver-to location', usage: O }
+  - { idRef: 'ID', name: 'Needs Human Review', usage: O }
+  - { idRef: 'CE', name: 'Pharmacy Special Administration Instructions', usage: O, count: '>1' }
+  - { idRef: 'ST', name: 'Give Per (Time Unit)', usage: O }
+  - { idRef: 'CE', name: 'Give Rate Amount', usage: O }
+  - { idRef: 'CE', name: 'Give Rate Units', usage: O }
+- id: 'RXO'
+  name: 'PHARMACY PRESCRIPTION ORDER'
+  values: 
+  - { idRef: 'CE', name: 'Requested Give Code', usage: O }
+  - { idRef: 'NM', name: 'Requested Give Amount - Minimum', usage: O }
+  - { idRef: 'NM', name: 'Requested Give Amount - Maximum', usage: O }
+  - { idRef: 'CE', name: 'Requested Give Units', usage: O }
+  - { idRef: 'CE', name: 'Requested Dosage Form', usage: O }
+  - { idRef: 'CE', name: 'Provider''s Pharmacy Instructions', usage: O, count: '>1' }
+  - { idRef: 'CE', name: 'Provider''s Administration Instructions', usage: O, count: '>1' }
+  - { idRef: 'CM_LA1', name: 'Deliver-to location', usage: O }
+  - { idRef: 'ID', name: 'Allow Substitutions', usage: O }
+  - { idRef: 'CE', name: 'Requested Dispense Code', usage: O }
+  - { idRef: 'NM', name: 'Requested Dispense Amount', usage: O }
+  - { idRef: 'CE', name: 'Requested Dispense Units', usage: O }
+  - { idRef: 'NM', name: 'Number of Refills', usage: O }
+  - { idRef: 'CN_PERSON', name: 'Ordering Provider''s DEA Number', usage: O }
+  - { idRef: 'CN_PERSON', name: 'Pharmacist Verifier ID', usage: O }
+  - { idRef: 'ID', name: 'Needs Human Review', usage: O }
+  - { idRef: 'ST', name: 'Requested Give Per (Time Unit)', usage: O }
+- id: 'RXR'
+  name: 'PHARMACY ROUTE'
+  values: 
+  - { idRef: 'CE_0162', name: 'Route', usage: O }
+  - { idRef: 'CE_0163', name: 'Site', usage: O }
+  - { idRef: 'CE_0164', name: 'Administration Device', usage: O }
+  - { idRef: 'CE_0165', name: 'Administration Method', usage: O }
+- id: 'STF'
+  name: 'staff identification segment'
+  values: 
+  - { idRef: 'CE', name: 'STF - primary key value', usage: O }
+  - { idRef: 'CE', name: 'Staff ID Code', usage: O, count: '>1' }
+  - { idRef: 'PN', name: 'Staff Name', usage: O }
+  - { idRef: 'ID', name: 'Staff Type', usage: O, count: '>1' }
+  - { idRef: 'ID', name: 'Sex', usage: O }
+  - { idRef: 'TS', name: 'Date of Birth', usage: O }
+  - { idRef: 'ID', name: 'Active / inactive', usage: O }
+  - { idRef: 'CE_0184', name: 'Department', usage: O, count: '>1' }
+  - { idRef: 'CE', name: 'Service', usage: O, count: '>1' }
+  - { idRef: 'TN', name: 'Phone', usage: O, count: '>1' }
+  - { idRef: 'AD', name: 'Office / home address', usage: O, count: 2 }
+  - { idRef: 'CM_DIN', name: 'Activation Date', usage: O, count: '>1' }
+  - { idRef: 'CM_DIN', name: 'Inactivation Date', usage: O, count: '>1' }
+  - { idRef: 'CE', name: 'Backup Person ID', usage: O, count: '>1' }
+  - { idRef: 'ST', name: 'E-mail Address', usage: O, count: '>1' }
+  - { idRef: 'ID', name: 'Preferred method of Contact', usage: O }
+- id: 'UB1'
+  name: 'UB82 DATA'
+  values: 
+  - { idRef: 'SI', name: 'Set ID - UB82', usage: O }
+  - { idRef: 'NM', name: 'Blood deductible (43)', usage: O }
+  - { idRef: 'NM', name: 'Blood furnished pints of (40)', usage: O }
+  - { idRef: 'NM', name: 'Blood replaced pints (41)', usage: O }
+  - { idRef: 'NM', name: 'Blood not replaced pints (42)', usage: O }
+  - { idRef: 'NM', name: 'Co-insurance days (25)', usage: O }
+  - { idRef: 'ID', name: 'Condition code (35-39)', usage: O, count: 5 }
+  - { idRef: 'NM', name: 'Covered days (23)', usage: O }
+  - { idRef: 'NM', name: 'Non-covered days (24)', usage: O }
+  - { idRef: 'CM_UVC', name: 'Value amount and code (46-49)', usage: O, count: 8 }
+  - { idRef: 'NM', name: 'Number of grace days (90)', usage: O }
+  - { idRef: 'ID', name: 'Special program indicator (44)', usage: O }
+  - { idRef: 'ID', name: 'PSRO / UR approval indicator (87)', usage: O }
+  - { idRef: 'DT', name: 'PSRO / UR approved stay - from (88)', usage: O }
+  - { idRef: 'DT', name: 'PSRO / UR approved stay - to (89)', usage: O }
+  - { idRef: 'CM_OCD', name: 'Occurrence (28-32)', usage: O, count: 5 }
+  - { idRef: 'ID', name: 'Occurrence span (33)', usage: O }
+  - { idRef: 'DT', name: 'Occurrence span start date (33)', usage: O }
+  - { idRef: 'DT', name: 'Occurrence span end date (33)', usage: O }
+  - { idRef: 'ST', name: 'UB-82 locator 2', usage: O }
+  - { idRef: 'ST', name: 'UB-82 locator 9', usage: O }
+  - { idRef: 'ST', name: 'UB-82 locator 27', usage: O }
+  - { idRef: 'ST', name: 'UB-82 locator 45', usage: O }
+- id: 'UB2'
+  name: 'UB92 DATA'
+  values: 
+  - { idRef: 'SI', name: 'Set ID - UB92', usage: O }
+  - { idRef: 'ST', name: 'Co-insurance days (9)', usage: O }
+  - { idRef: 'ID', name: 'Condition code (24-30)', usage: O, count: 7 }
+  - { idRef: 'ST', name: 'Covered days (7)', usage: O }
+  - { idRef: 'ST', name: 'Non-covered days (8)', usage: O }
+  - { idRef: 'CM_UVC', name: 'Value amount and code (39-41)', usage: O, count: 12 }
+  - { idRef: 'CM_OCD', name: 'Occurrence code and date (32-35)', usage: O, count: 8 }
+  - { idRef: 'CM_OSP', name: 'Occurrence span code / dates (36)', usage: O, count: 2 }
+  - { idRef: 'ST', name: 'UB92 locator 2 (state)', usage: O, count: 2 }
+  - { idRef: 'ST', name: 'UB92 locator 11 (state)', usage: O, count: 2 }
+  - { idRef: 'ST', name: 'UB92 locator 31 (national)', usage: O }
+  - { idRef: 'ST', name: 'Document control number (37)', usage: O, count: 3 }
+  - { idRef: 'ST', name: 'UB92 locator 49 (national)', usage: O, count: 23 }
+  - { idRef: 'ST', name: 'UB92 locator 56 (state)', usage: O, count: 5 }
+  - { idRef: 'ST', name: 'UB92 locator 57 (national)', usage: O }
+  - { idRef: 'ST', name: 'UB92 Locator 78 (state)', usage: O, count: 2 }
+- id: 'URD'
+  name: 'RESULTS/UPDATE DEFINITION'
+  values: 
+  - { idRef: 'TS', name: 'R/U date / time', usage: O }
+  - { idRef: 'ID', name: 'Report Priority', usage: O }
+  - { idRef: 'ST', name: 'R/U Who Subject Definition', usage: O, count: '>1' }
+  - { idRef: 'ID', name: 'R/U What Subject Definition', usage: O, count: '>1' }
+  - { idRef: 'ST', name: 'R/U What Department Code', usage: O, count: '>1' }
+  - { idRef: 'ST', name: 'R/U display / print locations', usage: O, count: '>1' }
+  - { idRef: 'ID', name: 'R/U Results Level', usage: O }
+- id: 'URS'
+  name: 'UNSOLICITED SELECTION'
+  values: 
+  - { idRef: 'ST', name: 'R/U Where Subject Definition', usage: O, count: '>1' }
+  - { idRef: 'TS', name: 'R/U when data start date / time', usage: O }
+  - { idRef: 'TS', name: 'R/U when data end date / time', usage: O }
+  - { idRef: 'ST', name: 'R/U What User Qualifier', usage: O, count: '>1' }
+  - { idRef: 'ST', name: 'R/U Other Results Subject Definition', usage: O, count: '>1' }
+  - { idRef: 'ID', name: 'R/U which date / time qualifier', usage: O, count: '>1' }
+  - { idRef: 'ID', name: 'R/U which date / time status qualifier', usage: O, count: '>1' }
+  - { idRef: 'ID', name: 'R/U date / time selection qualifier', usage: O, count: '>1' }
+- id: 'Zxx'
+  name: 'any Z segment'
+  values: 
+composites: 
+- id: 'AD'
+  name: 'address'
+  values: 
+  - { idRef: 'ST', name: 'street address', usage: O }
+  - { idRef: 'ST', name: 'other designation', usage: O }
+  - { idRef: 'ST', name: 'city', usage: O }
+  - { idRef: 'ST', name: 'state or province', usage: O }
+  - { idRef: 'ID', name: 'zip or postal code', usage: O }
+  - { idRef: 'ID', name: 'country', usage: O }
+  - { idRef: 'ID', name: 'type', usage: O }
+  - { idRef: 'ST', name: 'other geographic designation', usage: O }
+- id: 'CE'
+  name: 'coded element'
+  values: 
+  - { idRef: 'ID', name: 'identifier', usage: O }
+  - { idRef: 'ST', name: 'text', usage: O }
+  - { idRef: 'ST', name: 'name of coding system', usage: O }
+  - { idRef: 'ST', name: 'alternate identifier', usage: O }
+  - { idRef: 'ST', name: 'alternate text', usage: O }
+  - { idRef: 'ST', name: 'name of alternate coding system', usage: O }
+- id: 'CE_0049'
+  name: 'CE with table 49'
+  values: 
+  - { idRef: 'ID', name: 'identifier', usage: O }
+  - { idRef: 'ST', name: 'text', usage: O }
+  - { idRef: 'ST', name: 'name of coding system', usage: O }
+  - { idRef: 'ST', name: 'alternate identifier', usage: O }
+  - { idRef: 'ST', name: 'alternate text', usage: O }
+  - { idRef: 'ST', name: 'name of alternate coding system', usage: O }
+- id: 'CE_0051'
+  name: 'CE_NORM mit Tab. 0051'
+  values: 
+  - { idRef: 'ID', name: 'identifier', usage: O }
+  - { idRef: 'ST', name: 'text', usage: O }
+  - { idRef: 'ST', name: 'name of coding system', usage: O }
+  - { idRef: 'ST', name: 'alternate identifier', usage: O }
+  - { idRef: 'ST', name: 'alternate text', usage: O }
+  - { idRef: 'ST', name: 'name of alternate coding system', usage: O }
+- id: 'CE_0063'
+  values: 
+  - { idRef: 'ID', name: 'identifier', usage: O }
+  - { idRef: 'ST', name: 'text', usage: O }
+  - { idRef: 'ST', name: 'name of coding system', usage: O }
+  - { idRef: 'ST', name: 'alternate identifier', usage: O }
+  - { idRef: 'ST', name: 'alternate text', usage: O }
+  - { idRef: 'ST', name: 'name of alternate coding system', usage: O }
+- id: 'CE_0066'
+  name: 'CE_NORM mit Tab. 0066'
+  values: 
+  - { idRef: 'ID', name: 'identifier', usage: O }
+  - { idRef: 'ST', name: 'text', usage: O }
+  - { idRef: 'ST', name: 'name of coding system', usage: O }
+  - { idRef: 'ST', name: 'alternate identifier', usage: O }
+  - { idRef: 'ST', name: 'alternate text', usage: O }
+  - { idRef: 'ST', name: 'name of alternate coding system', usage: O }
+- id: 'CE_0118'
+  values: 
+  - { idRef: 'ID', name: 'identifier', usage: O }
+  - { idRef: 'ST', name: 'text', usage: O }
+  - { idRef: 'ST', name: 'name of coding system', usage: O }
+  - { idRef: 'ST', name: 'alternate identifier', usage: O }
+  - { idRef: 'ST', name: 'alternate text', usage: O }
+  - { idRef: 'ST', name: 'name of alternate coding system', usage: O }
+- id: 'CE_0129'
+  values: 
+  - { idRef: 'ID', name: 'identifier', usage: O }
+  - { idRef: 'ST', name: 'text', usage: O }
+  - { idRef: 'ST', name: 'name of coding system', usage: O }
+  - { idRef: 'ST', name: 'alternate identifier', usage: O }
+  - { idRef: 'ST', name: 'alternate text', usage: O }
+  - { idRef: 'ST', name: 'name of alternate coding system', usage: O }
+- id: 'CE_0131'
+  name: 'CE_NORM mit Tab. 0131'
+  values: 
+  - { idRef: 'ID', name: 'identifier', usage: O }
+  - { idRef: 'ST', name: 'text', usage: O }
+  - { idRef: 'ST', name: 'name of coding system', usage: O }
+  - { idRef: 'ST', name: 'alternate identifier', usage: O }
+  - { idRef: 'ST', name: 'alternate text', usage: O }
+  - { idRef: 'ST', name: 'name of alternate coding system', usage: O }
+- id: 'CE_0132'
+  values: 
+  - { idRef: 'ID', name: 'identifier', usage: O }
+  - { idRef: 'ST', name: 'text', usage: O }
+  - { idRef: 'ST', name: 'name of coding system', usage: O }
+  - { idRef: 'ST', name: 'alternate identifier', usage: O }
+  - { idRef: 'ST', name: 'alternate text', usage: O }
+  - { idRef: 'ST', name: 'name of alternate coding system', usage: O }
+- id: 'CE_0160'
+  name: 'CE_NORM mit Tab. 0160'
+  values: 
+  - { idRef: 'ID', name: 'identifier', usage: O }
+  - { idRef: 'ST', name: 'text', usage: O }
+  - { idRef: 'ST', name: 'name of coding system', usage: O }
+  - { idRef: 'ST', name: 'alternate identifier', usage: O }
+  - { idRef: 'ST', name: 'alternate text', usage: O }
+  - { idRef: 'ST', name: 'name of alternate coding system', usage: O }
+- id: 'CE_0162'
+  name: 'CE_NORM mit Tab. 0162'
+  values: 
+  - { idRef: 'ID', name: 'identifier', usage: O }
+  - { idRef: 'ST', name: 'text', usage: O }
+  - { idRef: 'ST', name: 'name of coding system', usage: O }
+  - { idRef: 'ST', name: 'alternate identifier', usage: O }
+  - { idRef: 'ST', name: 'alternate text', usage: O }
+  - { idRef: 'ST', name: 'name of alternate coding system', usage: O }
+- id: 'CE_0163'
+  name: 'CE_NORM mit Tab. 0163'
+  values: 
+  - { idRef: 'ID', name: 'identifier', usage: O }
+  - { idRef: 'ST', name: 'text', usage: O }
+  - { idRef: 'ST', name: 'name of coding system', usage: O }
+  - { idRef: 'ST', name: 'alternate identifier', usage: O }
+  - { idRef: 'ST', name: 'alternate text', usage: O }
+  - { idRef: 'ST', name: 'name of alternate coding system', usage: O }
+- id: 'CE_0164'
+  name: 'CE_NORM mit Tab. 0164'
+  values: 
+  - { idRef: 'ID', name: 'identifier', usage: O }
+  - { idRef: 'ST', name: 'text', usage: O }
+  - { idRef: 'ST', name: 'name of coding system', usage: O }
+  - { idRef: 'ST', name: 'alternate identifier', usage: O }
+  - { idRef: 'ST', name: 'alternate text', usage: O }
+  - { idRef: 'ST', name: 'name of alternate coding system', usage: O }
+- id: 'CE_0165'
+  name: 'CE_NORM mit Tab. 0165'
+  values: 
+  - { idRef: 'ID', name: 'identifier', usage: O }
+  - { idRef: 'ST', name: 'text', usage: O }
+  - { idRef: 'ST', name: 'name of coding system', usage: O }
+  - { idRef: 'ST', name: 'alternate identifier', usage: O }
+  - { idRef: 'ST', name: 'alternate text', usage: O }
+  - { idRef: 'ST', name: 'name of alternate coding system', usage: O }
+- id: 'CE_0175'
+  name: 'CE_NORM mit Tab. 0175'
+  values: 
+  - { idRef: 'ID', name: 'identifier', usage: O }
+  - { idRef: 'ST', name: 'text', usage: O }
+  - { idRef: 'ST', name: 'name of coding system', usage: O }
+  - { idRef: 'ST', name: 'alternate identifier', usage: O }
+  - { idRef: 'ST', name: 'alternate text', usage: O }
+  - { idRef: 'ST', name: 'name of alternate coding system', usage: O }
+- id: 'CE_0181'
+  name: 'CE_NORM mit Tab. 0181'
+  values: 
+  - { idRef: 'ID', name: 'identifier', usage: O }
+  - { idRef: 'ST', name: 'text', usage: O }
+  - { idRef: 'ST', name: 'name of coding system', usage: O }
+  - { idRef: 'ST', name: 'alternate identifier', usage: O }
+  - { idRef: 'ST', name: 'alternate text', usage: O }
+  - { idRef: 'ST', name: 'name of alternate coding system', usage: O }
+- id: 'CE_0184'
+  name: 'CE_NORM mit Tab. 0184'
+  values: 
+  - { idRef: 'ID', name: 'identifier', usage: O }
+  - { idRef: 'ST', name: 'text', usage: O }
+  - { idRef: 'ST', name: 'name of coding system', usage: O }
+  - { idRef: 'ST', name: 'alternate identifier', usage: O }
+  - { idRef: 'ST', name: 'alternate text', usage: O }
+  - { idRef: 'ST', name: 'name of alternate coding system', usage: O }
+- id: 'CK'
+  name: 'composite ID with check digit'
+  values: 
+  - { idRef: 'NM', name: 'ID number (NM)', usage: O }
+  - { idRef: 'NM', name: 'Check digit', usage: O }
+  - { idRef: 'ID', name: 'Check digit scheme', usage: O }
+- id: 'CK_ACCOUNT_NO'
+  name: 'Abrechnungsnummer'
+  values: 
+  - { idRef: 'NM', name: 'account number', usage: O }
+  - { idRef: 'NM', name: 'Check digit', usage: O }
+  - { idRef: 'ID', name: 'Check digit scheme', usage: O }
+  - { idRef: 'ID', name: 'Facility ID', usage: O }
+- id: 'CK_PAT_ID'
+  name: 'CK für Patienten-IDs'
+  values: 
+  - { idRef: 'ST', name: 'Patient ID', usage: O }
+  - { idRef: 'NM', name: 'Check digit', usage: O }
+  - { idRef: 'ID', name: 'Check digit scheme', usage: O }
+  - { idRef: 'ID', name: 'Facility ID', usage: O }
+- id: 'CM_ABS_RANGE'
+  name: 'absolute range'
+  values: 
+  - { idRef: 'CM_RANGE', name: 'Range', usage: O }
+  - { idRef: 'NM', name: 'Numeric Change', usage: O }
+  - { idRef: 'NM', name: 'Percent per Change', usage: O }
+  - { idRef: 'NM', name: 'Days', usage: O }
+- id: 'CM_AUI'
+  name: 'authorization information'
+  values: 
+  - { idRef: 'ST', name: 'authorization number', usage: O }
+  - { idRef: 'DT', name: 'date', usage: O }
+  - { idRef: 'ST', name: 'source', usage: O }
+- id: 'CM_BATCH_TOTAL'
+  name: 'CM for Batch Totals'
+  values: 
+  - { idRef: 'NM', name: 'Batch total 1', usage: O }
+  - { idRef: 'NM', name: 'Batch total 2', usage: O }
+- id: 'CM_CCD'
+  name: 'charge time'
+  values: 
+  - { idRef: 'ID', name: 'When to Charge', usage: O }
+  - { idRef: 'TS', name: 'date/time', usage: O }
+- id: 'CM_DDI'
+  name: 'daily deductible'
+  values: 
+  - { idRef: 'ST', name: 'delay days', usage: O }
+  - { idRef: 'NM', name: 'amount', usage: O }
+  - { idRef: 'NM', name: 'number of days', usage: O }
+- id: 'CM_DIN'
+  name: 'activation date'
+  values: 
+  - { idRef: 'TS', name: 'Date', usage: O }
+  - { idRef: 'CE', name: 'institution name', usage: O }
+- id: 'CM_DLD'
+  name: 'discharge location'
+  values: 
+  - { idRef: 'ID', name: 'discharge location', usage: O }
+  - { idRef: 'TS', name: 'effective date', usage: O }
+- id: 'CM_DLT'
+  name: 'delta check'
+  values: 
+  - { idRef: 'CM_RANGE', name: 'Range', usage: O }
+  - { idRef: 'NM', name: 'numeric threshold', usage: O }
+  - { idRef: 'ST', name: 'change', usage: O }
+  - { idRef: 'NM', name: 'length of time-days', usage: O }
+- id: 'CM_DTN'
+  name: 'Day Type and Number'
+  values: 
+  - { idRef: 'ID', name: 'day type', usage: O }
+  - { idRef: 'NM', name: 'number of days', usage: O }
+- id: 'CM_EIP'
+  name: 'parent order'
+  values: 
+  - { idRef: 'ST', name: 'parent''s placer order number', usage: O }
+  - { idRef: 'ST', name: 'parent''s filler order number', usage: O }
+- id: 'CM_ELD'
+  name: 'error'
+  values: 
+  - { idRef: 'ST', name: 'Segment-ID', usage: O }
+  - { idRef: 'NM', name: 'Sequence', usage: O }
+  - { idRef: 'NM', name: 'Field-Position', usage: O }
+  - { idRef: 'CE', name: 'Code Identifying Error', usage: O }
+- id: 'CM_FILLER'
+  name: 'Bearbeitungsnummer der Leistungsstelle'
+  values: 
+  - { idRef: 'ID', name: 'unique filler id', usage: O }
+  - { idRef: 'ID', name: 'filler application ID', usage: O }
+- id: 'CM_FINANCE'
+  name: 'CM für Finanzen'
+  values: 
+  - { idRef: 'ID', name: 'financial class ID', usage: O }
+  - { idRef: 'TS', name: 'effective date', usage: O }
+- id: 'CM_GROUP_ID'
+  name: 'Auftragsgruppennummer'
+  values: 
+  - { idRef: 'ID', name: 'unique group id', usage: O }
+  - { idRef: 'ID', name: 'placer application id', usage: O }
+- id: 'CM_INTERNAL_LOCATION'
+  name: 'CM für Ortsangaben im Krankenhaus'
+  values: 
+  - { idRef: 'ID', name: 'nurse unit (Station)', usage: O }
+  - { idRef: 'ID', name: 'Room', usage: O }
+  - { idRef: 'ID', name: 'Bed', usage: O }
+  - { idRef: 'ID', name: 'Facility ID', usage: O }
+  - { idRef: 'ID', name: 'Bed Status', usage: O }
+  - { idRef: 'ID', name: 'Etage', usage: O }
+  - { idRef: 'ID', name: 'Klinik', usage: O }
+  - { idRef: 'ID', name: 'Zentrum', usage: O }
+- id: 'CM_JOB_CODE'
+  name: 'Berufsbezeichnung'
+  values: 
+  - { idRef: 'ID', name: 'job code', usage: O }
+  - { idRef: 'ID', name: 'employee classification', usage: O }
+- id: 'CM_LA1'
+  name: 'Location with address information'
+  values: 
+  - { idRef: 'CM_INTERNAL_LOCATION', name: 'Dispense / Deliver to Location', usage: O }
+  - { idRef: 'AD', name: 'location', usage: O }
+- id: 'CM_LICENSE_NO'
+  name: 'CM für Führerscheinlizenzen'
+  values: 
+  - { idRef: 'ST', name: 'License Number', usage: O }
+  - { idRef: 'ST', name: 'issuing state,province,country', usage: O }
+- id: 'CM_MOC'
+  name: 'Charge To Practise'
+  values: 
+  - { idRef: 'ST', name: 'dollar amount', usage: O }
+  - { idRef: 'ST', name: 'charge code', usage: O }
+- id: 'CM_MSG'
+  name: 'Message Type'
+  values: 
+  - { idRef: 'ID', name: 'message type', usage: O }
+  - { idRef: 'ID', name: 'Trigger Event', usage: O }
+- id: 'CM_NDL'
+  name: 'observing practitioner'
+  values: 
+  - { idRef: 'CN_PERSON', name: 'interpreter / technician', usage: O }
+  - { idRef: 'TS', name: 'start date/time', usage: O }
+  - { idRef: 'TS', name: 'end date/time', usage: O }
+  - { idRef: 'CM_INTERNAL_LOCATION', name: 'location', usage: O }
+- id: 'CM_OCD'
+  name: 'occurence'
+  values: 
+  - { idRef: 'ID', name: 'occurrence code', usage: O }
+  - { idRef: 'DT', name: 'occurrence date', usage: O }
+- id: 'CM_OSP'
+  name: 'occurence span'
+  values: 
+  - { idRef: 'ID', name: 'occurrence span code', usage: O }
+  - { idRef: 'DT', name: 'occurrence span start date', usage: O }
+  - { idRef: 'DT', name: 'occurrence span stop date', usage: O }
+- id: 'CM_PAT_ID'
+  name: 'Patient ID'
+  values: 
+  - { idRef: 'ST', name: 'Patient ID', usage: O }
+  - { idRef: 'NM', name: 'Check digit', usage: O }
+  - { idRef: 'ID', name: 'Check digit scheme', usage: O }
+  - { idRef: 'ID', name: 'Facility ID', usage: O }
+  - { idRef: 'ID', name: 'type', usage: O }
+- id: 'CM_PAT_ID_0192'
+  name: 'Patient ID with table 0192'
+  values: 
+  - { idRef: 'ST', name: 'Patient ID', usage: O }
+  - { idRef: 'NM', name: 'Check digit', usage: O }
+  - { idRef: 'ID', name: 'Check digit scheme', usage: O }
+  - { idRef: 'ID', name: 'Facility ID', usage: O }
+  - { idRef: 'ID', name: 'type', usage: O }
+- id: 'CM_PCF'
+  name: 'Pre-certification required'
+  values: 
+  - { idRef: 'ID', name: 'pre-certification patient type', usage: O }
+  - { idRef: 'ID', name: 'pre-certication required', usage: O }
+  - { idRef: 'TS', name: 'pre-certification window', usage: O }
+- id: 'CM_PEN'
+  name: 'penalty'
+  values: 
+  - { idRef: 'ID', name: 'Penalty ID', usage: O }
+  - { idRef: 'NM', name: 'penalty amount', usage: O }
+- id: 'CM_PIP'
+  name: 'Privileges'
+  values: 
+  - { idRef: 'CE', name: 'Privilege', usage: O }
+  - { idRef: 'CE', name: 'privilege class', usage: O }
+  - { idRef: 'DT', name: 'expiration date', usage: O }
+  - { idRef: 'DT', name: 'activation date', usage: O }
+- id: 'CM_PLACER'
+  name: 'Auftragsnummer des Auftraggebers / der auftraggebenden Stelle'
+  values: 
+  - { idRef: 'ID', name: 'unique placer id', usage: O }
+  - { idRef: 'ID', name: 'placer application', usage: O }
+- id: 'CM_PLN'
+  name: 'Practitioner ID Numbers'
+  values: 
+  - { idRef: 'ST', name: 'ID number', usage: O }
+  - { idRef: 'ID', name: 'type of ID number (ID)', usage: O }
+  - { idRef: 'ST', name: 'state/other qualifiying info', usage: O }
+- id: 'CM_POSITION'
+  name: 'Sitzplatz bzw. Saal / Tisch / Stuhl'
+  values: 
+  - { idRef: 'ST', name: 'Saal', usage: O }
+  - { idRef: 'ST', name: 'Tisch', usage: O }
+  - { idRef: 'ST', name: 'Stuhl', usage: O }
+- id: 'CM_PRACTITIONER'
+  name: 'Maßnahme durchgeführt von'
+  values: 
+  - { idRef: 'CN_PERSON', name: 'Procedure Practitioner  ID', usage: O }
+  - { idRef: 'ID', name: 'procedure practitioner type', usage: O }
+- id: 'CM_PTA'
+  name: 'Policy Type'
+  values: 
+  - { idRef: 'ID', name: 'policy type', usage: O }
+  - { idRef: 'ID', name: 'amount class', usage: O }
+  - { idRef: 'NM', name: 'amount', usage: O }
+- id: 'CM_RANGE'
+  name: 'Wertebereich'
+  values: 
+  - { idRef: 'NM', name: 'Low Value', usage: O }
+  - { idRef: 'NM', name: 'High Value', usage: O }
+- id: 'CM_RFR'
+  name: 'reference range'
+  values: 
+  - { idRef: 'CM_RANGE', name: 'Reference Range', usage: O }
+  - { idRef: 'ID', name: 'Sex', usage: O }
+  - { idRef: 'CM_RANGE', name: 'Age Range', usage: O }
+  - { idRef: 'CM_RANGE', name: 'Gestational Age Range', usage: O }
+  - { idRef: 'ST', name: 'Species', usage: O }
+  - { idRef: 'ID', name: 'Race / Subspecies', usage: O }
+  - { idRef: 'ST', name: 'Text Condition', usage: O }
+- id: 'CM_RI'
+  name: 'interval'
+  values: 
+  - { idRef: 'ST', name: 'repeat pattern', usage: O }
+  - { idRef: 'ST', name: 'explicit time intevall', usage: O }
+- id: 'CM_RMC'
+  name: 'Room Coverage'
+  values: 
+  - { idRef: 'ID', name: 'room type', usage: O }
+  - { idRef: 'ID', name: 'amount type', usage: O }
+  - { idRef: 'NM', name: 'coverage amount', usage: O }
+- id: 'CM_SPD'
+  name: 'Specialty'
+  values: 
+  - { idRef: 'ST', name: 'specialty name', usage: O }
+  - { idRef: 'ST', name: 'governing board', usage: O }
+  - { idRef: 'ID', name: 'eligible or certified', usage: O }
+  - { idRef: 'DT', name: 'date of certification', usage: O }
+- id: 'CM_SPS'
+  name: 'specimen source'
+  values: 
+  - { idRef: 'CE', name: 'Specimen source name or code', usage: O }
+  - { idRef: 'TX', name: 'additives', usage: O }
+  - { idRef: 'TX', name: 'freetext', usage: O }
+  - { idRef: 'CE', name: 'body site', usage: O }
+  - { idRef: 'CE', name: 'site modifier', usage: O }
+- id: 'CM_UVC'
+  name: 'Value code and amount'
+  values: 
+  - { idRef: 'ID', name: 'Value code', usage: O }
+  - { idRef: 'NM', name: 'value amount', usage: O }
+- id: 'CM_VR'
+  name: 'value qualifier'
+  values: 
+  - { idRef: 'ST', name: 'First data code value', usage: O }
+  - { idRef: 'ST', name: 'Last data code calue', usage: O }
+- id: 'CN_PERSON'
+  name: 'CN für Personen'
+  values: 
+  - { idRef: 'ID', name: 'ID number', usage: O }
+  - { idRef: 'ST', name: 'familiy name', usage: O }
+  - { idRef: 'ST', name: 'given name', usage: O }
+  - { idRef: 'ST', name: 'middle initial or name', usage: O }
+  - { idRef: 'ST', name: 'suffix (e.g. JR or III)', usage: O }
+  - { idRef: 'ST', name: 'prefix (e.g. DR)', usage: O }
+  - { idRef: 'ST', name: 'degree (e.g. MD)', usage: O }
+  - { idRef: 'ID', name: 'source table id', usage: O }
+- id: 'CN_PHYSICIAN'
+  name: 'CN für Ärzte'
+  values: 
+  - { idRef: 'ID', name: 'physician ID', usage: O }
+  - { idRef: 'ST', name: 'familiy name', usage: O }
+  - { idRef: 'ST', name: 'given name', usage: O }
+  - { idRef: 'ST', name: 'middle initial or name', usage: O }
+  - { idRef: 'ST', name: 'suffix (e.g. JR or III)', usage: O }
+  - { idRef: 'ST', name: 'prefix (e.g. DR)', usage: O }
+  - { idRef: 'ST', name: 'degree (e.g. MD)', usage: O }
+  - { idRef: 'ID', name: 'source table id', usage: O }
+  - { idRef: 'AD', name: 'Adresse', usage: O }
+  - { idRef: 'TN', name: 'Telefon', usage: O }
+  - { idRef: 'TN', name: 'Faxnummer', usage: O }
+  - { idRef: 'TN', name: 'Online-Nummer', usage: O }
+  - { idRef: 'ST', name: 'E-Mail', usage: O }
+- id: 'CQ_QUANTITY'
+  name: 'CQ_QUANTITY'
+  values: 
+  - { idRef: 'ST', name: 'quantity', usage: O }
+  - { idRef: 'ST', name: 'units', usage: O }
+- id: 'PN'
+  name: 'person name'
+  values: 
+  - { idRef: 'ST', name: 'familiy name', usage: O }
+  - { idRef: 'ST', name: 'given name', usage: O }
+  - { idRef: 'ST', name: 'middle initial or name', usage: O }
+  - { idRef: 'ST', name: 'suffix (e.g. JR or III)', usage: O }
+  - { idRef: 'ST', name: 'prefix (e.g. DR)', usage: O }
+  - { idRef: 'ST', name: 'degree (e.g. MD)', usage: O }
+- id: 'TQ'
+  name: 'timing quantity'
+  values: 
+  - { idRef: 'CQ_QUANTITY', name: 'Quantity', usage: O }
+  - { idRef: 'CM_RI', usage: O }
+  - { idRef: 'ST', name: 'duration', usage: O }
+  - { idRef: 'TS', name: 'start date/time', usage: O }
+  - { idRef: 'TS', name: 'end date/time', usage: O }
+  - { idRef: 'ID', name: 'priority', usage: O }
+  - { idRef: 'ST', name: 'condition', usage: O }
+  - { idRef: 'TX', name: 'text (TX)', usage: O }
+  - { idRef: 'ID', name: 'conjunction', usage: O }
+  - { idRef: 'ST', name: 'order sequencing', usage: O }
+- id: 'TS'
+  name: 'time stamp'
+  values: 
+  - { idRef: 'ST', name: 'time of an event', usage: O }
+  - { idRef: 'ST', name: 'degree of precision', usage: O }
+- id: 'varies'
+  name: 'variable data type'
+  values: 
+  - { idRef: 'ST', name: 'varies', usage: O }
+elements: 
+  - { id: 'DT', type: ST, minLength: 0, maxLength: 999999 }
+  - { id: 'FT', type: ST, minLength: 0, maxLength: 999999 }
+  - { id: 'ID', type: ST, minLength: 0, maxLength: 999999 }
+  - { id: 'NM', type: ST, minLength: 0, maxLength: 999999 }
+  - { id: 'SI', type: ST, minLength: 0, maxLength: 999999 }
+  - { id: 'ST', type: ST, minLength: 0, maxLength: 999999 }
+  - { id: 'TM', type: ST, minLength: 0, maxLength: 999999 }
+  - { id: 'TN', type: ST, minLength: 0, maxLength: 999999 }
+  - { id: 'TX', type: ST, minLength: 0, maxLength: 999999 }
+  - { id: 'varies', name: 'variable data type', type: varies, minLength: 0, maxLength: 999999 }

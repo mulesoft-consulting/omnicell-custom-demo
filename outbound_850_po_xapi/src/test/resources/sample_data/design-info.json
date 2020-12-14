@@ -1,0 +1,8 @@
+{
+  "sampleData": {
+    "38dcce19-d003-42a8-a0f3-df5252a91cf0": {
+      "payload": "sample_data/json.json",
+      "vars-interchangeLookup": "sample_data/java.dwl"
+    }
+  }
+}

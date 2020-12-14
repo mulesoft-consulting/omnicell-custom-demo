@@ -1,0 +1,6 @@
+{
+    "HealthCloudGA__Encounter__c": "@{Visit.id}",
+    "HealthCloudGA__TypeLabel__c": "JASON PATERA",
+    "HealthCloudGA__Practitioner__c": "55617",
+    "HealthCloudGA__TypeCode__c": ""
+}

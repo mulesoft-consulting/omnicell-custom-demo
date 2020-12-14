@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:munit="http://www.mulesoft.org/schema/mule/munit" xmlns:munit-tools="http://www.mulesoft.org/schema/mule/munit-tools"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xsi:schemaLocation="
+		http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+		http://www.mulesoft.org/schema/mule/munit http://www.mulesoft.org/schema/mule/munit/current/mule-munit.xsd
+		http://www.mulesoft.org/schema/mule/munit-tools  http://www.mulesoft.org/schema/mule/munit-tools/current/mule-munit-tools.xsd">
+	<munit:config name="implementation-v2_3-suite.xml" />
+	<munit:test name="hl7-v2_3-process-test-new-patient" doc:id="6fb3a7b6-8c17-4318-89f1-faa2f3eb30e4">
+		<munit:behavior >
+		<munit-tools:mock-when doc:name="Mock Check Existing Person Account" doc:id="bbba59a4-1a82-4af5-a87e-fa6f979559c2" processor="salesforce:query">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="Check If Person Account Exists" attributeName="doc:name" />
+					<munit-tools:with-attribute whereValue="Salesforce_Config" attributeName="config-ref" />
+				</munit-tools:with-attributes>
+				
+				<munit-tools:then-return >
+					<munit-tools:variables >
+						<munit-tools:variable key="existingPersonAccountId" value="#[output application/java --- null]" mediaType="application/java" encoding="UTF-8" />
+					</munit-tools:variables>
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			
+			<munit-tools:mock-when doc:name="Mock Check Existing Patient" doc:id="c8b48c41-086e-45a3-a09f-693a60f73906" processor="salesforce:query">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="Check If EHR Patient Exists" attributeName="doc:name" />
+					<munit-tools:with-attribute whereValue="Salesforce_Config" attributeName="config-ref" />
+				</munit-tools:with-attributes>
+				
+				<munit-tools:then-return >
+					<munit-tools:variables >
+						<munit-tools:variable key="existingEHRPatientId" value="#[output application/java --- null]" mediaType="application/java" encoding="UTF-8" />
+					</munit-tools:variables>
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			
+			
+			<munit-tools:mock-when doc:name="Mock Get Person Account RecordTypeId" doc:id="2e582940-06dd-46ce-a1c9-8f8f936473dd" processor="salesforce:query">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="Get Person Account RecordTypeId" attributeName="doc:name" />
+					<munit-tools:with-attribute whereValue="Salesforce_Config" attributeName="config-ref" />
+				</munit-tools:with-attributes>
+				
+				<munit-tools:then-return >
+					<munit-tools:variables >
+						<munit-tools:variable key="RecordType" value="#[output application/java --- readUrl('classpath://hl7v23processtestnewpatient/mock_variable_PersonAccountRecordType.dwl')]" mediaType="application/java" encoding="UTF-8" /></munit-tools:variables>
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit-tools:mock-when doc:name="Mock Execute composite request" doc:id="e6473b30-08de-4892-80b8-7561e95d6475" processor="salesforce-composite:execute-composite-request">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="ef4b32b8-c838-4097-8da0-ac5d7246844f" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value="#[output application/java --- readUrl('classpath://hl7v23processtestnewpatient/mock_payload.dwl')]" mediaType="application/java" encoding="UTF-8" />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit:set-event doc:name="Set Input" doc:id="6d34aa78-f7ea-4a40-86f8-fca1de2a889d" >
+				<munit:payload value="#[output text/plain --- readUrl('classpath://hl7v23processtestnewpatient/set-event_payload.dwl')]" encoding="UTF-8" mediaType="text/plain" />
+				<munit:attributes value="#[readUrl('classpath://hl7v23processtestnewpatient/set-event_attributes.dwl')]" />
+			</munit:set-event>
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name="Flow-ref to hl7-v2_3-process" doc:id="eab8ff19-63b0-4e4c-b4e1-b2a888f267b9" name="implementation-v2-3_hl7-process"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert doc:name="Assert payload" doc:id="13473fbb-2a9e-4c54-96ab-ec002d75429d" message="The payload does not match">
+				<munit-tools:that ><![CDATA[#[%dw 2.0
+import hl7v23processtestnewpatient::assert_expression_payload
+---
+assert_expression_payload::main({payload: payload, attributes: attributes, vars: vars})]]]></munit-tools:that>
+			</munit-tools:assert>
+			<munit-tools:verify-call doc:name="Verify [INFO] Salesforce response" doc:id="aff1c1c8-fcbc-4bf6-a290-ab93211f4370" processor="logger" times="1">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="c2f3b9ef-ab3b-4a1a-80f1-2a9776e77d26" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+			</munit-tools:verify-call>
+		</munit:validation>
+	</munit:test>
+
+</mule>

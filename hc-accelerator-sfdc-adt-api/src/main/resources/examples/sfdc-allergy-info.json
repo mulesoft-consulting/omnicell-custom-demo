@@ -1,0 +1,10 @@
+[{
+    "HealthCloudGA__Account__c": "@{Account.id}",
+    "HealthCloudGA__SensitivityTypeLabel__c": "DRUG INGREDI",
+    "HealthCloudGA__StatusSystem__c": "3102",
+    "HealthCloudGA__Substance255__c": "POLLEN EXTRACTS",
+    "HealthCloudGA__SubstanceCodeSystem__c": "HIC",
+    "HealthCloudGA__CriticalityLabel__c": "Mild",
+    "HealthCloudGA__Reaction255__c": "Acne",
+    "HealthCloudGA__RecordedDate__c": "2018-08-10"
+}]

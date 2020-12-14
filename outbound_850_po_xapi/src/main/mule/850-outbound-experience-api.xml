@@ -1,0 +1,344 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mule xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:apikit="http://www.mulesoft.org/schema/mule/mule-apikit" xmlns:db="http://www.mulesoft.org/schema/mule/db" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:secure-properties="http://www.mulesoft.org/schema/mule/secure-properties" xmlns:sftp="http://www.mulesoft.org/schema/mule/sftp" xmlns:x12="http://www.mulesoft.org/schema/mule/x12" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd http://www.mulesoft.org/schema/mule/mule-apikit http://www.mulesoft.org/schema/mule/mule-apikit/current/mule-apikit.xsd  http://www.mulesoft.org/schema/mule/sftp http://www.mulesoft.org/schema/mule/sftp/current/mule-sftp.xsd http://www.mulesoft.org/schema/mule/secure-properties http://www.mulesoft.org/schema/mule/secure-properties/current/mule-secure-properties.xsd http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd http://www.mulesoft.org/schema/mule/x12 http://www.mulesoft.org/schema/mule/x12/current/mule-x12.xsd http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/current/mule-db.xsd">
+    <http:listener-config name="850-outbound-experience-api-httpListenerConfig">
+        <http:listener-connection host="0.0.0.0" port="8081" />
+    </http:listener-config>
+    <x12:config name="X12_EDI_850_Config" doc:name="X12 EDI Config" doc:id="a6c78013-c704-4282-afaa-dc53c3a43cbb" interchangeIdQualifierSelf="12" interchangeIdSelf="4252224900" groupIdSelf="4252224900" interchangeIdQualifierPartner="01" interchangeIdPartner="XYZSUPP" groupIdPartner="XYZSUPP" requireUniqueInterchanges="false">
+        <x12:schemas>
+            <x12:schema value="/x12/004010/850.esl" />
+        </x12:schemas>
+    </x12:config>
+    <apikit:config name="850-outbound-experience-api-config" api="resource::2a8f3446-f335-4357-a946-52e19567502c:850-outbound-experience-api:1.0.7:raml:zip:850-outbound-experience-api.raml" outboundHeadersMapName="outboundHeaders" httpStatusVarName="httpStatus" />
+    <sftp:config name="SFTP_Config" doc:name="SFTP Config" doc:id="ab16341a-d4e0-4925-b570-5dbe5f4548fb">
+        <sftp:connection host="${sftp.host}" port="${sftp.port}" username="${secure::sftp.username}" password="${secure::sftp.password}" />
+    </sftp:config>
+    <secure-properties:config name="Secure_Properties_Config" doc:name="Secure Properties Config" doc:id="96e62a9a-7e85-4d19-ac0b-e5b392c5ae0a" file="config/config-secure.yaml" key="${encryption.key}">
+        <secure-properties:encrypt algorithm="Blowfish" />
+    </secure-properties:config>
+    <global-property doc:name="Global Property" doc:id="eb3b6acc-a579-4c7c-965c-88cab309123f" name="encryption.key" value="mulesoft_password" />
+    <configuration-properties doc:name="Configuration properties" doc:id="7c8b9dfc-1687-41b9-a8e2-1a186793696c" file="config/config.yaml" />
+    <db:config name="MySQL_Database_Config" doc:name="Database Config" doc:id="03fa1eb4-d09b-43ba-8066-02bf2e998589">
+        <db:my-sql-connection host="eksprod.tools.mulesoft.com" port="31974" user="admin" password="fiducialGrille@5" database="B2B" />
+    </db:config>
+    <flow name="850-outbound-experience-api-main">
+        <http:listener config-ref="850-outbound-experience-api-httpListenerConfig" path="/api/*">
+            <http:response statusCode="#[vars.httpStatus default 200]">
+                <http:headers>#[vars.outboundHeaders default {}]</http:headers>
+            </http:response>
+            <http:error-response statusCode="#[vars.httpStatus default 500]">
+                <http:body>#[payload]</http:body>
+                <http:headers>#[vars.outboundHeaders default {}]</http:headers>
+            </http:error-response>
+        </http:listener>
+        <apikit:router config-ref="850-outbound-experience-api-config" />
+        <error-handler>
+            <on-error-propagate type="APIKIT:BAD_REQUEST">
+                <ee:transform xsi:schemaLocation="http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+                    <ee:message>
+                        <ee:set-payload><![CDATA[%dw 2.0
+output application/json
+---
+{message: "Bad request"}]]></ee:set-payload>
+                    </ee:message>
+                    <ee:variables>
+                        <ee:set-variable variableName="httpStatus">400</ee:set-variable>
+                    </ee:variables>
+                </ee:transform>
+            </on-error-propagate>
+            <on-error-propagate type="APIKIT:NOT_FOUND">
+                <ee:transform xsi:schemaLocation="http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+                    <ee:message>
+                        <ee:set-payload><![CDATA[%dw 2.0
+output application/json
+---
+{message: "Resource not found"}]]></ee:set-payload>
+                    </ee:message>
+                    <ee:variables>
+                        <ee:set-variable variableName="httpStatus">404</ee:set-variable>
+                    </ee:variables>
+                </ee:transform>
+            </on-error-propagate>
+            <on-error-propagate type="APIKIT:METHOD_NOT_ALLOWED">
+                <ee:transform xsi:schemaLocation="http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+                    <ee:message>
+                        <ee:set-payload><![CDATA[%dw 2.0
+output application/json
+---
+{message: "Method not allowed"}]]></ee:set-payload>
+                    </ee:message>
+                    <ee:variables>
+                        <ee:set-variable variableName="httpStatus">405</ee:set-variable>
+                    </ee:variables>
+                </ee:transform>
+            </on-error-propagate>
+            <on-error-propagate type="APIKIT:NOT_ACCEPTABLE">
+                <ee:transform xsi:schemaLocation="http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+                    <ee:message>
+                        <ee:set-payload><![CDATA[%dw 2.0
+output application/json
+---
+{message: "Not acceptable"}]]></ee:set-payload>
+                    </ee:message>
+                    <ee:variables>
+                        <ee:set-variable variableName="httpStatus">406</ee:set-variable>
+                    </ee:variables>
+                </ee:transform>
+            </on-error-propagate>
+            <on-error-propagate type="APIKIT:UNSUPPORTED_MEDIA_TYPE">
+                <ee:transform xsi:schemaLocation="http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+                    <ee:message>
+                        <ee:set-payload><![CDATA[%dw 2.0
+output application/json
+---
+{message: "Unsupported media type"}]]></ee:set-payload>
+                    </ee:message>
+                    <ee:variables>
+                        <ee:set-variable variableName="httpStatus">415</ee:set-variable>
+                    </ee:variables>
+                </ee:transform>
+            </on-error-propagate>
+            <on-error-propagate type="APIKIT:NOT_IMPLEMENTED">
+                <ee:transform xsi:schemaLocation="http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+                    <ee:message>
+                        <ee:set-payload><![CDATA[%dw 2.0
+output application/json
+---
+{message: "Not Implemented"}]]></ee:set-payload>
+                    </ee:message>
+                    <ee:variables>
+                        <ee:set-variable variableName="httpStatus">501</ee:set-variable>
+                    </ee:variables>
+                </ee:transform>
+            </on-error-propagate>
+        </error-handler>
+    </flow>
+    <flow name="850-outbound-experience-api-console">
+        <http:listener config-ref="850-outbound-experience-api-httpListenerConfig" path="/console/*">
+            <http:response statusCode="#[vars.httpStatus default 200]">
+                <http:headers>#[vars.outboundHeaders default {}]</http:headers>
+            </http:response>
+            <http:error-response statusCode="#[vars.httpStatus default 500]">
+                <http:body>#[payload]</http:body>
+                <http:headers>#[vars.outboundHeaders default {}]</http:headers>
+            </http:error-response>
+        </http:listener>
+        <apikit:console config-ref="850-outbound-experience-api-config" />
+        <error-handler>
+            <on-error-propagate type="APIKIT:NOT_FOUND">
+                <ee:transform xsi:schemaLocation="http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+                    <ee:message>
+                        <ee:set-payload><![CDATA[%dw 2.0
+output application/json
+---
+{message: "Resource not found"}]]></ee:set-payload>
+                    </ee:message>
+                    <ee:variables>
+                        <ee:set-variable variableName="httpStatus">404</ee:set-variable>
+                    </ee:variables>
+                </ee:transform>
+            </on-error-propagate>
+        </error-handler>
+    </flow>
+    <flow name="post:\sendPurchaseOrder:application\json:850-outbound-experience-api-config">
+        <set-variable value="#[payload.Pay_to_Name]" doc:name="Get Partner Name" doc:id="1924297d-094c-4787-8986-ca0ab4be4ec4" variableName="partnerName" />
+        <db:select doc:name="Lookup Interchange IDs" doc:id="70d418dd-03a3-4807-956e-c85bc974f9dd" config-ref="MySQL_Database_Config" target="interchangeLookup" targetValue="#[payload[0]]">
+            <db:sql><![CDATA[SELECT id, PartnerName, Interchange_ID_Qualifier, Interchange_ID FROM B2B.B2B_Partner_Info where PartnerName = :partnerName]]></db:sql>
+            <db:input-parameters><![CDATA[#[{'partnerName' : vars.partnerName}]]]></db:input-parameters>
+        </db:select>
+        <ee:transform doc:name="Prepare inbound payload for 850" doc:id="38dcce19-d003-42a8-a0f3-df5252a91cf0">
+            <ee:message>
+                <ee:set-payload><![CDATA[%dw 2.0
+import * from dw::core::Strings
+output application/java
+---
+{
+	"Delimiters": "*>U\n",
+	TransactionSets: {
+		v004010: {
+			"850": [{
+				Heading: {
+					"020_BEG": {
+						BEG01: "00",
+						BEG02: "BE",
+						BEG03: payload.No,
+						BEG05: payload.Order_Date as Date
+					},
+					"050_REF": [{
+						REF01: "IA",
+						REF02: payload.Buy_from_Vendor_No,
+						REF04: payload.Buy_from_Vendor_Name
+					}],
+					"060_PER": [{
+						PER01: "IC",
+						PER02: payload.Buy_from_Contact
+					}],
+					"080_FOB": [{
+						FOB01: payload.Shipment_Method_Code
+					}],
+					"130_ITD": [{
+						ITD01: if ( payload.Payment_Terms_Code == "30D" ) "01" else "14",
+						ITD03: payload.Payment_Discount_Percent as Number,
+						ITD06: payload.Due_Date as Date,
+						ITD12: payload.Payment_Terms_Code
+					}],
+					"150_DTM": [{
+						DTM01: "002",
+						DTM02: payload.Requested_Receipt_Date as Date
+					}],
+					"310_N1_Loop": [{
+						"310_N1": {
+							N101: "PE",
+							N102: payload.Pay_to_Name,
+							N103: "92",
+							N104: payload.Pay_to_Vendor_No
+						},
+						"330_N3": [{
+							N301: payload.Pay_to_Address,
+							N302: payload.Pay_to_Address_2 default ""
+						}],
+						"340_N4": [{
+							N401: payload.Pay_to_City,
+							N402: payload.Pay_to_County,
+							N403: payload.Pay_to_Post_Code,
+							N404: payload.Pay_to_Country_Region_Code
+						}]
+					},
+						{
+						"310_N1": {
+							N101: "PR",
+							N102: payload.CompanyInfo.Name,
+							N103: "92"
+						},
+						"330_N3": [{
+							N301: payload.CompanyInfo.Address,
+							N302: payload.CompanyInfo.Address_2 default ""
+						}],
+						"340_N4": [{
+							N401: payload.CompanyInfo.City,
+							N402: payload.CompanyInfo.County,
+							N403: payload.CompanyInfo.Post_Code,
+							N404: payload.CompanyInfo.Country_Region_Code
+						}]
+					},
+					{
+						"310_N1": {
+							N101: "ST",
+							N102: payload.Ship_to_Name,
+							N103: "92",
+							N104: payload.Location_Code
+						},
+						"330_N3": [{
+							N301: payload.Ship_to_Address,
+							N302: payload.Ship_to_Address_2 default ""
+						}],
+						"340_N4": [{
+							N401: payload.Ship_to_City,
+							N402: payload.Ship_to_County,
+							N403: payload.Ship_to_Post_Code,
+							N404: payload.Ship_to_Country_Region_Code
+						}]
+					},
+					{
+						"310_N1": {
+							N101: "VN",
+							N102: payload.Buy_from_Vendor_Name,
+							N103: "92",
+							N104: payload.Buy_from_Vendor_No
+						},
+						"330_N3": [{
+							N301: payload.Buy_from_Address,
+							N302: payload.Buy_from_Address_2 default ""
+						}],
+						"340_N4": [{
+							N401: payload.Buy_from_City,
+							N402: payload.Buy_from_County,
+							N403: payload.Buy_from_Post_Code
+						}]
+					}]
+				},
+				Detail: {
+					"010_PO1_Loop": payload.PurchaseOrderLines map ({
+						"010_PO1": {
+							PO101: $.Line_No,
+							PO102: $.Quantity as Number,
+							PO103: $.Unit_of_Measure_Code,
+							PO104: floor($.Direct_Unit_Cost as Number) default 0,
+							PO106: "IN",
+							PO107: $.No,
+							PO108: "VN",
+							PO110: "UP"
+						},
+						"040_CTP_Loop": [{
+							"040_CTP": {
+								CTP08: floor($.Line_Amount as Number)
+							}
+						}],
+						"050_PID_Loop": [{
+							"050_PID": {
+								PID01: "F",
+								PID02: "08"
+							}
+						}]
+					})
+				},
+				Summary: {
+					"010_CTT_Loop": {
+						"020_AMT": {
+							AMT01: "TT",
+							AMT02: floor (sum(payload.PurchaseOrderLines map $.Line_Amount as Number))
+						}
+					}
+				}
+			}]
+		}
+	},
+	Interchange: {
+		ISA01: "00",
+		ISA03: "00",
+		ISA05: "12",
+		ISA06: "4252224900     ",
+		ISA07: vars.interchangeLookup.Interchange_ID_Qualifier,
+		ISA08: rightPad(vars.interchangeLookup.Interchange_ID, 15),
+		ISA10: 1,
+		ISA11: "XX",
+		ISA12: "XXXXX"
+	},
+	Group: {
+		GS01: "PR",
+		GS02: "4252224900",
+		GS03: vars.interchangeLookup.Interchange_ID,
+		GS05: 1,
+		GS06: 1,
+		GS07: "XX",
+		GS08: "004010"
+	}
+}]]></ee:set-payload>
+            </ee:message>
+            <ee:variables>
+                <ee:set-variable variableName="inbound_payload"><![CDATA[%dw 2.0
+output application/java
+---
+payload]]></ee:set-variable>
+                <ee:set-variable variableName="output_filename"><![CDATA[%dw 2.0
+output application/java
+---
+p('sftp.outbound_850_dir') ++ "/" ++ payload.Pay_to_Name ++ "_" ++ payload.No ++ "_850.edi"]]></ee:set-variable>
+            </ee:variables>
+        </ee:transform>
+        <logger level="INFO" doc:name="Log JSON 850 payload to convert to X12" doc:id="11ba91fd-4a1e-4674-bbbb-68efda797da0" message="#[%dw 2.0 output application/json --- payload]" />
+        <x12:write doc:name="Write outbound EDI 850" doc:id="28afbf72-dac6-4c5e-b861-1690f333c7de" config-ref="X12_EDI_850_Config" />
+        <sftp:write doc:name="Send 850 EDI to Partner sFTP server" doc:id="a231f54b-67b4-404d-9070-d49c3b0b13c5" config-ref="SFTP_Config" path="#[vars.output_filename]" />
+        <logger level="INFO" doc:name="Log success message" doc:id="1ab48b2b-fcc7-4dc9-95e2-2771d2e8035e" message="#[&quot;Successfully sent 850 EDI document to partner sFTP server&quot;]" />
+        <ee:transform xsi:schemaLocation="http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+            <ee:message>
+                <ee:set-payload><![CDATA[%dw 2.0
+output application/json
+---
+{
+  status: "success",
+  "PO Number": vars.inbound_payload.No
+}]]></ee:set-payload>
+            </ee:message>
+        </ee:transform>
+    </flow>
+</mule>

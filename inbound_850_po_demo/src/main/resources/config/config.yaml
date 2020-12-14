@@ -1,0 +1,9 @@
+# Non-secure properties file
+#
+sftp:
+   host: "eksprod.tools.mulesoft.com"
+   port: "30380"
+   inbound_850_dir: "/upload/inbound/850"
+   outbound_850_dir: "/upload/outbound/850"
+   archive_850_dir: "/upload/archive/850"
+   

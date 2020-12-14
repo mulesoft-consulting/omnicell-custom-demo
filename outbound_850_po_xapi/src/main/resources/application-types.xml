@@ -1,0 +1,89 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<types:mule xmlns:types="http://www.mulesoft.org/schema/mule/types">
+  <types:catalog>
+    <types:type name="purchaseOrderData" format="json">
+      <types:shape format="weave" example="examples/purchaseOrderData.json"><![CDATA[%dw 2.0
+
+type purchaseOrderData = {|
+  Document_Type: String, 
+  No: String, 
+  Buy_from_Vendor_No: String, 
+  Buy_from_Contact_No: Null, 
+  Buy_from_Vendor_Name: String, 
+  Buy_from_Address: String, 
+  Buy_from_Address_2: Null, 
+  Buy_from_City: String, 
+  Buy_from_County: String, 
+  Buy_from_Post_Code: String, 
+  Buy_from_Contact: String, 
+  Order_Date: String, 
+  Order_Confirmed_by_Vendor: String, 
+  PO_Confirmation_Date: String, 
+  Status: String, 
+  Pay_to_Vendor_No: String, 
+  Pay_to_Contact_No: Null, 
+  Pay_to_Name: String, 
+  Pay_to_Address: String, 
+  Pay_to_Address_2: Null, 
+  Pay_to_City: String, 
+  Pay_to_County: String, 
+  Pay_to_Post_Code: String, 
+  Pay_to_Country_Region_Code: String, 
+  Pay_to_Contact: String, 
+  Payment_Terms_Code: String, 
+  Due_Date: String, 
+  Payment_Discount_Percent: String, 
+  Pmt_Discount_Date: String, 
+  Ship_to_Name: String, 
+  Ship_to_Address: String, 
+  Ship_to_Address_2: Null, 
+  Ship_to_City: String, 
+  Ship_to_County: String, 
+  Ship_to_Post_Code: String, 
+  Ship_to_Country_Region_Code: String, 
+  Ship_to_Contact: String, 
+  Ship_to_UPS_Zone: Null, 
+  Location_Code: Number {"typeId": "int"}, 
+  Shipment_Method_Code: String, 
+  Requested_Receipt_Date: String, 
+  Promised_Receipt_Date: String, 
+  Expected_Receipt_Date: String, 
+  EDI_Purchase_Document: String, 
+  EDI_Received_Date_Time: String, 
+  EDI_Sent_Date_Time: String, 
+  EDI_Status: String, 
+  EDI_Order: String, 
+  EDI_Internal_Doc_No: Null, 
+  EDI_PO_Generated: String, 
+  EDI_PO_Gen_Date: String, 
+  EDI_Released: String, 
+  EDI_Ship_Adv_Gen: String, 
+  EDI_Ship_Adv_Gen_Date: String, 
+  EDI_Trade_Partner: Null, 
+  EDI_Buy_from_Code: Null, 
+  ETag: String, 
+  CompanyInfo: {|
+    Name: String, 
+    Address: String, 
+    Address_2: String, 
+    City: String, 
+    County: String, 
+    Post_Code: String, 
+    Country_Region_Code: String
+  |}, 
+  PurchaseOrderLines: Array<{|    Document_Type: String,     Document_No: String,     Line_No: String,     Type: String,     Buy_from_Vendor_No: String,     Direct_Unit_Cost: String,     Expected_Receipt_Date: String,     Line_Amount: String,     Location_Code: String,     No: String,     Outstanding_Quantity: String,     Quantity: String,     Unit_of_Measure_Code: String,     Shortcut_Dimension_1_Code: String,     Shortcut_Dimension_2_Code: Null,     ETag: String  |}>
+|} {"example": "{\\\"Document_Type\\\":\\\"Order\\\",\\\"No\\\":\\\"TRP-048775\\\",\\\"Buy_from_Vendor_No\\\":\\\"VN002087\\\",\\\"Buy_from_Contact_No\\\":null,\\\"Buy_from_Vendor_Name\\\":\\\"ChemPoint.Com\\\",\\\"Buy_from_Address\\\":\\\"13727 Collection Center DR\\\",\\\"Buy_from_Address_2\\\":null,\\\"Buy_from_City\\\":\\\"Chicago\\\",\\\"Buy_from_County\\\":\\\"IL\\\",\\\"Buy_from_Post_Code\\\":\\\"60693-0137\\\",\\\"Buy_from_Contact\\\":\\\"Michele Erickson\\\",\\\"Order_Date\\\":\\\"2020-11-05T00:00:00\\\",\\\"Order_Confirmed_by_Vendor\\\":\\\"false\\\",\\\"PO_Confirmation_Date\\\":\\\"0001-01-01T00:00:00\\\",\\\"Status\\\":\\\"Released\\\",\\\"Pay_to_Vendor_No\\\":\\\"VN002087\\\",\\\"Pay_to_Contact_No\\\":null,\\\"Pay_to_Name\\\":\\\"ChemPoint.Com\\\",\\\"Pay_to_Address\\\":\\\"13727 Collection Center DR\\\",\\\"Pay_to_Address_2\\\":null,\\\"Pay_to_City\\\":\\\"Chicago\\\",\\\"Pay_to_County\\\":\\\"IL\\\",\\\"Pay_to_Post_Code\\\":\\\"60693-0137\\\",\\\"Pay_to_Country_Region_Code\\\":\\\"US\\\",\\\"Pay_to_Contact\\\":\\\"Michele Erickson\\\",\\\"Payment_Terms_Code\\\":\\\"30D\\\",\\\"Due_Date\\\":\\\"2020-12-05T00:00:00\\\",\\\"Payment_Discount_Percent\\\":\\\"0\\\",\\\"Pmt_Discount_Date\\\":\\\"2020-11-05T00:00:00\\\",\\\"Ship_to_Name\\\":\\\"Mountain Valley\\\",\\\"Ship_to_Address\\\":\\\"283 Mountain Valley Water PL\\\",\\\"Ship_to_Address_2\\\":null,\\\"Ship_to_City\\\":\\\"Hot Springs\\\",\\\"Ship_to_County\\\":\\\"AR\\\",\\\"Ship_to_Post_Code\\\":\\\"71909-9559\\\",\\\"Ship_to_Country_Region_Code\\\":\\\"US\\\",\\\"Ship_to_Contact\\\":\\\"Brett Stien\\\",\\\"Ship_to_UPS_Zone\\\":null,\\\"Location_Code\\\":63,\\\"Shipment_Method_Code\\\":\\\"CC\\\",\\\"Requested_Receipt_Date\\\":\\\"2020-11-20T00:00:00\\\",\\\"Promised_Receipt_Date\\\":\\\"0001-01-01T00:00:00\\\",\\\"Expected_Receipt_Date\\\":\\\"2020-11-20T00:00:00\\\",\\\"EDI_Purchase_Document\\\":\\\"false\\\",\\\"EDI_Received_Date_Time\\\":\\\"0001-01-01T00:00:00\\\",\\\"EDI_Sent_Date_Time\\\":\\\"0001-01-01T00:00:00\\\",\\\"EDI_Status\\\":\\\"Open\\\",\\\"EDI_Order\\\":\\\"true\\\",\\\"EDI_Internal_Doc_No\\\":null,\\\"EDI_PO_Generated\\\":\\\"false\\\",\\\"EDI_PO_Gen_Date\\\":\\\"0001-01-01T00:00:00\\\",\\\"EDI_Released\\\":\\\"false\\\",\\\"EDI_Ship_Adv_Gen\\\":\\\"false\\\",\\\"EDI_Ship_Adv_Gen_Date\\\":\\\"0001-01-01T00:00:00\\\",\\\"EDI_Trade_Partner\\\":null,\\\"EDI_Buy_from_Code\\\":null,\\\"ETag\\\":\\\"52;JgAAAACLAQAAAAJ7\\/1QAUgBQAC0AMAA0ADgANwA3ADUAAAAAAA==11;199180533350;\\\",\\\"CompanyInfo\\\":{\\\"Name\\\":\\\"Talking Rain Beverage Co.\\\",\\\"Address\\\":\\\"30520 SE 84th Street\\\",\\\"Address_2\\\":\\\"PO Box 549\\\",\\\"City\\\":\\\"Preston\\\",\\\"County\\\":\\\"WA\\\",\\\"Post_Code\\\":\\\"98050\\\",\\\"Country_Region_Code\\\":\\\"US\\\"},\\\"PurchaseOrderLines\\\":[{\\\"Document_Type\\\":\\\"Order\\\",\\\"Document_No\\\":\\\"TRP-048775\\\",\\\"Line_No\\\":\\\"10000\\\",\\\"Type\\\":\\\"Item\\\",\\\"Buy_from_Vendor_No\\\":\\\"VN002087\\\",\\\"Direct_Unit_Cost\\\":\\\"6.1974\\\",\\\"Expected_Receipt_Date\\\":\\\"2020-11-20T00:00:00\\\",\\\"Line_Amount\\\":\\\"1859.22\\\",\\\"Location_Code\\\":\\\"63\\\",\\\"No\\\":\\\"RM00014\\\",\\\"Outstanding_Quantity\\\":\\\"300\\\",\\\"Quantity\\\":\\\"300\\\",\\\"Unit_of_Measure_Code\\\":\\\"LB\\\",\\\"Shortcut_Dimension_1_Code\\\":\\\"52\\\",\\\"Shortcut_Dimension_2_Code\\\":null,\\\"ETag\\\":\\\"60;JwAAAACLAQAAAAJ7\\/1QAUgBQAC0AMAA0ADgANwA3ADUAAAAAhxAnAAAAAA==11;199178768750;\\\"}]}"}
+
+]]></types:shape>
+    </types:type>
+  </types:catalog>
+  <types:enrichment select="#38dcce19-d003-42a8-a0f3-df5252a91cf0">
+    <types:processor-declaration>
+      <types:input-event>
+        <types:message>
+          <types:payload type="purchaseOrderData"/>
+        </types:message>
+      </types:input-event>
+    </types:processor-declaration>
+  </types:enrichment>
+</types:mule>

@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule
+	xmlns:os="http://www.mulesoft.org/schema/mule/os"
+	xmlns:tls="http://www.mulesoft.org/schema/mule/tls"
+	xmlns:mllp="http://www.mulesoft.org/schema/mule/mllp"
+	xmlns:anypoint-mq="http://www.mulesoft.org/schema/mule/anypoint-mq"
+	xmlns:salesforce-composite="http://www.mulesoft.org/schema/mule/salesforce-composite"
+	xmlns:hl7="http://www.mulesoft.org/schema/mule/hl7"
+	xmlns:salesforce="http://www.mulesoft.org/schema/mule/salesforce"
+	xmlns:secure-properties="http://www.mulesoft.org/schema/mule/secure-properties"
+	xmlns:apikit="http://www.mulesoft.org/schema/mule/mule-apikit"
+	xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="
+http://www.mulesoft.org/schema/mule/mule-apikit http://www.mulesoft.org/schema/mule/mule-apikit/current/mule-apikit.xsd 
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd 
+http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/secure-properties http://www.mulesoft.org/schema/mule/secure-properties/current/mule-secure-properties.xsd
+http://www.mulesoft.org/schema/mule/salesforce http://www.mulesoft.org/schema/mule/salesforce/current/mule-salesforce.xsd
+http://www.mulesoft.org/schema/mule/hl7 http://www.mulesoft.org/schema/mule/hl7/current/mule-hl7.xsd
+http://www.mulesoft.org/schema/mule/salesforce-composite http://www.mulesoft.org/schema/mule/salesforce-composite/current/mule-salesforce-composite.xsd
+http://www.mulesoft.org/schema/mule/anypoint-mq http://www.mulesoft.org/schema/mule/anypoint-mq/current/mule-anypoint-mq.xsd
+http://www.mulesoft.org/schema/mule/mllp http://www.mulesoft.org/schema/mule/mllp/current/mule-mllp.xsd
+http://www.mulesoft.org/schema/mule/tls http://www.mulesoft.org/schema/mule/tls/current/mule-tls.xsd
+http://www.mulesoft.org/schema/mule/os http://www.mulesoft.org/schema/mule/os/current/mule-os.xsd">
+	<global-property doc:name="Mule environment property"
+		doc:id="ad525e5f-4435-4ec2-9593-a603f6f5a947" 		
+		name="mule.env"
+		value="local" />
+		
+	<secure-properties:config
+		name="Secure_Properties_Config" doc:name="Secure Properties Configuration"
+		doc:id="ab277a48-b10a-42c7-8709-732ac09aed10"
+		file="config/properties/config-secured-${mule.env}.yaml" key="${mule.key}">
+		<secure-properties:encrypt
+			algorithm="Blowfish" />
+	</secure-properties:config>
+	<configuration-properties
+		doc:name="Environment Configuration properties"
+		doc:id="cc603c16-fcfd-4226-b68a-e3a4be48b73a"
+		file="config/properties/config-${mule.env}.yaml" />
+	<global-property doc:name="Encryption Key"
+		doc:id="9e06747d-6a2e-4c7c-b6a0-15aec8335915" name="mule.key"
+		value="mulesoft" />
+	<salesforce-composite:composite-config
+		name="Salesforce_Composite_Config"
+		doc:name="Salesforce Composite Config"
+		doc:id="a67ebe69-bc31-447f-bee2-df2b2cfcdea1">
+		<salesforce-composite:oauth-user-pass-connection
+			consumerKey="${salesforce.consumerKey}"
+			consumerSecret="${secure::salesforce.consumerSecret}"
+			username="${salesforce.username}"
+			password="${secure::salesforce.password}" responseTimeout="120">
+			<reconnection>
+				<reconnect />
+			</reconnection>
+		</salesforce-composite:oauth-user-pass-connection>
+	</salesforce-composite:composite-config>
+	<salesforce:sfdc-config name="Salesforce_Config"
+		doc:name="Salesforce Config"
+		doc:id="21dd0fb2-110e-47c3-84cc-6713650f38ea" readTimeout="120">
+		<salesforce:basic-connection
+			username="${salesforce.username}"
+			password="${secure::salesforce.password}" url="${salesforce.url}" >
+			<reconnection >
+				<reconnect />
+			</reconnection>
+		</salesforce:basic-connection>
+	</salesforce:sfdc-config>
+	<http:listener-config name="HTTP_Listener_config"
+		doc:name="HTTP Listener config"
+		doc:id="f3d47a87-a730-4bf6-87de-e0b82dc5842e">
+		<http:listener-connection host="${http.host}"
+			port="${http.port}">
+		</http:listener-connection>
+	</http:listener-config>
+	<hl7:config name="HL7_EDI_Config_V2_2"
+		doc:name="HL7 EDI Config"
+		doc:id="7598c38c-cb45-4042-a280-abc5f9323092"
+		eventMessageMap="config/hl7/v2_2/event-message.yaml">
+		<hl7:connection >
+			<reconnection >
+				<reconnect />
+			</reconnection>
+		</hl7:connection>
+		<hl7:schemas>
+			<hl7:schema value="/config/hl7/v2_2/ADT_A31.esl" />
+		</hl7:schemas>
+	</hl7:config>
+	<hl7:config name="HL7_EDI_Config_V2_3"
+		doc:name="HL7 EDI Config"
+		doc:id="d1def58b-9a88-47f8-9d62-425022e93303"
+		eventMessageMap="config/hl7/v2_3/event-message.yaml">
+		<hl7:connection >
+			<reconnection >
+				<reconnect />
+			</reconnection>
+		</hl7:connection>
+		<hl7:schemas>
+			<hl7:schema value="/hl7lax/v2_3/ADT_A04.esl" />
+			<hl7:schema value="/hl7lax/v2_3/ADT_A28.esl" />
+			<hl7:schema value="/hl7lax/v2_3/ADT_A08.esl" />
+		</hl7:schemas>
+	</hl7:config>
+	<anypoint-mq:config name="Anypoint_MQ_Config" doc:name="Anypoint MQ Config" doc:id="b4b439f5-fbb7-4d8f-a9e1-8194a9cb9213" >
+		<anypoint-mq:connection clientId="${anypoint.mq.client_id}" clientSecret="${secure::anypoint.mq.client_secret}" >
+			<reconnection >
+				<reconnect />
+			</reconnection>
+		</anypoint-mq:connection>
+	</anypoint-mq:config>
+	<mllp:mllp-listener-config name="HL7_MLLP_Listener_V2_2" doc:name="HL7 MLLP Mllp listener config" doc:id="2833431e-50d3-4550-83db-6b771dcceab5" >
+		<mllp:mllp-listener-connection host="${mllp_v2_2.host}" port="${mllp_v2_2.port}">
+			<reconnection >
+				<reconnect />
+			</reconnection>
+		</mllp:mllp-listener-connection>
+	</mllp:mllp-listener-config>
+	<mllp:mllp-listener-config name="HL7_MLLP_Listener_V2_3" doc:name="HL7 MLLP Mllp listener config" doc:id="d6dd747e-dd3c-430f-b4c7-9948fbd274a4" >
+		<mllp:mllp-listener-connection host="${mllp_v2_3.host}" port="${mllp_v2_3.port}">
+			<reconnection >
+				<reconnect />
+			</reconnection>
+		</mllp:mllp-listener-connection>
+	</mllp:mllp-listener-config>
+	<tls:context name="TLS_Context" doc:name="TLS Context" doc:id="30331bce-7b4a-44bb-9057-6080111ff7ec" >
+		<tls:key-store type="pkcs12" path="keystore.p12" keyPassword="${mule.key}" password="${mule.key}" />
+	</tls:context>
+	<os:config name="ObjectStore_Config" doc:name="ObjectStore Config" doc:id="823fb137-aa2c-4630-a5d0-699f534e7996" >
+		<os:connection >
+			<reconnection >
+				<reconnect />
+			</reconnection>
+		</os:connection>
+	</os:config>
+	<os:object-store name="Object_store" doc:name="Object store for PersonAccount type" doc:id="9d3f01fe-3705-4fbd-9c20-09334901d9db" maxEntries="10" entryTtl="30" entryTtlUnit="DAYS" expirationInterval="30" expirationIntervalUnit="DAYS" config-ref="ObjectStore_Config" />
+	<configuration doc:name="Error Handler Configuration" doc:id="4229ae20-a275-4999-b4b7-501c7f9f4fbe" defaultErrorHandler-ref="Error_Handler" />
+	<error-handler name="Error_Handler" doc:id="3a7f4e70-7577-438f-a7d6-b0288d30a174" >
+		<on-error-propagate enableNotifications="true" logException="true" doc:name="Handle errors" doc:id="77c54990-8b88-431c-a836-2f5d348b0116" type="ANY" >
+			<logger level="ERROR" doc:name="Log the error message" doc:id="da810ade-ee94-41f0-9a61-14376fd88704" message="Error occurred #[payload]" />
+		</on-error-propagate>
+	</error-handler>
+
+
+</mule>

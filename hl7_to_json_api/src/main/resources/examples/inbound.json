@@ -1,0 +1,17 @@
+{
+  "ProxyId": "ee342b15-befb-4ee0-9003-ffe1bb32d331",
+  "ProxyVersion": "1.0",
+  "CustomerId": "EIMZPM",
+  "SourceIp": "10.180.222.113",
+  "SourceName": "VAPPEMMSERVER2",
+  "MessageId": "EIMZPM-1234567890",
+  "ProxyDttm": "2020-08-25T11:52:29.922-07:00",
+  "MessageDispatched": "2020-08-25T18:52:29.922",
+  "TimeZoneOffset": "-04:00:00",
+  "MessageType": "HL7_STRING",
+  "InterfaceId": "ZPM",
+  "EncodeType": "None",
+  "Message": "MSH|^~\\&|SIM|AB|HOSTAPP|GSH|20200824110619||ZPM|2020082411061900002|P|2.3|||||||rnZPM|V|console|RS1|003|03|90114|besifloxacin HCl 0.6 % 5.000 mL SUSPENSION, DROPS(FINAL DOSAGE FORM)(ML) OPHTHALMIC (EYE)|ItemClass|||1|TestUserID|TestLN,TestFN|witnessid|witnessname|0|17|FacCode|19|20|01|1|0|20200824110619|25|26|27|28|29|30|31|32|33|Infusion|35|36|37|1|39|40|41|42|43|1|0|46|47|0|49|20210812000000|",
+  "XmpErrors": [],
+  "XmpErrorsCount": "0"
+}

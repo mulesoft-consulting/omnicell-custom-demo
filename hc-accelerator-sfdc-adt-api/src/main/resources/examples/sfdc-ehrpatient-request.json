@@ -1,0 +1,16 @@
+{
+  "HealthCloudGA__Account__c": "@{Account.id}",
+  "HealthCloudGA__GivenName1__c": "HERBIE",
+  "HealthCloudGA__FamilyName1__c": "HUSKER",
+  "HealthCloudGA__Address1Line1__c": "1313 HUSKER ROAD",
+  "HealthCloudGA__Address1City__c": "LINCOLN",
+  "HealthCloudGA__Address1PostalCode__c": "68509",
+  "HealthCloudGA__Address1Country__c": "USA",
+  "HealthCloudGA__Communication1Code__c": "EN",
+  "HealthCloudGA__GenderCode__c": "M",
+  "HealthCloudGA__GenderLabel__c": "M",
+  "HealthCloudGA__MaritalStatusCode__c": "M",
+  "HealthCloudGA__MaritalStatusLabel__c": "M",
+  "HealthCloudGA__Deceased__c": false,
+  "HealthCloudGA__BirthDate__c": null
+}
