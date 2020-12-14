@@ -6,9 +6,6 @@ http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/
         <http:listener-connection host="0.0.0.0" port="8081" />
     </http:listener-config>
     <apikit:config name="hl7-to-json-api-config" api="hl7-to-json-api.raml" outboundHeadersMapName="outboundHeaders" httpStatusVarName="httpStatus" />
-    <hl7:config name="HL7_EDI_Config" doc:name="HL7 EDI Config" doc:id="af680bf4-bdbd-4be5-baac-34b697b17d41">
-		<hl7:schemas />
-	</hl7:config>
 	<flow name="hl7-to-json-api-main">
         <http:listener config-ref="hl7-to-json-api-httpListenerConfig" path="/api/*">
             <http:response statusCode="#[vars.httpStatus default 200]">
@@ -128,12 +125,23 @@ output application/json
             </on-error-propagate>
         </error-handler>
     </flow>
-    <flow name="post:\convert-HL7-data:application\json:hl7-to-json-api-config">
-		<ee:transform xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd" doc:id="caf04d1a-7f6c-4dc5-bafa-8c529d1092cb">
+    <flow name="post:\convert-HL7-data:application\json:hl7-to-json-api-config" doc:id="336cb9f0-6cb0-404f-b353-111faaacf84b">
+		<ee:transform doc:name="Transform Message" doc:id="55a607ca-3439-4d14-acaf-5f769a2ba5ff" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+fun mapPocMaint(zpm) = lookup('parse-pocket-maintenance', zpm)
+---
+payload ++
+mapPocMaint(read(payload.Message, "application/csv", { header:false, separator:'|'})[0])
+]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<!-- <ee:transform xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd" doc:id="caf04d1a-7f6c-4dc5-bafa-8c529d1092cb">
             <ee:message>
                 <ee:set-payload><![CDATA[%dw 2.0
 output application/json
----
+-&#45;&#45;
 {
   ProxyId: "ee342b15-befb-4ee0-9003-ffe1bb32d331",
   ProxyVersion: "1.0",
@@ -183,6 +191,41 @@ output application/json
   }
 }]]></ee:set-payload>
             </ee:message>
-        </ee:transform>
+        </ee:transform> -->
     </flow>
+	<flow name="parse-pocket-maintenance" doc:id="9b87a96b-9ff0-4751-aa30-add894774f92" >
+		<ee:transform doc:name="Transform Pocket Maintenance Segment" doc:id="a7de02fe-a51f-431d-916b-e7ed81f3313c" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+fun formatDate(val) = val as LocalDateTime{format: "yyyyMMddHHmmss"} as String{format:"yyyy/MM/dd HH:mm:ss"}
+---
+{
+	pocket_maintenance: {
+		drawer_number: payload.column_22,
+		pocket_number: payload.column_23,
+		item_id: payload.column_24,
+		item_name: payload.column_25,
+		item_class: payload.column_26,
+		expected_bin_count: payload.column_27,
+		actual_bin_count: payload.column_28,
+		transaction_qty: payload.column_29,
+		user_id: payload.column_30,
+		user_name: payload.column_31,
+		witness_id: payload.column_32,
+		witness_name: payload.column_33,
+		quantity_on_hand: payload.column_34,
+		alternate_item_id: payload.column_35,
+		facility_code: payload.column_36,
+		alternate_item_id_2: payload.column_37,
+		unit: payload.column_38,
+		sub_drawer_number: payload.column_39,
+		par_level: payload.column_41,
+		transaction_dttm: formatDate(payload.column_42),
+		expiration_date: formatDate(payload.column_68)
+	}
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</flow>
 </mule>
