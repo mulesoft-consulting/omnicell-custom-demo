@@ -13,3 +13,4 @@ buildNumber.properties
 .mule/
 .tooling/
 .tooling-apps-cache/
+.DS_Store
