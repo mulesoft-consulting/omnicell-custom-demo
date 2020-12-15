@@ -3,3 +3,9 @@
 sftp:
    username: "![bfZy3UnoLO0=]"
    password: "![oyZUKMW5wRP1bnQs771vys5KSABMcFgq]"
+   
+db:
+   hostname: "![kzyk/KZ55r8qlITTbaFr5pRgFTLD+gxJLcNgLYf9gVQ=]"
+   port: "![JHHEScoGPDc=]"
+   username: "![bfZy3UnoLO0=]"
+   password: "![oyZUKMW5wRP1bnQs771vys5KSABMcFgq]"

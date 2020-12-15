@@ -18,7 +18,7 @@
     <global-property doc:name="Global Property" doc:id="eb3b6acc-a579-4c7c-965c-88cab309123f" name="encryption.key" value="mulesoft_password" />
     <configuration-properties doc:name="Configuration properties" doc:id="7c8b9dfc-1687-41b9-a8e2-1a186793696c" file="config/config.yaml" />
     <db:config name="MySQL_Database_Config" doc:name="Database Config" doc:id="03fa1eb4-d09b-43ba-8066-02bf2e998589">
-        <db:my-sql-connection host="eksprod.tools.mulesoft.com" port="31974" user="admin" password="fiducialGrille@5" database="B2B" />
+        <db:my-sql-connection host="${secure::db.hostname}" port="${secure::db.port}" user="${secure::db.username}" password="${secure::db.password}" database="B2B" />
     </db:config>
     <flow name="850-outbound-experience-api-main">
         <http:listener config-ref="850-outbound-experience-api-httpListenerConfig" path="/api/*">
