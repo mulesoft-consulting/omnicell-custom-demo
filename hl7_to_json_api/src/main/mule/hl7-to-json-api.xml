@@ -198,7 +198,11 @@ output application/json
 			<ee:message >
 				<ee:set-payload ><![CDATA[%dw 2.0
 output application/json
-fun formatDate(val) = val as LocalDateTime{format: "yyyyMMddHHmmss"} as String{format:"yyyy/MM/dd HH:mm:ss"}
+fun formatDate(val) = val as LocalDateTime{
+	format: "yyyyMMddHHmmss"
+} as String{
+	format:"yyyy/MM/dd HH:mm:ss"
+}
 ---
 {
 	pocket_maintenance: {
