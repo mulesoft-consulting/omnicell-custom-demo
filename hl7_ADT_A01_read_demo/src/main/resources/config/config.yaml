@@ -1,11 +1,6 @@
 # Non-secure properties file
 #
-hl7:
-   input-dir: "/Users/jvansant/Demos/B2B_Demo/HL7-demos/hl7-demo-in"
-   output-dir: "/Users/jvansant/Demos/B2B_Demo/HL7-demos/hl7-demo-out"
-   output-filename: "output.json"
-   processed-dir: "/Users/jvansant/Demos/B2B_Demo/HL7-demos/hl7-demo-processed"
-   
+
 sftp:
    host: "eksprod.tools.mulesoft.com"
    port: "30380"
