@@ -71,6 +71,8 @@ payload]]></ee:set-payload>
 				<ee:set-variable variableName="output_filename"><![CDATA[p('sftp.output_filename')]]></ee:set-variable>
 			</ee:variables>
 		</ee:transform>
+		<logger level="INFO" doc:name="Log JSON HL7 message" doc:id="aa924e4c-1cf7-4429-bb86-42fd85ba1c03" message="#[payload]"/>
 		<sftp:write doc:name="Write to sFTP server" doc:id="b8bfde45-5466-49fc-a3d5-8cc86a2fb77b" config-ref="SFTP_Config" path='#[vars.output_dir ++ "/" ++ vars."output_filename"]' />
+		<logger level="INFO" doc:name="Log success" doc:id="e6881124-1219-4778-b648-745125aa18de" message='#["Successfully wrote HL7 ADT A01 to sFTP server in the directory: " ++ vars.output_dir]'/>
 	</sub-flow>
 </mule>
