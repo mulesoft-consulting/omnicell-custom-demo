@@ -43,12 +43,6 @@
 	</build>
 
 	<dependencies>
-        <dependency>
-            <groupId>org.mule.connectors</groupId>
-            <artifactId>mule-http-connector</artifactId>
-            <version>1.5.21</version>
-            <classifier>mule-plugin</classifier>
-        </dependency>
     	<dependency>
             <groupId>org.mule.modules</groupId>
             <artifactId>mule-apikit-module</artifactId>
@@ -90,6 +84,24 @@
             <version>1.0.7</version>
             <classifier>raml</classifier>
             <type>zip</type>
+        </dependency>
+    	<dependency>
+            <groupId>org.mule.connectors</groupId>
+            <artifactId>mule-http-connector</artifactId>
+            <version>1.5.19</version>
+            <classifier>mule-plugin</classifier>
+        </dependency>
+    	<dependency>
+            <groupId>org.mule.connectors</groupId>
+            <artifactId>mule-sockets-connector</artifactId>
+            <version>1.1.5</version>
+            <classifier>mule-plugin</classifier>
+        </dependency>
+    	<dependency>
+            <groupId>1d6337d4-bc21-43c0-b87d-d8ea04e9d9e6</groupId>
+            <artifactId>mule-plugin-hl7-to-json-api</artifactId>
+            <version>1.0.0</version>
+            <classifier>mule-plugin</classifier>
         </dependency>
     </dependencies>
 
