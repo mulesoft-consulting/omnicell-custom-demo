@@ -129,6 +129,12 @@ output application/java
 				},
 				"PID-22": payload.Data.ADT_A01.PID."PID-22"[0]."CE_0189-02"
 			},
+			PD1: {
+				"PD1-03": payload.Data.ADT_A01.PD1."PD1-03" map ( pD103 , indexOfPD103 ) -> {
+					"XON-01": pD103."XON-01",
+					"XON-03": pD103."XON-03" as String
+				}
+			},
 			PV1: {
 				"PV1-01": payload.Data.ADT_A01.PV1."PV1-01" as String,
 				"PV1-02": payload.Data.ADT_A01.PV1."PV1-02",
