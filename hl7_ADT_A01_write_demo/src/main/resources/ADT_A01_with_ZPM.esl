@@ -1,0 +1,63 @@
+form: HL7
+version: '2.3'
+imports: [ '/hl7lax/v2_3/basedefs.esl' ]
+id: 'ADT_A01'
+name: 'ADT_A01'
+data: 
+- { idRef: 'MSH', position: '01', usage: O }
+- { idRef: 'EVN', position: '02', usage: O }
+- { idRef: 'PID', position: '03', usage: O }
+- { idRef: 'PD1', position: '05', usage: O }
+- { idRef: 'NK1', position: '09', usage: O, count: '>1' }
+- { idRef: 'PV1', position: '12', usage: O }
+- { idRef: 'PV2', position: '14', usage: O }
+- { idRef: 'DB1', position: '18', usage: O, count: '>1' }
+- { idRef: 'OBX', position: '23', usage: O, count: '>1' }
+- { idRef: 'AL1', position: '28', usage: O, count: '>1' }
+- { idRef: 'DG1', position: '33', usage: O, count: '>1' }
+- { idRef: 'DRG', position: '37', usage: O }
+- groupId: 'PROCEDURE'
+  count: '>1'
+  usage: O
+  items: 
+  - { idRef: 'PR1', position: '41', usage: O }
+  - { idRef: 'ROL', position: '44', usage: O, count: '>1' }
+- { idRef: 'GT1', position: '51', usage: O, count: '>1' }
+- groupId: 'INSURANCE'
+  count: '>1'
+  usage: O
+  items: 
+  - { idRef: 'IN1', position: '56', usage: O }
+  - { idRef: 'IN2', position: '58', usage: O }
+  - { idRef: 'IN3', position: '61', usage: O }
+- { idRef: 'ACC', position: '66', usage: O }
+- { idRef: 'UB1', position: '69', usage: O }
+- { idRef: 'UB2', position: '72', usage: O }
+- { idRef: 'ZPM', position: '73', usage: O, count: '>1' }
+segments:
+- id: 'ZPM'
+  name: 'ZPM Pocket Maintenance 2'
+  values:
+  - { idRef: 'ST', name: 'Pocket Code', usage: O }
+  - { idRef: 'ST', name: 'console name', usage: O }
+  - { idRef: 'ST', name: 'Station Name', usage: O }
+  - { idRef: 'ST', name: 'Drawer Number', usage: O }
+  - { idRef: 'ST', name: 'Pocket Descriptor', usage: O }
+  - { idRef: 'ST', name: 'Item ID ', usage: O }
+  - { idRef: 'ST', name: 'Item Name', usage: O }
+  - { idRef: 'ST', name: 'Item Class', usage: O }
+  - { idRef: 'ST', name: 'EBC', usage: O }
+  - { idRef: 'ST', name: 'ABC', usage: O }
+  - { idRef: 'ST', name: 'Transaction Amount', usage: O }
+  - { idRef: 'ST', name: 'User ID', usage: O }
+  - { idRef: 'ST', name: 'User Name', usage: O }
+  - { idRef: 'ST', name: 'Witness ID', usage: O }
+  - { idRef: 'ST', name: 'Witness Name', usage: O }
+  - { idRef: 'ST', name: 'Total Count of item in station', usage: O }
+  - { idRef: 'ST', name: 'Alternate Item ID', usage: O }
+  - { idRef: 'ST', name: 'Facility Code', usage: O }
+  - { idRef: 'ST', name: 'Alternate Item ID 2', usage: O }
+  - { idRef: 'ST', name: 'Nursing Unit', usage: O }
+  
+
+

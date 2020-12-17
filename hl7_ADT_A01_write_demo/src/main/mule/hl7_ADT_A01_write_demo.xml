@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:secure-properties="http://www.mulesoft.org/schema/mule/secure-properties"
+	xmlns:sftp="http://www.mulesoft.org/schema/mule/sftp"
+	xmlns:hl7="http://www.mulesoft.org/schema/mule/hl7" xmlns:mllp="http://www.mulesoft.org/schema/mule/mllp" xmlns:edifact="http://www.mulesoft.org/schema/mule/edifact" xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:x12="http://www.mulesoft.org/schema/mule/x12" xmlns:file="http://www.mulesoft.org/schema/mule/file" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/file http://www.mulesoft.org/schema/mule/file/current/mule-file.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd
+http://www.mulesoft.org/schema/mule/mllp http://www.mulesoft.org/schema/mule/mllp/current/mule-mllp.xsd
+http://www.mulesoft.org/schema/mule/hl7 http://www.mulesoft.org/schema/mule/hl7/current/mule-hl7.xsd
+http://www.mulesoft.org/schema/mule/sftp http://www.mulesoft.org/schema/mule/sftp/current/mule-sftp.xsd
+http://www.mulesoft.org/schema/mule/secure-properties http://www.mulesoft.org/schema/mule/secure-properties/current/mule-secure-properties.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
+	<hl7:config name="HL7_EDI_Config" doc:name="HL7 EDI Config" doc:id="0649d4b1-0445-4186-8ad7-8ffd6f9b8a0e" genericExtensionPattern="Z.*">
+		<hl7:connection >
+			<reconnection />
+		</hl7:connection>
+		<hl7:schemas >
+			<hl7:schema value="ADT_A01_with_ZPM.esl" />
+		</hl7:schemas>
+	</hl7:config>
+	<configuration-properties doc:name="Configuration properties" doc:id="3758b05e-c28b-4045-a1b7-5028ff3b4cb5" file="config/config.yaml" />
+	<sftp:config name="SFTP_Config" doc:name="SFTP Config" doc:id="d0fb4335-6c91-45c4-bc90-1ba2cfc1de1a" >
+		<sftp:connection host="${sftp.host}" port="${sftp.port}" username="${secure::sftp.username}" password="${secure::sftp.password}" />
+	</sftp:config>
+	<global-property doc:name="Global Property" doc:id="c06c4a26-62ff-4c6f-8499-291b061e2056" name="encryption.key" value="mulesoft_password" />
+	<secure-properties:config name="Secure_Properties_Config" doc:name="Secure Properties Config" doc:id="ffcda203-0ed1-4915-8420-597dd59866dc" file="config/config-secure.yaml" key="${encryption.key}" >
+		<secure-properties:encrypt algorithm="Blowfish" />
+	</secure-properties:config>
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="4a34898b-b148-4071-a772-44cd3ef952c1" >
+		<http:listener-connection host="0.0.0.0" port="8081" />
+	</http:listener-config>
+	<flow name="HTTP_Receive_Flow" doc:id="783dd296-4acc-4400-9feb-216bdbe3e604" >
+		<http:listener doc:name="/ADT_A01_ZPM" doc:id="4fc870da-64d9-45a5-b3d1-ef3279176764" config-ref="HTTP_Listener_config" path="/ADT_A01_ZPM" allowedMethods="POST"/>
+		<ee:transform doc:name="setup variables" doc:id="73ac1abd-b96b-4c61-9181-d45663fedbeb">
+			<ee:message>
+			</ee:message>
+			<ee:variables>
+				<ee:set-variable variableName="output_dir"><![CDATA[p('sftp.outbound_dir')]]></ee:set-variable>
+				<ee:set-variable variableName="output_filename"><![CDATA[p('sftp.output_filename')]]></ee:set-variable>
+			</ee:variables>
+		</ee:transform>
+		<ee:transform doc:name="Prep object for write" doc:id="d32b7d37-97aa-43f6-a937-1dfb1cd156b8">
+			<ee:message>
+				<ee:set-payload><![CDATA[%dw 2.0
+output application/java
+---
+{
+	Id: "ADT_A01",
+	Data: {
+		ADT_A01: {
+			MSH: {
+				"MSH-02": payload.Delimiters,
+				"MSH-03": {
+					"HD-01": payload.MSH."MSH-03"."HD-01"
+				},
+				"MSH-04": {
+					"HD-01": payload.MSH."MSH-04"."HD-01"
+				},
+				"MSH-05": {
+					"HD-01": payload.MSH."MSH-05"."HD-01"
+				},
+				"MSH-06": {
+					"HD-01": payload.MSH."MSH-06"."HD-01"
+				},
+				"MSH-07": {
+					"TS-01": payload.MSH."MSH-07"."TS-01"
+				},
+				"MSH-09": {
+					"CM_MSG-01": payload.MSH."MSH-09"."MSG-01",
+					"CM_MSG-02": payload.MSH."MSH-09"."MSG-02"
+				},
+				"MSH-10": payload.MSH."MSH-10",
+				"MSH-11": {
+					"PT-01": payload.MSH."MSH-11"."PT-01"
+				},
+				"MSH-12": payload.MSH."MSH-12"."VID-01",
+				"MSH-15": payload.MSH."MSH-15",
+				"MSH-17": payload.MSH."MSH-17",
+				"MSH-18": payload.MSH."MSH-18"[0]
+			},
+			EVN: {
+				"EVN-01": payload.Data.ADT_A01.EVN."EVN-01",
+				"EVN-02": {
+					"TS-01": payload.Data.ADT_A01.EVN."EVN-02"."TS-01"
+				},
+				"EVN-05": {
+					"XCN-01": payload.Data.ADT_A01.EVN."EVN-05"[0]."XCN-01",
+					"XCN-02": payload.Data.ADT_A01.EVN."EVN-05"[0]."XCN-02"."FN-01",
+					"XCN-03": payload.Data.ADT_A01.EVN."EVN-05"[0]."XCN-03",
+					"XCN-06": payload.Data.ADT_A01.EVN."EVN-05"[0]."XCN-06",
+					"XCN-09": {
+						"HD-01": payload.Data.ADT_A01.EVN."EVN-05"[0]."XCN-09"."HD-01"
+					},
+					"XCN-10": payload.Data.ADT_A01.EVN."EVN-05"[0]."XCN-10",
+					"XCN-13": payload.Data.ADT_A01.EVN."EVN-05"[0]."XCN-13"
+				}
+			},
+			PID: {
+				"PID-01": payload.Data.ADT_A01.PID."PID-01" as String,
+				"PID-02": {
+					"CX-01": payload.Data.ADT_A01.PID."PID-02"."CX-01",
+					"CX-04": {
+						"HD-01": payload.Data.ADT_A01.PID."PID-02"."CX-04"."HD-01"
+					},
+					"CX-05": payload.Data.ADT_A01.PID."PID-02"."CX-05"
+				},
+				"PID-03": payload.Data.ADT_A01.PID."PID-03" map ( pID03 , indexOfPID03 ) -> {
+					"CX-01": pID03."CX-01",
+					"CX-04": {
+						"HD-01": pID03."CX-04"."HD-01"
+					},
+					"CX-05": pID03."CX-05"
+				},
+				"PID-05": payload.Data.ADT_A01.PID."PID-05" map ( pID05 , indexOfPID05 ) -> {
+					"XPN-01": pID05."XPN-01"."FN-01",
+					"XPN-02": pID05."XPN-02",
+					"XPN-05": pID05."XPN-05",
+					"XPN-07": pID05."XPN-07"
+				},
+				"PID-08": payload.Data.ADT_A01.PID."PID-08",
+				"PID-11": payload.Data.ADT_A01.PID."PID-11" map ( pID11 , indexOfPID11 ) -> {
+					"XAD-03": pID11."XAD-03",
+					"XAD-05": pID11."XAD-05",
+					"XAD-06": pID11."XAD-06",
+					"XAD-07": pID11."XAD-07"
+				},
+				"PID-13": payload.Data.ADT_A01.PID."PID-13" map ( pID13 , indexOfPID13 ) -> {
+					"XTN-02": pID13."XTN-02"
+				},
+				"PID-22": payload.Data.ADT_A01.PID."PID-22"[0]."CE_0189-02"
+			},
+			PV1: {
+				"PV1-01": payload.Data.ADT_A01.PV1."PV1-01" as String,
+				"PV1-02": payload.Data.ADT_A01.PV1."PV1-02",
+				"PV1-03": {
+					"PL-01": payload.Data.ADT_A01.PV1."PV1-03"."PL-01",
+					"PL-02": payload.Data.ADT_A01.PV1."PV1-03"."PL-02",
+					"PL-03": payload.Data.ADT_A01.PV1."PV1-03"."PL-03",
+					"PL-04": {
+						"HD-01": payload.Data.ADT_A01.PV1."PV1-03"."PL-04"."HD-01"
+					},
+					"PL-06": payload.Data.ADT_A01.PV1."PV1-03"."PL-06",
+					"PL-07": payload.Data.ADT_A01.PV1."PV1-03"."PL-07",
+					"PL-08": payload.Data.ADT_A01.PV1."PV1-03"."PL-08"
+				},
+				"PV1-07": payload.Data.ADT_A01.PV1."PV1-07" map ( pV107 , indexOfPV107 ) -> {
+					"XCN-01": pV107."XCN-01",
+					"XCN-02": pV107."XCN-02"."FN-01",
+					"XCN-03": pV107."XCN-03",
+					"XCN-06": pV107."XCN-06",
+					"XCN-09": {
+						"HD-01": pV107."XCN-09"."HD-01"
+					},
+					"XCN-10": pV107."XCN-10",
+					"XCN-13": pV107."XCN-13"
+				},
+				"PV1-10": payload.Data.ADT_A01.PV1."PV1-10",
+				"PV1-19": {
+					"CX-01": payload.Data.ADT_A01.PV1."PV1-19"."CX-01",
+					"CX-05": payload.Data.ADT_A01.PV1."PV1-19"."CX-05"
+				},
+				"PV1-41": payload.Data.ADT_A01.PV1."PV1-41",
+				"PV1-44": {
+					"TS-01": payload.Data.ADT_A01.PV1."PV1-44"."TS-01"
+				}
+			},
+			ZPM: payload.Data.ADT_A01.ExtensionSegs map ( extensionSeg , indexOfExtensionSeg ) -> {
+				"ZPM-01": extensionSeg."ZPM-01",
+				"ZPM-02": extensionSeg."ZPM-02",
+				"ZPM-03": extensionSeg."ZPM-03",
+				"ZPM-04": if ( extensionSeg."ZPM-04" != null ) extensionSeg."ZPM-04" else "",
+				"ZPM-05": if ( extensionSeg."ZPM-05" != null ) extensionSeg."ZPM-05" else "",
+				"ZPM-06": if ( extensionSeg."ZPM-06" != null ) extensionSeg."ZPM-06" else "",
+				"ZPM-07": if ( extensionSeg."ZPM-07" != null ) extensionSeg."ZPM-07" else "",
+				"ZPM-08": if ( extensionSeg."ZPM-08" != null ) extensionSeg."ZPM-08" else "",
+				"ZPM-11": if ( extensionSeg."ZPM-11" != null ) extensionSeg."ZPM-11" else "",
+				"ZPM-12": if ( extensionSeg."ZPM-12" != null ) extensionSeg."ZPM-12" else "",
+				"ZPM-13": if ( extensionSeg."ZPM-13" != null ) extensionSeg."ZPM-13" else "",
+				"ZPM-14": if ( extensionSeg."ZPM-14" != null ) extensionSeg."ZPM-14" else "",
+				"ZPM-15": if ( extensionSeg."ZPM-15" != null ) extensionSeg."ZPM-15" else "",
+				"ZPM-16": if ( extensionSeg."ZPM-16" != null ) extensionSeg."ZPM-16" else "",
+				"ZPM-17": if ( extensionSeg."ZPM-17" != null ) extensionSeg."ZPM-17" else "",
+				"ZPM-18": if ( extensionSeg."ZPM-18" != null ) extensionSeg."ZPM-18" else "",
+				"ZPM-19": if ( extensionSeg."ZPM-19" != null ) extensionSeg."ZPM-19" else "",
+				"ZPM-20": if ( extensionSeg."ZPM-20" != null ) extensionSeg."ZPM-20" else ""
+			}
+		}
+	}
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<hl7:write doc:name="Write" doc:id="1f05d473-bef6-4409-9c2a-500eeb5103c9" config-ref="HL7_EDI_Config" />
+		<logger level="INFO" doc:name="Log HL7 ADT_A01 message" doc:id="aa924e4c-1cf7-4429-bb86-42fd85ba1c03" message="#[payload]" />
+		<sftp:write doc:name="Write to sFTP server" doc:id="b8bfde45-5466-49fc-a3d5-8cc86a2fb77b" config-ref="SFTP_Config" path='#[vars.output_dir ++ "/" ++ vars."output_filename"]' />
+		<logger level="INFO" doc:name="Log success" doc:id="e6881124-1219-4778-b648-745125aa18de" message='#["Successfully wrote HL7 ADT A01 to sFTP server in the directory: " ++ vars.output_dir]' />
+	</flow>
+</mule>

@@ -1,0 +1,313 @@
+{
+  "Delimiters": "|^~\\&",
+  "Errors": [
+    
+  ],
+  "MSH": {
+    "MSH-10": "5",
+    "MSH-11": {
+      "PT-01": "T"
+    },
+    "MSH-12": {
+      "VID-01": "2.3"
+    },
+    "MSH-03": {
+      "HD-01": "SIMHOSP"
+    },
+    "MSH-04": {
+      "HD-01": "SFAC"
+    },
+    "MSH-15": "AL",
+    "MSH-05": {
+      "HD-01": "RAPP"
+    },
+    "MSH-06": {
+      "HD-01": "RFAC"
+    },
+    "MSH-17": "44",
+    "MSH-07": {
+      "TS-01": "20200508130643"
+    },
+    "MSH-18": [
+      "ASCII"
+    ],
+    "MSH-09": {
+      "MSG-02": "A01",
+      "MSG-01": "ADT"
+    }
+  },
+  "ACK": {
+    "MSH": {
+      "MSH-05": {
+        "HD-01": "SIMHOSP"
+      },
+      "MSH-06": {
+        "HD-01": "SFAC"
+      },
+      "MSH-17": "44",
+      "MSH-07": {
+        "TS-01": "20200508130643"
+      },
+      "MSH-18": [
+        "ASCII"
+      ],
+      "MSH-09": {
+        "MSG-03": "ACK",
+        "MSG-02": "A01",
+        "MSG-01": "ACK"
+      },
+      "MSH-10": "5",
+      "MSH-11": {
+        "PT-01": "T"
+      },
+      "MSH-12": {
+        "VID-01": "2.3"
+      },
+      "MSH-03": {
+        "HD-01": "RAPP"
+      },
+      "MSH-04": {
+        "HD-01": "RFAC"
+      },
+      "MSH-15": "AL"
+    },
+    "ERR": [
+      
+    ],
+    "MSA": {
+      "MSA-02": "5",
+      "MSA-01": "AA"
+    }
+  },
+  "Data": {
+    "ADT_A01": {
+      "ExtensionSegs": [
+        {
+          "Ident": "ZPM",
+          "Position": "17",
+          "ZPM-03": "2.3",
+          "ZPM-02": "P",
+          "ZPM-01": "2020082411061900002"
+        },
+        {
+          "ZPM-39": "39",
+          "ZPM-38": "1",
+          "ZPM-37": "37",
+          "ZPM-36": "36",
+          "ZPM-35": "35",
+          "ZPM-34": "Infusion",
+          "ZPM-33": "33",
+          "ZPM-32": "32",
+          "ZPM-31": "31",
+          "ZPM-30": "30",
+          "ZPM-08": "ItemClass",
+          "ZPM-07": "besifloxacin HCl 0.6 % 5.000 mL SUSPENSION, DROPS(FINAL DOSAGE FORM)(ML) OPHTHALMIC (EYE)",
+          "ZPM-06": "90114",
+          "ZPM-05": "03",
+          "ZPM-49": "49",
+          "Position": "17",
+          "ZPM-04": "003",
+          "ZPM-48": "0",
+          "ZPM-03": "RS1",
+          "ZPM-47": "47",
+          "ZPM-02": "console",
+          "ZPM-46": "46",
+          "ZPM-01": "V",
+          "ZPM-45": "0",
+          "ZPM-44": "1",
+          "ZPM-43": "43",
+          "ZPM-42": "42",
+          "ZPM-41": "41",
+          "ZPM-40": "40",
+          "ZPM-19": "19",
+          "ZPM-18": "FacCode",
+          "ZPM-17": "17",
+          "ZPM-16": "0",
+          "ZPM-15": "witnessname",
+          "ZPM-14": "witnessid",
+          "ZPM-13": "TestLN,TestFN",
+          "ZPM-12": "TestUserID",
+          "ZPM-11": "1",
+          "ZPM-50": "20210812000000",
+          "ZPM-29": "29",
+          "Ident": "ZPM",
+          "ZPM-28": "28",
+          "ZPM-27": "27",
+          "ZPM-26": "26",
+          "ZPM-25": "25",
+          "ZPM-24": "20200824110619",
+          "ZPM-23": "0",
+          "ZPM-22": "1",
+          "ZPM-21": "01",
+          "ZPM-20": "20"
+        }
+      ],
+      "MSH": {
+        "MSH-10": "5",
+        "MSH-11": {
+          "PT-01": "T"
+        },
+        "MSH-12": {
+          "VID-01": "2.3"
+        },
+        "MSH-03": {
+          "HD-01": "SIMHOSP"
+        },
+        "MSH-04": {
+          "HD-01": "SFAC"
+        },
+        "MSH-15": "AL",
+        "MSH-05": {
+          "HD-01": "RAPP"
+        },
+        "MSH-06": {
+          "HD-01": "RFAC"
+        },
+        "MSH-17": "44",
+        "MSH-07": {
+          "TS-01": "20200508130643"
+        },
+        "MSH-18": [
+          "ASCII"
+        ],
+        "MSH-09": {
+          "MSG-02": "A01",
+          "MSG-01": "ADT"
+        }
+      },
+      "PID": {
+        "PID-05": [
+          {
+            "XPN-05": "Miss",
+            "XPN-07": "CURRENT",
+            "XPN-02": "AKI Scenario 6",
+            "XPN-01": {
+              "FN-01": "Esterkin"
+            }
+          }
+        ],
+        "PID-03": [
+          {
+            "CX-01": "2590157853",
+            "CX-04": {
+              "HD-01": "SIMULATOR MRN"
+            },
+            "CX-05": "MRN"
+          },
+          {
+            "CX-01": "2478684691",
+            "CX-04": {
+              "HD-01": "NHSNBR"
+            },
+            "CX-05": "NHSNMBR"
+          }
+        ],
+        "PID-02": {
+          "CX-01": "2590157853",
+          "CX-04": {
+            "HD-01": "SIMULATOR MRN"
+          },
+          "CX-05": "MRN"
+        },
+        "PID-13": [
+          {
+            "XTN-02": "HOME"
+          }
+        ],
+        "PID-01": 1,
+        "PID-11": [
+          {
+            "XAD-06": "GBR",
+            "XAD-07": "HOME",
+            "XAD-05": "RW21 6KC",
+            "XAD-03": "London",
+            "XAD-01": {
+              "SAD-01": "170 Juice Place"
+            }
+          }
+        ],
+        "PID-22": [
+          {
+            "CE_0189-02": "Other - Chinese",
+            "CE_0189-01": "R"
+          }
+        ],
+        "PID-08": "F",
+        "PID-07": {
+          "TS-01": "19890118000000"
+        }
+      },
+      "PV1": {
+        "PV1-04": "28b",
+        "PV1-02": "I",
+        "PV1-03": {
+          "PL-07": "Main Building",
+          "PL-08": "5",
+          "PL-01": "RenalWard",
+          "PL-02": "MainRoom",
+          "PL-06": "BED",
+          "PL-03": "Bed 1",
+          "PL-04": {
+            "HD-01": "Simulated Hospital"
+          }
+        },
+        "PV1-44": {
+          "TS-01": "20200508130643"
+        },
+        "PV1-01": 1,
+        "PV1-10": "MED",
+        "PV1-41": "ARRIVED",
+        "PV1-19": {
+          "CX-01": "6145914547062969032",
+          "CX-05": "visitid"
+        },
+        "PV1-07": [
+          {
+            "XCN-02": {
+              "FN-01": "Wolf"
+            },
+            "XCN-13": "ORGDR",
+            "XCN-03": "Kathy",
+            "XCN-01": "C006",
+            "XCN-10": "PRSNL",
+            "XCN-09": {
+              "HD-01": "DRNBR"
+            },
+            "XCN-06": "Dr"
+          }
+        ]
+      },
+      "EVN": {
+        "EVN-05": [
+          {
+            "XCN-02": {
+              "FN-01": "Wolf"
+            },
+            "XCN-13": "ORGDR",
+            "XCN-03": "Kathy",
+            "XCN-01": "C006",
+            "XCN-10": "PRSNL",
+            "XCN-09": {
+              "HD-01": "DRNBR"
+            },
+            "XCN-06": "Dr"
+          }
+        ],
+        "EVN-02": {
+          "TS-01": "20200508130643"
+        },
+        "EVN-01": "A01"
+      },
+      "PD1": {
+        "PD1-03": [
+          {
+            "XON-01": "FAMILY PRACTICE",
+            "XON-03": 12345
+          }
+        ]
+      }
+    }
+  },
+  "Id": "ADT_A01",
+  "Name": "ADT_A01"
+}
