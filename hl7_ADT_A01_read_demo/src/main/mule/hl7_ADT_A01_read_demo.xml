@@ -26,7 +26,7 @@ http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/htt
 			<reconnection />
 		</hl7:connection>
 		<hl7:schemas >
-			<hl7:schema value="/hl7/v2_4/ADT_A01.esl" />
+			<hl7:schema value="/hl7lax/v2_3/ADT_A01.esl" />
 		</hl7:schemas>
 	</hl7:config>
 	<configuration-properties doc:name="Configuration properties" doc:id="3758b05e-c28b-4045-a1b7-5028ff3b4cb5" file="config/config.yaml" />
