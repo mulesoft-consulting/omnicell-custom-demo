@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
+	<classpathentry kind="con" path="MULE_LIB/com.mulesoft.modules/mule-secure-configuration-property-module/1.2.3"/>
+	<classpathentry kind="con" path="MULE_LIB/org.mule.connectors/mule-sftp-connector/1.3.10"/>
 	<classpathentry kind="con" path="MULE_LIB/org.mule.connectors/mule-http-connector/1.5.3"/>
 	<classpathentry kind="con" path="MULE_LIB/com.mulesoft.connectors/mule-hl7-mllp-connector/2.1.4"/>
 	<classpathentry kind="con" path="MULE_LIB/com.mulesoft.connectors/mule-hl7-extension/4.2.1"/>

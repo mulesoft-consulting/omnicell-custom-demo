@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<mule xmlns:hl7="http://www.mulesoft.org/schema/mule/hl7" xmlns:mllp="http://www.mulesoft.org/schema/mule/mllp"
-	xmlns:edifact="http://www.mulesoft.org/schema/mule/edifact"
-	xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:x12="http://www.mulesoft.org/schema/mule/x12" xmlns:file="http://www.mulesoft.org/schema/mule/file" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+<mule xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:secure-properties="http://www.mulesoft.org/schema/mule/secure-properties"
+	xmlns:sftp="http://www.mulesoft.org/schema/mule/sftp"
+	xmlns:hl7="http://www.mulesoft.org/schema/mule/hl7" xmlns:mllp="http://www.mulesoft.org/schema/mule/mllp" xmlns:edifact="http://www.mulesoft.org/schema/mule/edifact" xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:x12="http://www.mulesoft.org/schema/mule/x12" xmlns:file="http://www.mulesoft.org/schema/mule/file" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
 http://www.mulesoft.org/schema/mule/file http://www.mulesoft.org/schema/mule/file/current/mule-file.xsd
 http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd
 http://www.mulesoft.org/schema/mule/mllp http://www.mulesoft.org/schema/mule/mllp/current/mule-mllp.xsd
-http://www.mulesoft.org/schema/mule/hl7 http://www.mulesoft.org/schema/mule/hl7/current/mule-hl7.xsd">
+http://www.mulesoft.org/schema/mule/hl7 http://www.mulesoft.org/schema/mule/hl7/current/mule-hl7.xsd
+http://www.mulesoft.org/schema/mule/sftp http://www.mulesoft.org/schema/mule/sftp/current/mule-sftp.xsd
+http://www.mulesoft.org/schema/mule/secure-properties http://www.mulesoft.org/schema/mule/secure-properties/current/mule-secure-properties.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
 	<file:config name="File_Config" doc:name="File Config" doc:id="3564c6a8-8443-479a-aaa8-a58c539af26a" >
 		<file:connection >
 			<reconnection />
@@ -18,7 +21,7 @@ http://www.mulesoft.org/schema/mule/hl7 http://www.mulesoft.org/schema/mule/hl7/
 	<mllp:mllp-listener-config name="HL7_MLLP_Mllp_listener_config" doc:name="HL7 MLLP Mllp listener config" doc:id="95897432-b1d7-48ca-bce7-475da45d8fbe" >
 		<mllp:mllp-listener-connection host="localhost" port="8080" />
 	</mllp:mllp-listener-config>
-	<hl7:config name="HL7_EDI_Config" doc:name="HL7 EDI Config" doc:id="0649d4b1-0445-4186-8ad7-8ffd6f9b8a0e" >
+	<hl7:config name="HL7_EDI_Config" doc:name="HL7 EDI Config" doc:id="0649d4b1-0445-4186-8ad7-8ffd6f9b8a0e" genericExtensionPattern="Z.*">
 		<hl7:connection >
 			<reconnection />
 		</hl7:connection>
@@ -26,8 +29,18 @@ http://www.mulesoft.org/schema/mule/hl7 http://www.mulesoft.org/schema/mule/hl7/
 			<hl7:schema value="/hl7/v2_4/ADT_A01.esl" />
 		</hl7:schemas>
 	</hl7:config>
-	<configuration-properties doc:name="Configuration properties" doc:id="3758b05e-c28b-4045-a1b7-5028ff3b4cb5" file="config.yaml" />
-	<flow name="sendFlow" doc:id="3b9ccef2-7a20-4969-8ba2-24e2f5944693">
+	<configuration-properties doc:name="Configuration properties" doc:id="3758b05e-c28b-4045-a1b7-5028ff3b4cb5" file="config/config.yaml" />
+	<sftp:config name="SFTP_Config" doc:name="SFTP Config" doc:id="d0fb4335-6c91-45c4-bc90-1ba2cfc1de1a" >
+		<sftp:connection host="${sftp.host}" port="${sftp.port}" username="${secure::sftp.username}" password="${secure::sftp.password}" />
+	</sftp:config>
+	<global-property doc:name="Global Property" doc:id="c06c4a26-62ff-4c6f-8499-291b061e2056" name="encryption.key" value="mulesoft_password" />
+	<secure-properties:config name="Secure_Properties_Config" doc:name="Secure Properties Config" doc:id="ffcda203-0ed1-4915-8420-597dd59866dc" file="config/config-secure.yaml" key="${encryption.key}" >
+		<secure-properties:encrypt algorithm="Blowfish" />
+	</secure-properties:config>
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="4a34898b-b148-4071-a772-44cd3ef952c1" >
+		<http:listener-connection host="0.0.0.0" port="8081" />
+	</http:listener-config>
+	<flow name="MLLP_Send_Flow" doc:id="3b9ccef2-7a20-4969-8ba2-24e2f5944693">
 		<file:listener doc:name="On New or Updated File" doc:id="75695e86-5134-47f8-99c8-b47c21c2da59" config-ref="File_Config" directory="${hl7.input-dir}" moveToDirectory="${hl7.processed-dir}">
 			<scheduling-strategy>
 				<fixed-frequency />
@@ -36,21 +49,28 @@ http://www.mulesoft.org/schema/mule/hl7 http://www.mulesoft.org/schema/mule/hl7/
 		</file:listener>
 		<mllp:send doc:name="Send" doc:id="4f34ef31-36e9-4f9b-8ed5-ccd2ee3cfd50" config-ref="HL7_MLLP_Request_config" />
 	</flow>
-	<flow name="receiveFlow" doc:id="9d6bcdbf-fb82-4c5a-a9b5-0762e4a44d11">
+	<flow name="MLLP_Receive_Flow" doc:id="9d6bcdbf-fb82-4c5a-a9b5-0762e4a44d11">
 		<mllp:mllp-listener doc:name="Mllp listener" doc:id="b211934c-85dd-4fe7-b692-471b9c30f9ae" config-ref="HL7_MLLP_Mllp_listener_config" />
-		<hl7:read doc:name="Read" doc:id="d9cd791e-552e-4cb2-8a09-bde71e463db4" config-ref="HL7_EDI_Config"/>
-		<ee:transform doc:name="Transform HL7 to JSON" doc:id="73ac1abd-b96b-4c61-9181-d45663fedbeb" >
-			<ee:message >
-				<ee:set-payload ><![CDATA[%dw 2.0
+		<flow-ref doc:name="Flow Reference - Read ADT_A01" doc:id="a33f195a-dca6-421d-b187-3b697d5f7baa" name="read_HL7_ADT_A01_Sub_Flow"/>
+	</flow>
+	<flow name="HTTP_Receive_Flow" doc:id="783dd296-4acc-4400-9feb-216bdbe3e604" >
+		<http:listener doc:name="/ADT_A01_ZPM" doc:id="4fc870da-64d9-45a5-b3d1-ef3279176764" config-ref="HTTP_Listener_config" path="/ADT_A01_ZPM"/>
+		<flow-ref doc:name="Flow Reference - Read ADT_A01" doc:id="28ea9bd5-bf01-433f-bf3c-91dc5064c8f5" name="read_HL7_ADT_A01_Sub_Flow" />
+	</flow>
+	<sub-flow name="read_HL7_ADT_A01_Sub_Flow" doc:id="0252ae9d-3bf6-4ed2-9481-65cccccf2bd1" >
+		<hl7:read doc:name="Read" doc:id="d9cd791e-552e-4cb2-8a09-bde71e463db4" config-ref="HL7_EDI_Config" />
+		<ee:transform doc:name="Transform HL7 to JSON" doc:id="73ac1abd-b96b-4c61-9181-d45663fedbeb">
+			<ee:message>
+				<ee:set-payload><![CDATA[%dw 2.0
 output application/json
 ---
 payload]]></ee:set-payload>
 			</ee:message>
-			<ee:variables >
-				<ee:set-variable variableName="output_dir" ><![CDATA[p('hl7.output-dir')]]></ee:set-variable>
-				<ee:set-variable variableName="output-filename" ><![CDATA[p('hl7.output-filename')]]></ee:set-variable>
+			<ee:variables>
+				<ee:set-variable variableName="output_dir"><![CDATA[p('sftp.outbound_dir')]]></ee:set-variable>
+				<ee:set-variable variableName="output_filename"><![CDATA[p('sftp.output_filename')]]></ee:set-variable>
 			</ee:variables>
 		</ee:transform>
-		<file:write doc:name="Write" doc:id="ed313f1a-42f7-4ce4-afed-e99817231043" config-ref="File_Config" path='#[vars.output_dir ++ "/" ++ vars."output-filename"]'/>
-	</flow>
+		<sftp:write doc:name="Write to sFTP server" doc:id="b8bfde45-5466-49fc-a3d5-8cc86a2fb77b" config-ref="SFTP_Config" path='#[vars.output_dir ++ "/" ++ vars."output_filename"]' />
+	</sub-flow>
 </mule>
