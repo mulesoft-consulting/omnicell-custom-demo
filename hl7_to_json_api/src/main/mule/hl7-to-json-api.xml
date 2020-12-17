@@ -227,8 +227,8 @@ fun formatDate(val) = val as LocalDateTime{format: "yyyyMMddHHmmss"} as String{f
 }]]></ee:set-payload>
 			</ee:message>
 		</ee:transform>
-		<logger level="INFO" doc:name="Log Pocket Maintenance Info" doc:id="68e60b13-6930-45e9-b207-fd68381d0eb7" message='#["Drawer # = " ++ payload.pocket_maintenance.drawer_number ++ "\n" ++
-"Item ID = " ++ payload.pocket_maintenance.item_id ++ "\n" ++
+		<logger level="INFO" doc:name="Log Pocket Maintenance Info" doc:id="68e60b13-6930-45e9-b207-fd68381d0eb7" message='#["Drawer # = " ++ payload.pocket_maintenance.drawer_number ++ ", " ++
+"Item ID = " ++ payload.pocket_maintenance.item_id ++ ", " ++
 "Item Name = " ++ payload.pocket_maintenance.item_name]'/>
 	</flow>
 </mule>
